@@ -1,11 +1,14 @@
 <?php
-    $dbhost = 'localhost';
-    $dbuser = 'kmaglietta2013';
-    $dbpass = 'PqEhBu57jb';
 
-    $db = new mysquli($dbhost, $dbuser, $dbpass);
+$dbhost = 'localhost';  // Most likely will not need to be changed
+$dbname = 'kmaglietta2013';   // Needs to be changed to your designated table database name
+$dbuser = 'kmaglietta2013';   // Needs to be changed to reflect your LAMP server credentials
+$dbpass = 'PqEhBu57jb'; // Needs to be changed to reflect your LAMP server credentials
 
-    if($db->connect_errno > 0) {
-        die('Unable to conect' . $db->connect_error);
-    }
+$db = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
+
+if($db->connect_errno > 0) {
+    die('Unable to connect to database [' . $db->connect_error . ']');
+}
+
 ?>
