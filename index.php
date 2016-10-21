@@ -2,6 +2,9 @@
 require_once 'db_connect.php';
 require_once 'functions.php';
 
+    if($_SERVER['REQUEST_METHOD'] === 'POST'){
+        var_dump($_POST);
+    }
 ?>
 
 <!DOCTYPE html>
