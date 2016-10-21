@@ -15,13 +15,20 @@
             STUD_NAME_LAST VARCHAR(15) NOT NULL,
             PRIMARY KEY (STUD_ID)
         )";
-        
+
         if($db->query($create_stud)){
             echo "Users created";
         } else {
             echo "Users failled";
         }
     }
-    
+
     $db->query("INSERT INTO STUD VALUES ('12' ,'testn' , 'Test', 'Name')");
+
+    function test_input($data) {
+            $data = trim($data);
+            $data = stripslashes($data);
+            $data = htmlspecialchars($data);
+            return $data;
+    }
 ?>
