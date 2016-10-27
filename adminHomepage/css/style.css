@@ -425,7 +425,7 @@ span.tags
 
 
 /*-----------Edit Tutor Profile Div---------------*/
-#tutorList {
+.tutorList {
     text-align: center;
     list-style-type: none;
     padding-right: 40px;

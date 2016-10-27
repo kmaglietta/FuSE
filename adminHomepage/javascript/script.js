@@ -1,13 +1,17 @@
 $(document).ready(function() {
     
-    
-   $('.navbutton').on('click', function(e) {
-      e.preventDefault();
+    function displayDiv(e) {
+       e.preventDefault();
        $('.content').hide();
        $('#' + this.id + 'Div').show();
-   });
+    }
     
-    $('')
+
+    
+   $('.navbutton').on('click', displayDiv);
+
+   $('.tutorList').on('click', displayDiv);
+    
     
     
     //ALLOW EDITING OF TUTOR PROFILE
