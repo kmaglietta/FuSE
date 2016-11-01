@@ -98,26 +98,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="intro-text">
-                                    <h1>Welcome to Go Owl Tutor!</h1>
+                                    <h1>Log In</h1>
                                 </div>
-                                <img class="img-responsive" src="img/owl-logo.png" alt="">
-                                <hr class="star-primary">
                             </div>
                         </div>
                     </div>
                 </header>
 
                 <!-----Log in Form------->
-                <div class="container-fluid" id="search">
-                    <div class="row">
-                        <div class="col-lg-12 text-center">
-                            <h2>Log In</h2>
-                            <span id="fromAjax"></span>
-                        </div>
-                    </div>
-
                     <form class="login" method="post" action="<?php htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-                              <div class="col-lg-12 text-center">
                                 <div class="row">
                                   <div class="col-sm-4"></div>
                                   <div class="col-sm-4">
@@ -130,13 +119,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                                   </div>
                                   <div class="col-sm-4"></div>
                               </div>
-                            </div>
                             <div class="row">
                                 <div class="span2 offset3 text-center">
                                     <button type="submit" name="button" class="btn btn-primary" onclick="search();">Log In</button>
                                 </div>
                             </div>
-                        </div>
                     </form>
 
                 </div>
