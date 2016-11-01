@@ -19,17 +19,7 @@ body,html{
 }
 
 
-#profilePagesDiv {
-    display: none;
-}
 
-#editTutorsDiv {
-    display: none;
-}
-
-#messagePageDiv {
-    display: none;
-}
 .searchHeading {
     margin-left: 60px;
 }
