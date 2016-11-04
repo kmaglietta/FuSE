@@ -17,7 +17,6 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         
         
-       <script src="javascript/script.js"></script>
         
         <!---Additional Styling---->
         <link rel="stylesheet" type="text/css" href="style.css">
@@ -46,7 +45,7 @@
                     <ul class="nav navbar-nav">
                         <li class="active navbutton" id="homePage"><a href="../homepage/homepage.php">Home<span  class="pull-right hidden-xs showopacity glyphicon glyphicon-home"></span></a></li>
                         <li class="navbutton" id="messagePage"><a href="#">Messages<span class="pull-right hidden-xs showopacity glyphicon glyphicon-envelope"></span></a></li>
-                        <li class="navbutton" id="editTutors"><a href="#">Edit Tutor Profiles<span class="pull-right hidden-xs showopacity glyphicon glyphicon-pencil"></span></a></li>
+                        <li class="navbutton" id="editTutors"><a href="../editTutorPage/editTutorPage.php">Edit Tutors<span class="pull-right hidden-xs showopacity glyphicon glyphicon-pencil"></span></a></li>
                         <li class="navbutton" id="analytics"><a href="#">Analytics<span class="pull-right hidden-xs showopacity glyphicon glyphicon-stats"></span></a></li>
                     </ul>
                 </div>
@@ -56,27 +55,30 @@
         
         <div class="main">
             <!-- Content Here -->
-              <div class="container-fluid" id="search">
+            <div class="container content">
+ 
+                <!-----Search Fields------->
+                <div class="container" id="search">
                     <div class="row">
                         <div class="col-lg-12 text-center">
                             <h2 class="searchHeading">Find a Tutor:</h2>
                         </div>
                     </div>
 
-                    <form>
+                    <form method="post">
                         <div class="container">
                             <div class="row">
                                 <div class="col-sm-3">
-                                    Class: <input type="text" name="classname">
+                                    <label for="classname">Class: </label> <input type="text" name="classname">
                                 </div>
                                 <div class="col-sm-3">
-                                    Tutor: <input type="text" name="tutorname">
+                                    <label for="tutorname">Tutor: </label> <input type="text" name="tutorname">
                                 </div>
                                 <div class="col-sm-3">
-                                    Date: <input type="text" name="date">
+                                    <label for="date">Date: </label> <input type="text" name="date">
                                 </div>
                                 <div class="col-sm-3">
-                                    Location: <input type="text" name="tutorlocation">
+                                    <label for="location">Location: </label> <input type="text" name="tutorlocation">
                                 </div>
                             </div>
 
@@ -89,11 +91,15 @@
                     </form>
                 </div>
                 
+                <br>
+                <br>
+                <br>
+                
                 <!-----Available Tutors Table---------->
                 <div class="container-fluid" id="available">
                     <div class="row">
                         <div class="col-lg-12 text-center">
-                            <h2>All Tutors:</h2>
+                            <h2>All Tutors: </h2>
                         </div>
                     </div>
 
@@ -110,44 +116,52 @@
                                 </div>
                                 <div class="rTableRow">
                                     <div class="rTableCell">ClassName</div>
-                                    <div class="rTableCell"><a href="../profilePage/profilePage.php">TutorName</a></div>
+                                    <div class="rTableCell">TutorName</div>
                                     <div class="rTableCell">12:00pm</div>
                                     <div class="rTableCell">GS 2XX</div>
-                                    </div>
+                                </div>
                                  <div class="rTableRow">
                                     <div class="rTableCell">ClassName</div>
-                                    <div class="rTableCell"><a href="../profilePage/profilePage.php">TutorName</a></div>
+                                    <div class="rTableCell">TutorName</div>
                                     <div class="rTableCell">12:00pm</div>
                                     <div class="rTableCell">GS 2XX</div>
-                                    </div>
-                               <div class="rTableRow">
+                                </div>
+                                 <div class="rTableRow">
                                     <div class="rTableCell">ClassName</div>
-                                    <div class="rTableCell"><a href="../profilePage/profilePage.php">TutorName</a></div>
+                                    <div class="rTableCell">TutorName</div>
                                     <div class="rTableCell">12:00pm</div>
                                     <div class="rTableCell">GS 2XX</div>
-                                    </div>
-                                <div class="rTableRow">
+                                </div>
+                             <div class="rTableRow">
                                     <div class="rTableCell">ClassName</div>
-                                    <div class="rTableCell"><a href="../profilePage/profilePage.php">TutorName</a></div>
+                                    <div class="rTableCell">TutorName</div>
                                     <div class="rTableCell">12:00pm</div>
                                     <div class="rTableCell">GS 2XX</div>
-                                    </div>
-                                <div class="rTableRow">
+                                </div>
+                             <div class="rTableRow">
                                     <div class="rTableCell">ClassName</div>
-                                    <div class="rTableCell"><a href="../profilePage/profilePage.php">TutorName</a></div>
+                                    <div class="rTableCell">TutorName</div>
                                     <div class="rTableCell">12:00pm</div>
                                     <div class="rTableCell">GS 2XX</div>
-                                    </div>
-                                <div class="rTableRow">
+                                </div>
+                             <div class="rTableRow">
                                     <div class="rTableCell">ClassName</div>
-                                    <div class="rTableCell"><a href="../profilePage/profilePage.php">TutorName</a></div>
+                                    <div class="rTableCell">TutorName</div>
                                     <div class="rTableCell">12:00pm</div>
                                     <div class="rTableCell">GS 2XX</div>
-                                    </div>
+                                </div>
                         </div>
                     </div>
-     
-        </div>
 
+            </div>
+
+           
+        </div>
+                       
+
+
+           
+                
+        
     </body>
 </html>

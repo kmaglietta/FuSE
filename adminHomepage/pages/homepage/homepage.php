@@ -72,42 +72,7 @@
                  
                 </header>
                 
-                
-                <!-----Search Fields------->
-                <div class="container-fluid" id="search">
-                    <div class="row">
-                        <div class="col-lg-12 text-center">
-                            <h2 class="searchHeading">Find a Tutor:</h2>
-                        </div>
-                    </div>
-
-                    <form>
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    Class: <input type="text" name="classname">
-                                </div>
-                                <div class="col-sm-3">
-                                    Tutor: <input type="text" name="tutorname">
-                                </div>
-                                <div class="col-sm-3">
-                                    Date: <input type="text" name="date">
-                                </div>
-                                <div class="col-sm-3">
-                                    Location: <input type="text" name="tutorlocation">
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="span2 offset3 text-center">
-                                    <button type="submit" name="button" class="btn btn-primary" id="searchTutors">Search Tutors</button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                
-                <!-----Available Tutors Table---------->
+                                <!-----Available Tutors Table---------->
                 <div class="container-fluid" id="available">
                     <div class="row">
                         <div class="col-lg-12 text-center">
@@ -164,6 +129,57 @@
                                 </div>
                         </div>
                     </div>
+                
+                
+                <!-----Search Fields------->
+                <div class="container-fluid" id="search">
+                    <div class="row">
+                        <div class="col-xs-12 text-center">
+                            <h2 class="searchHeading">Find a Tutor:</h2>
+                        </div>
+                    </div>
+                    
+                    
+                   <div class="row">
+                        <div class="col-xs-12 text-center">
+                            <form method="post">
+                     
+                                <div class="form-group">
+                                    <label for="classname">Class:</label><br> 
+                                    <input type="text" name="classname" class="form-control">
+                                </div>
+                                
+                                
+                                <div class="form-group">
+                                     <label for="tutorname">Tutor:</label> <br>
+                                    <input type="text" name="tutorname" class="form-control">
+                                </div>
+
+                                
+                                <div class="form-group">
+                                    <label for="date">Date:</label> <br>
+                                    <input type="text" name="date" class="form-control">
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label for="location">Location:</label><br> 
+                                    <input type="text" name="tutorlocation" class="form-control">
+                                </div>
+
+                    
+
+                                <button type="submit" name="button" class="btn btn-primary" id="searchTutors">Search Tutors</button>
+
+    
+                    
+                            </form>
+                       </div>     
+                   </div>
+                   
+                </div>
+                
+
 
             </div>
 

@@ -19,6 +19,7 @@
         <script src="javascript/script.js"></script>
         
         <!---Additional Styling---->
+        <meta name="viewport" content ="width=device-width,initial-scale=1.0,user-scalable=yes" />
         <link rel="stylesheet" type="text/css" href="style.css">
     </head>
     
@@ -45,7 +46,6 @@
                     <ul class="nav navbar-nav">
                         <li class="active navbutton" id="homePage"><a href="../homepage/homepage.php">Home<span  class="pull-right hidden-xs showopacity glyphicon glyphicon-home"></span></a></li>
                         <li class="navbutton" id="messagePage"><a href="#">Messages<span class="pull-right hidden-xs showopacity glyphicon glyphicon-envelope"></span></a></li>
-                        <li class="navbutton" id="tutorSchedule"><a href="#">Edit Tutor Schedules<span class="pull-right hidden-xs showopacity glyphicon glyphicon-calendar"></span></a></li>
                         <li class="navbutton" id="editTutors"><a href="../editTutorPage/editTutorPage.php">Edit Tutor Profiles<span class="pull-right hidden-xs showopacity glyphicon glyphicon-pencil"></span></a></li>
                         <li class="navbutton" id="analytics"><a href="#">Analytics<span class="pull-right hidden-xs showopacity glyphicon glyphicon-stats"></span></a></li>
                     </ul>
@@ -60,13 +60,13 @@
             
             
             <div class="container content" id="profilePagesDiv">
-                <div class="container">
+                <div class="container well profile">
                     <div class="row">
                         
-                             <div class="well profile">
-                                <div class="col-sm-12">
-                                    <div class="col-xs-12 col-sm-8">
-                                        <h2><span class="info" id="name"><span>Admin name here</span></span></h2>
+                            
+                                <div class="col-xs-12">
+                                    <div class="col-xs-12 col-xs-8">
+                                        <h2><span class="info" id="name"><span>First name Last name</span></span></h2>
                                         <p><strong>About: </strong> <span class="info"><span>Admin</span></span> </p>
                                         <p><strong>Hobbies: </strong> <span class="info"><span>Reading, video games, programming</span></span> </p>
                                         <p><strong>Classes:</strong>
@@ -76,8 +76,9 @@
                                             <span class="tags">MAC 2312</span>
                                             </span>
                                         </p>
+                                         <button type="button" class="btn btn-primary" id="editBtn">Edit</button>
                                     </div>             
-                                    <div class="col-xs-12 col-sm-4 text-center">
+                                    <div class="col-xs-12 col-xs-4 text-center">
                                         <figure>
                                             <img src="img/owl-logo.png" alt="" class="img-responsive">
                                             <figcaption class="ratings">
@@ -101,20 +102,70 @@
                                             </figcaption>
                                         </figure>
                                     </div>
-                                    
-                                    
-                                    <div class="row">
-                                        <div class="col-xs-12 col-lg-12 text-center">
-
-                                            <button type="button" class="btn btn-primary" id="editBtn">Edit</button>
-
-                                        </div>
-                                    </div>
+                                
                                 </div>            
                                
-                             </div>                 
+                                        
                     
                     </div>
+                    <div class="row">
+                        <div class="container-fluid" id="available">
+                            <div class="row">
+                                <div class="col-lg-12 text-center">
+                                    <h2>Schedule:</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                     <div class="row" id="table">
+      
+                             <div class="rTable">
+                                         <div class=" rTableHeading">
+                                            <div class="rTableHead">Classes</div>
+                                            <div class="rTableHead">Tutor</div>
+                                            <div class="rTableHead">Time</div>
+                                            <div class="rTableHead">Location</div>
+                                        </div>
+                                        <div class="rTableRow">
+                                            <div class="rTableCell">ClassName</div>
+                                            <div class="rTableCell"><a href="../profilePage/profilePage.php">TutorName</a></div>
+                                            <div class="rTableCell">12:00pm</div>
+                                            <div class="rTableCell">GS 2XX</div>
+                                            </div>
+                                         <div class="rTableRow">
+                                            <div class="rTableCell">ClassName</div>
+                                            <div class="rTableCell"><a href="../profilePage/profilePage.php">TutorName</a></div>
+                                            <div class="rTableCell">12:00pm</div>
+                                            <div class="rTableCell">GS 2XX</div>
+                                            </div>
+                                       <div class="rTableRow">
+                                            <div class="rTableCell">ClassName</div>
+                                            <div class="rTableCell"><a href="../profilePage/profilePage.php">TutorName</a></div>
+                                            <div class="rTableCell">12:00pm</div>
+                                            <div class="rTableCell">GS 2XX</div>
+                                            </div>
+                                        <div class="rTableRow">
+                                            <div class="rTableCell">ClassName</div>
+                                            <div class="rTableCell"><a href="../profilePage/profilePage.php">TutorName</a></div>
+                                            <div class="rTableCell">12:00pm</div>
+                                            <div class="rTableCell">GS 2XX</div>
+                                            </div>
+                                        <div class="rTableRow">
+                                            <div class="rTableCell">ClassName</div>
+                                            <div class="rTableCell"><a href="../profilePage/profilePage.php">TutorName</a></div>
+                                            <div class="rTableCell">12:00pm</div>
+                                            <div class="rTableCell">GS 2XX</div>
+                                            </div>
+                                        <div class="rTableRow">
+                                            <div class="rTableCell">ClassName</div>
+                                            <div class="rTableCell"><a href="../profilePage/profilePage.php">TutorName</a></div>
+                                            <div class="rTableCell">12:00pm</div>
+                                            <div class="rTableCell">GS 2XX</div>
+                                            </div>
+                                </div>
+
+                        </div>
                 </div>
             </div>
             
