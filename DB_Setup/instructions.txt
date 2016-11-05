@@ -1,0 +1,13 @@
+Hello team!
+
+1)open db_setup.php
+2)change $dbuser and $dbpass to your cridentials
+3)change $dbname to the name of the database you wish to use
+	*most lieky will be the same as user name
+4)copy db_setup.php to yourlamp server
+5)open your browser and navigate to the php file
+	*http://lamp.cse.fau.edu/~username/db_setup.php
+6)If errors happen contact your database managers
+	*John and Kyle
+	*if you are Kyle fix it
+	*if you are John you can reach John fairly quickly
