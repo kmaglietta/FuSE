@@ -3,7 +3,7 @@
 $dbhost = 'localhost';  // Most likely will not need to be changed
 $dbname = 'test';   // Needs to be changed to your designated table database name
 $dbuser = 'kmaglietta2013';   // Needs to be changed to reflect your LAMP server credentials
-$dbpass = 'PqEhBu57jb'; // Needs to be changed to reflect your LAMP server credentials
+$dbpass = ''; // Needs to be changed to reflect your LAMP server credentials
 
 $db = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
 
@@ -86,6 +86,7 @@ if(!$db->query("SELECT * FROM pro_tutoringSession")){
     locationId int(11),
     sessionStartDate datetime,
     sessionEndDate datetime,
+    completed boolean,
     cancled boolean,
     cancledBy int(11),
     dateCreated timestamp,
@@ -148,5 +149,14 @@ if(!$db->query("SELECT * FROM pro_classInfo")){
   }
 }
 
+
+
+  if(!$db->query($create)){
+    echo mysqli_error($db);
+  }
+  else{
+    echo "pro_locations created ";
+  }
+}
 
 ?>
