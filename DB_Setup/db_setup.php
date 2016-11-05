@@ -42,7 +42,6 @@ if(!$db->query("SELECT * FROM pro_tutors")){
     classId int(11),
     approvedOn datetime,
     approvedBy int(11),
-    rating int(11),
     dateEntered timestamp,
     dateModified datetime,
     dateModifiedWho int(11),
@@ -88,13 +87,15 @@ if(!$db->query("SELECT * FROM pro_tutoringSession")){
     sessionEndDate datetime,
     completed boolean,
     cancled boolean,
-    cancledBy int(11),
+    cancledByAdminId int(11),
+    cancledByTutorId int(11),
     dateCreated timestamp,
     dateModified datetime,
     dateModifiedWho int(11),
     primary key (sessionId),
     foreign key (tutorId) references pro_tutors(tutorId),
-    foreign key (cancledBy) references pro_admins(adminId),
+    foreign key (cancledByAdminId) references pro_admins(adminId),
+    foreign key (cancledByTutuorId) references pro_tutors(tutorId),
     foreign key (locationId) references pro_locations(locationId)
   )";
 
@@ -149,6 +150,18 @@ if(!$db->query("SELECT * FROM pro_classInfo")){
   }
 }
 
+if(!$db->query("SELECT * FROM pro_tutoringSessionStudents")){
+  $create = "create table pro_tutoringSessionStudents(
+    tssId int(11),
+    sessionId int(11),
+    studentId int(11),
+    completedTutoring boolean,
+    studentRating int(11),
+    studentRatingComment varchar(500),
+    studentRatingDate datetime,
+    dateCreated timestamp,
+    foreign key (studentId) references pro_(adminId)
+  )";
 
 
   if(!$db->query($create)){
