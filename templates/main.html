@@ -6,14 +6,15 @@
   </div>
 </div>
 
-<div class="container main" id="main">
+<div class="container main" id="main" ng-hide="dismiss">
   <div class="row">
     <div class="jumbotron home-content">
       <h1>Online Searchable Schedule</h1>
       <p class="lead">
         Hello Galaxy!
       </p>
-      <p><a href class="btn btn-lg btn-success">Splendid!&nbsp;<span class="glyphicon glyphicon-ok"></span></a></p>
+      <p><a href class="btn btn-lg btn-danger" ng-click="dismiss=true">Dismiss&nbsp;
+        <span class="fa fa-times-circle"></span></a></p>
     </div>
   </div>
 </div>
