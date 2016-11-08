@@ -1,4 +1,3 @@
-## FuSE
 ## Version
 1.0 Alpha
 
@@ -12,5 +11,7 @@ https://github.com/olov/ng-annotate <- ng-annotate
 https://github.com/stylus/stylus <- Stylus (pre-compile CSS)
 https://github.com/huston007/ng-annotate-loader <- Run ng-annotate on the bundles
 
-## Prebuild info
+## To Do list
 Remove all bower components and change them all to CDN
+Integrate PHP + MySQL
+User authentication using AngularJS and UI-Router
