@@ -1,5 +1,7 @@
 .search-box {
-  display: inline-block;
+  width: 80%;
+  margin: 0 auto;
+  display: block;
   border-radius: 3px;
   padding: 4px 55px 4px 15px;
   position: relative;

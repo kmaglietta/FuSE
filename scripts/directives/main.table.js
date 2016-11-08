@@ -39,7 +39,7 @@ function m_controller($scope, studentsFactory, $log){
 
 angular.module('tossApp')
   .component('myTable', {
-    templateUrl: 'views/table.main.html',
+    templateUrl: 'templates/table.main.html',
     bindings: {
       // One-way binding
       info: '<'

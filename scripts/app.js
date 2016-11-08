@@ -67,10 +67,10 @@ angular
       return $location.path();
     });
 
-  });
-  /*
+  })
   .factory('studentsFactory', function($http){
     // This function is to retreive JSON file
+    // to laod it into the main page table
     var d_factory = {};
 
     // Load data from JSON file
@@ -79,7 +79,7 @@ angular
     };
 
     return d_factory;
-  })
+  });/*
   .factory('tutorsFactory', function($http){
     var t_factory = {};
 
