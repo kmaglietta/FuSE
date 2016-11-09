@@ -5,13 +5,9 @@ body,html{
     background: #ACACAC;
 }
 
-#header {
-    height: 100px;
-    width: 100%;
-    border-bottom: 2px solid red;
-    background: #003366; 
-    padding-top: 20px;
-    text-align: left;
+.main {
+    min-height: 100%;
+    position: relative;
 }
 
 
@@ -20,163 +16,134 @@ body,html{
     text-align: center;
 }
 
+#footer {
+	background:#003366;
+	width:100%;
+	height:100px;
+	position: absolute;
+    border-top: 2px solid red;
+	bottom:0;
+	left:0;
+}
 
-
-
-/* remove outer padding */
-.main .row{
-    padding: 0px;
-    margin: 0px;
+.content {
+    padding-bottom: 150px;
 }
 
 
-/*Remove rounded coners*/
+/* Stylesheet for navbar */
+/* Change the style of the navbar */
 
-nav.sidebar.navbar {
-    border-radius: 0px;
+/* Custom navbard CSS */
+.navbar-custom {
+  background: #003366;
+  font-family: "Roboto", Helvetica, Arial, sans-serif;
+  text-transform: uppercase;
+  font-weight: 700;
+  border-bottom: 2px solid red;
 }
 
-nav.sidebar, .main{
-    -webkit-transition: margin 200ms ease-out;
-    -moz-transition: margin 200ms ease-out;
-    -o-transition: margin 200ms ease-out;
-    transition: margin 200ms ease-out;
+
+
+/* Current state of the navbar*/
+.navbar-default .navbar-nav > .activeNav > a,
+.navbar-default .navbar-nav > .activeNav > a:hover,
+.navbar-default .navbar-nav > .activeNav > a:focus {
+  color: #fff;
+  background-color: #C0392B;
 }
 
-li > a > span {
-    font-size: 16px;
+/* Remove default Bootstrap border */
+.navbar-default .navbar-collapse{
+  border-top: none;
+  box-shadow: none;
 }
 
-/* Add gap to nav and right windows.*/
-.main{
-    padding: 10px 10px 0 10px;
+/* Custom togglable navbar */
+.navbar-default .navbar-text {
+  color: #fff;
 }
 
-/* .....NavBar: Icon only with coloring/layout.....*/
+.navbar-custom a:focus {
+  outline: none;
+}
 
-/*small/medium side display*/
+.navbar-brand {
+  padding: 0;
+  color: white;
+}
+.navbar-brand > img {
+  max-height: 100%;
+  height: 100%;
+  width: auto;
+  margin: 0 auto;
+}
+
+.navbar-custom .navbar-nav {
+  letter-spacing: 1px;
+}
+
+.navbar-custom .navbar-nav li a {
+  color: white;
+}
+
+.navbar-custom .navbar-nav li a:hover {
+  color: red;
+  outline: none;
+}
+
+.navbar-custom .navbar-nav li a:focus,
+.navbar-custom .navbar-nav li a:active {
+  color: white;
+}
+
+.navbar-custom .navbar-nav li.active a {
+  color: white;
+  background: #18BC9C;
+}
+
+.navbar-custom .navbar-nav li.active a:hover,
+.navbar-custom .navbar-nav li.active a:focus,
+.navbar-custom .navbar-nav li.active a:active {
+  color: white;
+  background: #18BC9C;
+}
+
+.navbar-custom .navbar-toggle {
+  color: white;
+  text-transform: uppercase;
+  font-size: 10px;
+  border-color: white;
+}
+
+.navbar-custom .navbar-toggle:hover,
+.navbar-custom .navbar-toggle:focus {
+  background-color: #18BC9C;
+  color: white;
+  border-color: #18BC9C;
+}
+
 @media (min-width: 768px) {
-
-    /*Allow main to be next to Nav*/
-    .main{
-        position: absolute;
-        width: calc(100% - 40px); /*keeps 100% minus nav size*/
-        margin-left: 40px;
-        float: right;
-    }
-
-    /*lets nav bar to be showed on mouseover*/
-    nav.sidebar:hover + .main{
-        margin-left: 200px;
-    }
-
-    /*Center Brand*/
-    nav.sidebar.navbar.sidebar>.container .navbar-brand, .navbar>.container-fluid .navbar-brand {
-        margin-left: 0px;
-    }
-    /*Center Brand*/
-    nav.sidebar .navbar-brand, nav.sidebar .navbar-header{
-        text-align: center;
-        width: 100%;
-        margin-left: 0px;
-        margin-top: 5px;
-        margin-bottom: 5px;
-    }
-
-    /*Center Icons*/
-    nav.sidebar a{
-        padding-right: 13px;
-    }
-
-    /*adds border top to first nav box */
-    nav.sidebar .navbar-nav > li:first-child{
-        border-top: 1px white solid;
-    }
-
-    /*adds border to bottom nav boxes*/
-    nav.sidebar .navbar-nav > li{
-        border-bottom: 1px white solid;
-    }
-
-    /* Colors/style dropdown box*/
-    nav.sidebar .navbar-nav .open .dropdown-menu {
-        position: static;
-        float: none;
-        width: auto;
-        margin-top: 0;
-        background-color: transparent;
-        border: 0;
-        -webkit-box-shadow: none;
-        box-shadow: none;
-    }
-
-    /*allows nav box to use 100% width*/
-    nav.sidebar .navbar-collapse, nav.sidebar .container-fluid{
-        padding: 0 0px 0 0px;
-    }
-
-    /*colors dropdown box text */
-    .navbar-inverse .navbar-nav .open .dropdown-menu>li>a {
-        color: #777;
-    }
-
-    /*gives sidebar width/height*/
-    nav.sidebar{
-        width: 200px;
-        height: 125%;
-        margin-left: -160px;
-        float: left;
-        z-index: 8000;
-        margin-bottom: 0px;
-    }
-
-    /*give sidebar 100% width;*/
-    nav.sidebar li {
-        width: 100%;
-    }
-
-    /* Move nav to full on mouse over*/
-    nav.sidebar:hover{
-        margin-left: 0px;
-    }
-    /*for hiden things when navbar hidden*/
-    .forAnimate{
-        opacity: 0;
-    }
+  .navbar-custom {
+    padding: 25px 0;
+    -webkit-transition: padding 0.3s;
+    -moz-transition: padding 0.3s;
+    transition: padding 0.3s;
+  }
+  .navbar-custom .navbar-brand {
+    font-size: 2em;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+  }
+  .navbar-custom.affix {
+    padding: 10px 0;
+  }
+  .navbar-custom.affix .navbar-brand {
+    font-size: 1.5em;
+  }
 }
 
-/* .....NavBar: Fully showing nav bar..... */
-
-@media (min-width: 1330px) {
-
-    /*Allow main to be next to Nav*/
-    .main{
-        width: calc(100% - 200px); /*keeps 100% minus nav size*/
-        margin-left: 200px;
-    }
-
-    /*Show all nav*/
-    nav.sidebar{
-        margin-left: 0px;
-        float: left;
-    }
-    /*Show hidden items on nav*/
-    nav.sidebar .forAnimate{
-        opacity: 1;
-    }
-}
-
-nav.sidebar .navbar-nav .open .dropdown-menu>li>a:hover, nav.sidebar .navbar-nav .open .dropdown-menu>li>a:focus {
-    color: #CCC;
-    background-color: transparent;
-}
-
-nav:hover .forAnimate{
-    opacity: 1;
-}
-section{
-    padding-left: 15px;
-}
 
 
 
@@ -193,11 +160,11 @@ header .container {
   padding-bottom: 50px;
 }
 header img {
-  display: block;
+
   margin: 0 auto 20px;
 }
 header .intro-text {
-  display: block;
+
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 700;
   font-size: 2em;
@@ -245,11 +212,15 @@ hr.star-primary:after {
 
 
 /*-----------------------Search Section CSS -----------------*/
+
 #search {
     background: #ACACAC;
-    color: #003366;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    
+}
+
+.searchHeading {
+    color: #003366;
+    display: inline;
 }
 
 form .row {
@@ -257,12 +228,45 @@ form .row {
     padding-bottom: 1%;
 }
 
+
+#formDropDownBtn {
+    background: #003366;
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    padding-left: 23px;
+    padding-right: 23px;
+}
+
+#formDropDownBtn:hover {
+    transform: scale(1.2, 1.2);
+}
+#formDropDownBtn:click {
+    color: red;
+}
+
+#tableDropDownBtn {
+    background: #003366;
+    font-size: 1.5em;
+    margin-bottom: 20px;
+}
+
+#tableDropDownBtn:hover {
+    transform: scale(1.2, 1.2);
+}
+
+
+
 #searchTutors {
     background: #003366;
     font-size: 15px;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     height: 40px;
     width: 120px;
+}
+
+.selected {
+    color: red;
+    transform: scale(1.2, 1.2);
 }
 
 
