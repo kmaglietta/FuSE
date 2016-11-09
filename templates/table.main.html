@@ -21,7 +21,7 @@
          <div class="rTableHead">Location</div>
        </div>
 
-       <div class="rTableRow" ng-repeat="instructor in $ctrl.instructors | filter:$ctrl.searchTutor" >
+       <div class="rTableRow" ng-repeat="instructor in $ctrl.instructors | orderBy:$ctrl.sortType | filter:$ctrl.searchTutor" >
            <div class="rTableCell">{{ instructor.class }}</div>
            <div class="rTableCell">{{ instructor.name }}</div>
            <div class="rTableCell">{{ instructor.time }}</div>

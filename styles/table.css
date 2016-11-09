@@ -45,8 +45,8 @@ header {
 
 .rTableCell, .rTableHead {
   /* Prevent the table cell from auto resizing */
-  min-width: 100px;
-  max-width: 100px;
+  min-width: 75px;
+  max-width: 75px;
   table-layout: fixed;
   display: table-cell;
   padding: 3px 10px;

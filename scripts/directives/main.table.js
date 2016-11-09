@@ -8,8 +8,7 @@
  */
 function m_controller($scope, studentsFactory, $log){
     var ctrl = this;
-    var _query = 'class';
-    ctrl.sortType = null;
+    ctrl.sortType = 'date';
     ctrl.sortReverse = true;
     ctrl.searchTutor = {  class:''  };
 
