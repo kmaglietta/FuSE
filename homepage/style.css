@@ -31,8 +31,6 @@ body,html{
 }
 
 
-
-
 /* Stylesheet for navbar */
 /* Change the style of the navbar */
 
@@ -231,20 +229,30 @@ form .row {
 }
 
 
-#searchTutorsDropDown {
+#formDropDownBtn {
     background: #003366;
     font-size: 1.5em;
     margin-bottom: 20px;
-    padding-right: 19px;
-    padding-left: 19px;
+    padding-left: 23px;
+    padding-right: 23px;
 }
 
-#searchTutorsDropDown:hover {
+#formDropDownBtn:hover {
     transform: scale(1.2, 1.2);
 }
+#formDropDownBtn:click {
+    color: red;
+}
 
+#tableDropDownBtn {
+    background: #003366;
+    font-size: 1.5em;
+    margin-bottom: 20px;
+}
 
-
+#tableDropDownBtn:hover {
+    transform: scale(1.2, 1.2);
+}
 
 
 
@@ -254,24 +262,16 @@ form .row {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     height: 40px;
     width: 120px;
-    margin-bottom: 30px;
+}
+
+.selected {
+    color: red;
+    transform: scale(1.2, 1.2);
 }
 
 
 
 /*--------------------Available Tutors Table CSS------------------*/
-#viewAllTutorsDropDown {
-    background: #003366;
-    font-size: 1.5em;
-    margin-bottom: 20px;
-    padding-left: 41px;
-    padding-right: 41px;
-}
-
-#viewAllTutorsDropDown:hover {
-    transform: scale(1.2, 1.2);
-}
-
 header {clear:both;}
 		#headerlogo img { margin:10px;}
 		.dform label {padding-right:5px;}
@@ -284,7 +284,6 @@ header {clear:both;}
 				margin-left:auto;
 				margin-right:auto; 
 				color:white;
-                margin-bottom: 30px;
 		}
 		.rTableRow {
 		    	display: table-row;
@@ -374,31 +373,6 @@ header {clear:both;}
     margin-left: auto;
     margin-right: auto;
 }
-
-
-/*---------------Add Tutor Section CSS---------------*/
-#addTutorDropDown {
-    background: #003366;
-    font-size: 1.5em;
-    margin-bottom: 20px;
-    padding-left: 57px;
-    padding-right: 57px;
-}
-
-#addTutorDropDown:hover {
-    transform: scale(1.2, 1.2);
-}
-
-#createTutor {
-    background: #003366;
-    font-size: 15px;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    height: 40px;
-    width: 120px;
-    margin-bottom: 50px;
-}
-
-
 
 
 /*---------------MOBILE RESPONSIVENESS--------------------*/

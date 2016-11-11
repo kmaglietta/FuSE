@@ -24,34 +24,41 @@
     </head>
     
     <body>
-        <div class="container" id="header">
-            <img src="img/fau-logo.png">
-        </div>
         
         
-        <nav class="navbar navbar-inverse sidebar" role="navigation">
-            <div class="container-fluid">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-sidebar-navbar-collapse-1">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="#">Admin Hub</a>
-                </div>
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
-                    <ul class="nav navbar-nav">
-                        <li class="active navbutton" id="homePage"><a href="../homepage/homepage.php">Home<span  class="pull-right hidden-xs showopacity glyphicon glyphicon-home"></span></a></li>
-                        <li class="navbutton" id="messagePage"><a href="#">Messages<span class="pull-right hidden-xs showopacity glyphicon glyphicon-envelope"></span></a></li>
-                        <li class="navbutton" id="editTutors"><a href="../editTutorPage/editTutorPage.php">Edit Tutor Profiles<span class="pull-right hidden-xs showopacity glyphicon glyphicon-pencil"></span></a></li>
-                        <li class="navbutton" id="analytics"><a href="#">Analytics<span class="pull-right hidden-xs showopacity glyphicon glyphicon-stats"></span></a></li>
-                    </ul>
-                </div>
+        <div class="header" ng-controller="NavCtrl">
+          <div class="navbar navbar-default navbar-custom" role="navigation">
+            <div class="container">
+              <div class="navbar-header">
+
+                <button type="button" class="navbar-toggle collapsed" ng-click="isNavCollapsed = !isNavCollapsed"
+                data-toggle="collapse" data-target="#js-navbar-collapse" aria-expanded="false">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </button>
+
+              <a class="navbar-brand" ui-sref="home"><img src="img/fau-home-logo.png" id="navbarLogo"/></a>
+              </div>
+
+              <div class="collapse navbar-collapse navbar-right" id="js-navbar-collapse" uib-collapse="isNavCollapsed">
+
+                <ul class="nav navbar-nav">
+                  <li><a ui-sref="home" href="#">Home</a></li>
+                  <!-- Profile page will double as a login page if not already logged in -->
+                  <li ui-sref-active-eq="activeNav"><a ui-sref="login">Login</a></li>
+                  <!-- Visible to both tutors and Admin -->
+                  <li ui-sref-active-eq="activeNav"><a ui-sref="contact">Messages</a></li>
+                  <!-- Visible to Admin only -->
+                  <li ui-sref-active-eq="activeNav"><a ui-sref="dashboard" href="../editTutorPage/editTutorPage.php">Edit Tutors</a></li>
+                  <li ui-sref-active-eq="activeNav"><a ui-sref="analytics">Analytics</a></li>
+                </ul>
+              </div>
             </div>
-        </nav>
+          </div>
+    </div>
         
         
         <div class="main">
@@ -172,7 +179,8 @@
             
             
             
-            
+            <div class="footer" id="footer">
+            </div>
             
 
                 

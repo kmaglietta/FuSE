@@ -12,6 +12,8 @@ body,html{
 
 
 
+
+
 #results {
     text-align: center;
 }
@@ -26,13 +28,12 @@ body,html{
 	left:0;
 }
 
+
+
 .content {
     padding-bottom: 150px;
 }
 
-
-/* Stylesheet for navbar */
-/* Change the style of the navbar */
 
 /* Custom navbard CSS */
 .navbar-custom {
@@ -147,8 +148,6 @@ body,html{
 
 
 
-
-
 /*----------------------Header CSS--------------------------*/
 header {
   text-align: center;
@@ -170,7 +169,7 @@ header .intro-text {
   font-size: 2em;
 }
 
-@media (min-width: 768px) {
+ (min-width: 768px) {
   header .container {
     padding-top: 200px;
     padding-bottom: 100px;
@@ -368,8 +367,119 @@ header {clear:both;}
 		}
 
 
+
 .form-control {
     width: 300px;
     margin-left: auto;
     margin-right: auto;
+}
+
+
+
+/*---------------MOBILE RESPONSIVENESS--------------------*/
+
+
+/*IPHONE 5 AND 5S IN PORTRAIT AND LANDSCAPE*/
+@media only screen 
+    and (min-device-width : 320px) 
+    and (max-device-width : 568px) {
+    body {
+        width: 110%;
+    }
+        
+  .navbar-custom {
+    padding: 25px 0;
+    -webkit-transition: padding 0.3s;
+    -moz-transition: padding 0.3s;
+    transition: padding 0.3s;
+    
+  }
+  .navbar-custom .navbar-brand {
+    font-size: 2em;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+
+    margin-left: 25px;
+  }
+  .navbar-custom.affix {
+    padding: 10px 0;
+  }
+  .navbar-custom.affix .navbar-brand {
+    font-size: 1.5em;
+  }
+        
+  .rTable {
+    margin-left: -10px;
+    transform: scale(.9, .9);
+  } 
+      
+}
+
+
+
+/*IPHONE 6 IN PORTRAIT AND LANDSCAPE*/
+@media only screen 
+and (min-device-width : 375px) 
+and (max-device-width : 667px) {
+  .navbar-custom {
+    padding: 25px 0;
+    -webkit-transition: padding 0.3s;
+    -moz-transition: padding 0.3s;
+    transition: padding 0.3s;
+  }
+  .navbar-custom .navbar-brand {
+    font-size: 2em;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+
+  }
+  .navbar-custom.affix {
+    padding: 10px 0;
+  }
+  .navbar-custom.affix .navbar-brand {
+    font-size: 1.5em;
+  }
+   
+}
+
+
+/*IPHONE 6 PLUS IN PORTRAIT AND LANDSCAPE*/
+@media only screen 
+and (min-device-width : 414px) 
+and (max-device-width : 736px) {
+  .navbar-custom {
+    padding: 25px 0;
+    -webkit-transition: padding 0.3s;
+    -moz-transition: padding 0.3s;
+    transition: padding 0.3s;
+  }
+  .navbar-custom .navbar-brand {
+    font-size: 2em;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+
+  }
+  .navbar-custom.affix {
+    padding: 10px 0;
+  }
+  .navbar-custom.affix .navbar-brand {
+    font-size: 1.5em;
+  }
+    
+    
+}
+
+
+/*IPAD*/
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px) {
+    .navbar-custom {
+    padding: 25px 0;
+    -webkit-transition: padding 0.3s;
+    -moz-transition: padding 0.3s;
+    transition: padding 0.3s;
 }

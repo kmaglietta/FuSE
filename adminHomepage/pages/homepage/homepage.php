@@ -44,19 +44,19 @@
                   <span class="icon-bar"></span>
                 </button>
 
-              <a class="navbar-brand" ui-sref="home"><img src="img/fau-home-logo.png"/></a>
+              <a class="navbar-brand" ui-sref="home"><img src="img/fau-home-logo.png" id="navbarLogo"/></a>
               </div>
 
               <div class="collapse navbar-collapse navbar-right" id="js-navbar-collapse" uib-collapse="isNavCollapsed">
 
                 <ul class="nav navbar-nav">
-                  <li><a ui-sref="home">Home</a></li>
+                  <li><a ui-sref="home" href="#">Home</a></li>
                   <!-- Profile page will double as a login page if not already logged in -->
                   <li ui-sref-active-eq="activeNav"><a ui-sref="login">Login</a></li>
                   <!-- Visible to both tutors and Admin -->
                   <li ui-sref-active-eq="activeNav"><a ui-sref="contact">Messages</a></li>
                   <!-- Visible to Admin only -->
-                  <li ui-sref-active-eq="activeNav"><a ui-sref="dashboard">Edit Tutors</a></li>
+                  <li ui-sref-active-eq="activeNav"><a ui-sref="dashboard" href="../editTutorPage/editTutorPage.php">Edit Tutors</a></li>
                   <li ui-sref-active-eq="activeNav"><a ui-sref="analytics">Analytics</a></li>
                 </ul>
               </div>
@@ -139,13 +139,13 @@
                 <div class="container-fluid" id="available">
                     <div class="row">
                        <div class="col-xs-12 text-center">
-                            <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#availabilityTable" id="tableDropDownBtn">Click to View Live Sessions</button>
+                            <h2>Live Sessions:</h2>
                         </div>
                     </div>
 
                 </div>
                  
-                 <div id="availabilityTable" class="collapse">
+                 <div id="availabilityTable">
                 
                      <div class="rTable">
                                  <div class=" rTableHeading">

@@ -50,14 +50,11 @@
               <div class="collapse navbar-collapse navbar-right" id="js-navbar-collapse" uib-collapse="isNavCollapsed">
 
                 <ul class="nav navbar-nav">
-                  <li><a ui-sref="home" href="../homepage/homepage.php">Home</a></li>
+                  <li><a ui-sref="home">Home</a></li>
                   <!-- Profile page will double as a login page if not already logged in -->
                   <li ui-sref-active-eq="activeNav"><a ui-sref="login">Login</a></li>
                   <!-- Visible to both tutors and Admin -->
                   <li ui-sref-active-eq="activeNav"><a ui-sref="contact">Messages</a></li>
-                  <!-- Visible to Admin only -->
-                  <li ui-sref-active-eq="activeNav"><a ui-sref="dashboard" href="../editTutorPage/editTutorPage.php">Edit Tutors</a></li>
-                  <li ui-sref-active-eq="activeNav"><a ui-sref="analytics">Analytics</a></li>
                 </ul>
               </div>
             </div>
@@ -92,7 +89,7 @@
                 <div class="container-fluid" id="search">
                     <div class="row">
                         <div class="col-xs-12 text-center">
-                            <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#searchForm" id="searchTutorsDropDown">Search / Edit Tutors</button>
+                            <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#searchForm" id="formDropDownBtn">Click to Search Sessions</button>
                         </div>
                     </div>
                     
@@ -136,53 +133,16 @@
                    
                 </div>
                 
-                
-                
-                <div class="container-fluid" id="add">
-                    <div class="row">
-                        <div class="col-xs-12 text-center">
-                            <button type="button" class="btn btn-primary" id="addTutorDropDown" data-toggle="collapse" data-target="#addTutorForm">Add a Tutor</button>
-                        </div>
-                    </div>
-                    
-                    <div class="row collapse" id="addTutorForm">
-                        <div class="col-xs-12 text-center">
-                            <form method="post">
-                     
-                                <div class="form-group">
-                                    <label for="classname">Classes:</label><br> 
-                                    <input type="text" name="classname" class="form-control">
-                                </div>
-                                
-                                
-                                <div class="form-group">
-                                     <label for="tutorname">Name:</label> <br>
-                                    <input type="text" name="tutorname" class="form-control">
-                                </div>
-
-                                
-                                <div class="form-group">
-                                    <label for="date">Date:</label> <br>
-                                    <input type="text" name="date" class="form-control">
-                                </div>
-
-                                <button type="submit" name="button" class="btn btn-primary" id="createTutor">Create</button>
-                            </form>
-                       </div>     
-                   </div>  
-                </div>
-                
-                
                 <div class="container-fluid" id="available">
                     <div class="row">
                        <div class="col-xs-12 text-center">
-                            <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#availabilityTable" id="viewAllTutorsDropDown">View All Tutors</button>
+                            <h2>Live Sessions:</h2>
                         </div>
                     </div>
 
-                
+                </div>
                  
-                 <div id="availabilityTable" class="collapse">
+                 <div id="availabilityTable">
                 
                      <div class="rTable">
                                  <div class=" rTableHeading">
@@ -230,9 +190,6 @@
                          
                         </div>
                     </div>
-                </div>
-                
-                
                 
 
 
@@ -244,5 +201,9 @@
            
         </div>
                        
+
+    
+           
+        
     </body>
 </html>
