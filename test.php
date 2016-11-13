@@ -9,17 +9,21 @@ Use samples and references
 --><head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+<?php /*?><link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css"><?php */?>
+
+
+
+<link rel="stylesheet" type="text/css" href="http://lamp.cse.fau.edu/~jstephen2014/FuSE/homepage/style.css">
+<link rel="stylesheet" type="text/css" href="datatable.css">
 </head> 
 
 
 
-<style>
-div {padding:2px;}
-a {padding:0 5px;}
-</style>
+
+
 <script>
 $(document).ready(function() {
-    $('#example').DataTable( {
+    $('#courses').DataTable( {
 	  "processing": true,
         "serverSide": true,
 	    "ajax": {
@@ -39,7 +43,8 @@ $(document).ready(function() {
 </script>
 
 
-<table id="example" class="display" width="100%" cellspacing="0" data-page-length='5'>
+
+<table id="courses" class="display" cellspacing="0" data-page-length='3'>
   <thead>
 	<tr>
 	    <th>Name</th>
@@ -50,15 +55,6 @@ $(document).ready(function() {
 	    <th>EndTime</th>
 	</tr>
   </thead>
-  <tfoot>
-	<tr>
-	    <th>Name</th>
-	    <th>Class</th>
-	    <th>CourseName</th>
-	    <th>Location</th>
-	    <th>Startdate</th>
-	    <th>EndTime</th>
-	</tr>
-  </tfoot>
+
 </table>
     
