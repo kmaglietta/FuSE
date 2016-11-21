@@ -6,11 +6,13 @@
 
 html{
   width: 100%;
+  min-height: 100%;
+  position: relative;
 }
 
 body {
   padding: 0;
-  margin: 0 auto;
+  margin: 0 auto 175px;
   font-family: 'Roboto', sans-serif;
   background: #ACACAC;
 }
@@ -93,8 +95,19 @@ img.img-banner{
   margin-right: auto;
 }
 
+/* Responsive: Phone */
+@media screen and (max-width:768px) {
+  .container {
+    max-width: 600px;
+  }
+}
+
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
+  .container {
+    max-width: 930px;
+  }
+
   .route{
     margin: 0 auto;
   }
@@ -127,13 +140,15 @@ img.img-banner{
 }
 
 /*---------Footer CSS-----------*/
-#footer {
+.footer {
+  position: absolute;
+  bottom: 0;
   color:white;
   margin-top: 2.75em;
   border-top: 2px solid red;
   background: #003366;
 	margin-top: 50x; /* negative value of footer height */
-	height: 150px;
+	height: 125px;
 	clear:both;
   width: 100%;
 }

@@ -1,12 +1,5 @@
 'use strict';
 
-/**
- * @ngdoc function
- * @name tossApp.controller:ContactCtrl
- * @description
- * # ContactCtrl
- * Controller of the tossApp
- */
 angular.module('tossApp')
   .controller('ContactCtrl', function ($scope,$state) {
 

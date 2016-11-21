@@ -1,16 +1,39 @@
 <!-- A template file for user login page -->
 <!-- PHP call will be made using Javascript (Angularjs) -->
 
+
 <div class="container">
+  <div class="row">
+    <div class="alert alert-info demo-info col-sm-4 col-sm-offset-4">
+      Username: admin<br />
+      Password: admin
+    </div>
+  </div>
   <div class="row">
     <div class="login-page">
       <div class="authentication-form">
-        <form class="login-form">
-          <input type="text" placeholder="username"/>
-          <input type="password" placeholder="password"/>
-          <button>login</button>
+        <h1 class="title">Login</h1>
+        <form class="form login-form" name="loginForm" role="form" ng-submit="vm.beginLogin(loginForm.$valid)" novalidate>
+
+          <input type="text" ng-class="{'has-error' : login-form.vm.username.$invalid}"
+          placeholder="Username" name="username" ng-model="vm.username" required/>
+
+          <input type="password" ng-class="{'has-error' : login-form.vm.password.$invalid}"
+          placeholder="Password" name="password" ng-model="vm.password" required/>
+
+          <button id="login-submit" class="login-submit" type="submit">login</button>
         </form>
       </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="jumbotron test-content">
+      <p class="lead">
+        {{vm.content}}
+      </p>
     </div>
   </div>
 </div>

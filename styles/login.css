@@ -1,25 +1,32 @@
 /* Style sheet for Login.html */
-
-.login-page {
-  width: 360px;
-  padding: 8% 0 0;
-  margin: auto;
+.test-content{
+  width: 580px;
+  margin: 0 auto;
 }
+.login-page {
+  width: 580px;
+  padding: 8% 0 0;
+  margin: 0 auto;
+}
+
 .authentication-form {
   position: relative;
+  max-width: 580px;
   z-index: 1;
   background: #FFFFFF;
-  max-width: 360px;
   margin: 0 auto 100px;
   padding: 45px;
   text-align: center;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
+.authentication-form .title{
+  padding-left: 15px;
+  text-align: left;
+}
 .authentication-form input {
-  font-family: "Roboto", sans-serif;
   outline: 0;
   background: #f2f2f2;
-  width: 100%;
+  width: 460px;
   border: 0;
   margin: 0 0 15px;
   padding: 15px;
@@ -27,11 +34,11 @@
   font-size: 14px;
 }
 .authentication-form button {
-  font-family: "Roboto", sans-serif;
+  margin-top: 50px;
   text-transform: uppercase;
   outline: 0;
   background: #CC0000;
-  width: 100%;
+  width: 460px;
   border: 0;
   padding: 15px;
   color: #FFFFFF;
@@ -41,7 +48,7 @@
   cursor: pointer;
 }
 .authentication-form button:hover,.authentication-form button:active,.authentication-form button:focus {
-  background: #43A047;
+  background: #96281B;
 }
 .authentication-form .message {
   margin: 15px 0 0;

@@ -7,7 +7,7 @@
  * # tutor.table
  */
 
-function t_controller($scope, tutorsFactory){
+function t_controller($scope){
   // Controller for the list of all student enrolled with
   // a particular instructor
   var ctrl = this;

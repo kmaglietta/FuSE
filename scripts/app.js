@@ -1,3 +1,7 @@
+/*
+ * This file serves as an app configuration page
+*/
+
 'use strict';
 
 angular
@@ -5,21 +9,17 @@ angular
     'ngAnimate',
     'ngCookies',
     'ngResource',
-    'ngRoute',
     'ngSanitize',
     'ngTouch',
     'ui.router',
-    'ui.bootstrap'
+    'toastr',
+    'ngStorage',
+    'datatables',
+    'datatables.bootstrap',
+    'ngTable'
   ])
   .config(function ($stateProvider, $urlRouterProvider) {
     $stateProvider
-      .state('root', {
-        url:'',
-        abstract: false,
-        templateUrl: 'templates/main.html',
-        controller: 'MainCtrl',
-        controllerAs: 'vm'
-      })
       .state('home', {
         url:'/',
         abstract: false,
@@ -41,6 +41,10 @@ angular
       })
       .state('dashboard', {
         url:'/dashboard',
+        abstract: true,
+        data:{
+          authenticated: true
+        },
         templateUrl:'templates/dashboard.html',
         controller:'DashboardCtrl',
         controllerAs:'vm'
@@ -53,39 +57,38 @@ angular
       })
       .state('login', {
         url:'/login',
+        abstract: false,
         templateUrl:'templates/login.html',
         controller:'LoginCtrl',
         controllerAs:'vm'
       })
       .state('error', {
         templateUrl:'templates/404.html'
-      });
+    });
+
+    // Define route when the field is empty
+    // Redirect it to the main page
+    $urlRouterProvider.when('', '/');
 
     $urlRouterProvider.otherwise(function($injector, $location){
       var state = $injector.get('$state');
-      state.go('error');
+      //state.go('error');
+      state.go('main');
       return $location.path();
     });
 
   })
-  .factory('studentsFactory', function($http){
-    // This function is to retreive JSON file
-    // to laod it into the main page table
-    var d_factory = {};
-
-    // Load data from JSON file
-    d_factory.getTutors = function () {
-      return $http.get('../data/data.json');
-    };
-
-    return d_factory;
-  });/*
-  .factory('tutorsFactory', function($http){
-    var t_factory = {};
-
-    t_factory.getStudents = function(){
-      return $http.get('../data/tutorData.json');
-    };
-
-    return t_factory;
-  });*/
+  .config(function(toastrConfig) {
+    // Toaster configuration
+    angular.extend(toastrConfig, {
+      autoDismiss: true,
+      containerId: 'toast-container',
+      maxOpened: 0,
+      newestOnTop: true,
+      positionClass: 'toast-top-center',
+      preventDuplicates: false,
+      preventOpenDuplicates: false,
+      target: 'body',
+      timeOut: 3000
+    });
+  });

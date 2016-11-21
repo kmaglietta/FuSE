@@ -7,12 +7,14 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-    <!-- Normalize.css -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css" />
     <!-- Font Awesome CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="bower_components/angular-toastr/dist/angular-toastr.min.css" />
+    <link rel="stylesheet" href="bower_components/angular-datatables/dist/css/angular-datatables.min.css" />
+    <link rel="stylesheet" href="bower_components/angular-datatables/dist/plugins/bootstrap/datatables.bootstrap.min.css" />
+    <link rel="stylesheet" href="https://unpkg.com/ng-table@2.1.0/bundles/ng-table.css"/>
 
     <!-- Custom stylesheet -->
     <link rel="stylesheet" href="styles/main.css">
@@ -28,8 +30,11 @@
     <!--[if lte IE 8]>
     <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
   <![endif]-->
+  <!--[if lt IE 9]>
+  <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+<![endif]-->
 
-    <div class="header" ng-controller="NavCtrl">
+    <header class="header" ng-controller="NavCtrl">
       <div class="navbar navbar-default navbar-custom" role="navigation">
         <div class="container">
           <div class="navbar-header">
@@ -62,28 +67,35 @@
           </div>
         </div>
       </div>
-    </div>
+    </header>
 
     <div class="route" ui-view> <!-- Inject content using UI-Router --> </div>
+    <div id="toast-container">
+    </div>
 
-    <div class="footer" id="footer">
+    <footer class="footer">
       <div class="container">
         <p>Build with <span class="glyphicon glyphicon-heart"></span> from FuSE</p>
       </div>
-    </div>
+    </footer>
 
     <!-- Dependency scripts -->
-    <script src="bower_components/jquery/dist/jquery.js"></script>
-    <script src="bower_components/angular/angular.js"></script>
-    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="bower_components/angular-animate/angular-animate.js"></script>
     <script src="bower_components/angular-cookies/angular-cookies.js"></script>
     <script src="bower_components/angular-resource/angular-resource.js"></script>
-    <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
     <script src="bower_components/angular-touch/angular-touch.js"></script>
-    <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script src="bower_components/angular-toastr/dist/angular-toastr.tpls.min.js"></script>
+    <script src="bower_components/ngstorage/ngStorage.min.js"></script>
+    <script src="bower_components/angular-datatables/dist/plugins/bootstrap/angular-datatables.bootstrap.min.js"></script>
+    <script src="bower_components/angular-datatables/dist/angular-datatables.min.js"></script>
+    <script src="https://unpkg.com/ng-table@2.1.0/bundles/ng-table.js"></script>
+    <!-- Datatables dependency -->
+    <script src="bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 
     <!-- Custom scripts -->
     <script src="scripts/app.js"></script>
@@ -91,10 +103,11 @@
     <script src="scripts/controllers/about.js"></script>
     <script src="scripts/controllers/contact.js"></script>
     <script src="scripts/controllers/nav.js"></script>
+    <script src="scripts/controllers/auth.js"></script>
     <script src="scripts/directives/main.table.js"></script>
     <script src="scripts/controllers/dashboard.js"></script>
     <script src="scripts/directives/tutor.table.js"></script>
-    <script src="scripts/directives/dashboard.modal.js"></script>
+    <script src="scripts/dataFactory.js"></script>
 
 </body>
 
