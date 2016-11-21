@@ -29,10 +29,14 @@ function executeApi () {
   $action = missingAction($params, 'action');
   if($action === 'getusers'){
     $data['response'] = $db->getTutoringRecords();
-  } else {
+  } elseif ($action === 400) {
     // Action is empty
     $error['status'] = $action;
     $error['message'] = $api->getHttpStatusMessage($action);
+  } else {
+    // Action is undefined
+    $error['status'] = 404;
+    $error['message'] = $api->getHttpStatusMessage($error['status']);
   }
 
   if (!empty($error)) {
