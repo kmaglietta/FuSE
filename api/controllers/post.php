@@ -8,25 +8,9 @@ class post
 	//
 	//	return $obj;
 	//}
-
-
-
+	
 	public function getlistAction()
 	{
-
-		//$obj = array();
-//
-//		$obj['xxxx'] = '111';
-//		$obj['yyyy'] = '2222';
-//		$obj['zzzz'] = '3333';
-//
-//		$list = array();
-//		$list[] = $obj;
-//		$list[] = $obj;
-//		$list[] = $obj;
-//
-//
-//		$obj['ffff'] = $list;
 
 		$obj = $this -> runQuery("
 			SELECT
@@ -48,9 +32,9 @@ class post
 
 	private function runQuery($sql){
 		$servername = 'localhost';
-		$dbname = ''; 
-		$dbuser = '';
-		$dbpass = '';
+		$dbname = 'jherna65';
+		$dbuser = 'jherna65';
+		$dbpass = 'Urpn+4y4NO';
 
 		// Create connection
 		$conn = new mysqli($servername, $dbuser, $dbpass, $dbname);
