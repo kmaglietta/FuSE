@@ -2,6 +2,21 @@
 require_once("helpers.php");
 class dataLocation
 {
+	
+	public function getnamesAction($data,$params){
+		$selectQuery = "
+			SELECT
+			concat(BuildingName , ' ' , RoomNumber) as DisplayText
+			, LocationId Value
+			FROM proLocation
+		";
+		
+		$retobj = array();
+		$retobj["Options"] = helpers::runQuery($selectQuery);
+		return $retobj;
+	}
+	
+	
 	public static function deleteAction($data,$params)
 	{
 		

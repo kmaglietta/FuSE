@@ -2,6 +2,21 @@
 require_once("helpers.php");
 class dataStudent
 {
+
+	public function getnamesAction($data,$params){
+		$selectQuery = "
+			SELECT
+			concat(FirstName , ' ' , LastName) as DisplayText
+			, StudentId Value
+			FROM proStudent
+		";
+		
+		$retobj = array();
+		$retobj["Options"] = helpers::runQuery($selectQuery);
+		return $retobj;
+	}
+	
+
 	public static function deleteAction($data,$params)
 	{
 		

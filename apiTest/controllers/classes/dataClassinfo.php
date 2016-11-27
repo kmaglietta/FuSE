@@ -2,41 +2,45 @@
 require_once("helpers.php");
 class dataClassinfo
 {
+	public function getnamesAction($data,$params){
+		$selectQuery = "
+			SELECT
+			concat(Subject , ' ' , CourseNumber, ' - ' ,  CourseName) as DisplayText
+			, ClassId Value
+			FROM proClassInformation
+		";
+		
+		$retobj = array();
+		$retobj["Options"] = helpers::runQuery($selectQuery);
+		return $retobj;
+	}
+	
 	public static function deleteAction($data,$params)
 	{
 		
-		$StudentId = helpers::getArrayValue($params,'StudentId');
+		$ClassId = helpers::getArrayValue($params,'ClassId');
 		$selectQuery = "
 			SELECT 
-			s.StudentId
-			, s.EmailAddress
-			, '********' Password
-			, s.FirstName
-			, s.LastName
-			, s.ContactPhone
-			, s.FavoriteTutorId
-			, s.DateEntered
-			, case when t.tutorId is null then 'YES' else 'NO' end isTutor
-			FROM proStudent as s
-			left outer join proTutor as t on s.StudentId = t.StudentId
-			where s.StudentId = $StudentId
+			ClassId, Subject, CourseNumber, Lab, CourseName, ApprovedBy, DateEntered
+			FROM proClassInformation 
+			where s.ClassId = $ClassId
 		";
 		
 		$deleteQuery = "
-			DELETE FROM proStudent WHERE proStudent.StudentId =  '$StudentId'
+			DELETE FROM proClassInformation WHERE proClassInformation.ClassId =  '$ClassId'
 		";
 		
 		$obj = helpers::runQuery($selectQuery);
 		if (!$obj)
 		{
-			throw new ResponseException(200,'Student Id does not exists in database');
+			throw new ResponseException(200,'Class Id does not exists in database');
 		}
 		helpers::runQuery($deleteQuery);
 		$obj = helpers::runQuery($selectQuery);
 
 		$retobj = array();
 		$retobj['Record'] = helpers::runQuery($selectQuery);
-		$retobj["attributes"] = helpers::runQuery("select count(0) TotalRecordCount from proStudent");
+		$retobj["attributes"] = helpers::runQuery("select count(0) TotalRecordCount from proClassInformation");
 		return $retobj;
 		
 	}
@@ -44,131 +48,126 @@ class dataClassinfo
 	public static function updateAction($data,$params)
 	{
 		
-		$StudentId = helpers::getArrayValue($params,'StudentId');
-		$LastName = helpers::validateString((helpers::getArrayValue($params,'LastName')),'LastName');
-		$FirstName = helpers::validateString((helpers::getArrayValue($params,'FirstName')),'FirstName');
-		$Password = helpers::validateString((helpers::getArrayValue($params,'Password')),'Password');
-		$ContactPhone = helpers::validatePhone((helpers::getArrayValue($params,'ContactPhone')),'ContactPhone');
-
+		$ClassId = helpers::getArrayValue($params,'ClassId');
+		$Subject = helpers::validateString((helpers::getArrayValue($params,'Subject')),'Subject');
+		$CourseNumber = helpers::validateString((helpers::getArrayValue($params,'CourseNumber')),'CourseNumber');
+		$CourseName = helpers::validateString((helpers::getArrayValue($params,'CourseName')),'CourseName');
+		$Lab = helpers::validateString((helpers::getArrayValue($params,'Lab')),'Lab');
+		$ApprovedBy = helpers::validateInt((helpers::getArrayValue($params,'ApprovedBy')),'ApprovedBy');
+		
 		$selectQuery = "
 			SELECT 
-			s.StudentId
-			, s.EmailAddress
-			, '********' Password
-			, s.FirstName
-			, s.LastName
-			, s.ContactPhone
-			, s.FavoriteTutorId
-			, s.DateEntered
-			, case when t.tutorId is null then 'YES' else 'NO' end isTutor
-			FROM proStudent as s
-			left outer join proTutor as t on s.StudentId = t.StudentId
-			where s.StudentId = $StudentId
+			ClassId, Subject, CourseNumber, Lab, CourseName, ApprovedBy, DateEntered
+			FROM proClassInformation 
+			where (Subject = '$Subject' and  CourseNumber = '$CourseNumber' and Lab = $Lab and CourseName = '$CourseName')
+			and ClassId <> $ClassId
+		";
+		$obj = helpers::runQuery($selectQuery);
+		if ($obj)
+		{
+			throw new ResponseException(200,'Subject, CourseNumber, CourseName and Lab combination already exists in database');
+		}
+	
+		$updateQuery = "
+			Update proClassInformation set
+				Subject = upper('$Subject')
+				, CourseNumber = '$CourseNumber' 
+				, CourseName =  '$CourseName' 
+				, Lab =  $Lab
+				, ApprovedBy =  $ApprovedBy 
+			where ClassId = '$ClassId'
+		";
+		$selectQuery = "
+			SELECT 
+			ClassId, Subject, CourseNumber, Lab, CourseName, ApprovedBy, DateEntered
+			FROM proClassInformation 
+			where ClassId = '$ClassId'
 		";
 		
-		$updateQuery = "
-			Update proStudent set
-				Password = CASE '$Password' = '********' then Password else '$Password' end
-				, FirstName = '$FirstName' 
-				, LastName =  '$LastName' 
-				, ContactPhone =  '$ContactPhone'
-			where StudentId = '$StudentId'
-		";
+		
 		
 		$obj = helpers::runQuery($selectQuery);
 		if (!$obj)
 		{
-			throw new ResponseException(200,'Student Id does not exists in database');
+			throw new ResponseException(200,'Class Id does not exists in database');
 		}
+		
 		helpers::runQuery($updateQuery);
 		$obj = helpers::runQuery($selectQuery);
 
 		$retobj = array();
 		$retobj['Record'] = helpers::runQuery($selectQuery);
-		$retobj["attributes"] = helpers::runQuery("select count(0) TotalRecordCount from proStudent");
+		$retobj["attributes"] = helpers::runQuery("select count(0) TotalRecordCount from proClassInformation");
 		return $retobj;
 		
 	}
 	
 	public static function addAction($data,$params){
-		$EmailAddress = helpers::validateEmail(helpers::getArrayValue($params,'EmailAddress'));
-		$LastName = helpers::validateString((helpers::getArrayValue($params,'LastName')),'LastName');
-		$FirstName = helpers::validateString((helpers::getArrayValue($params,'FirstName')),'FirstName');
-		$Password = helpers::validateString((helpers::getArrayValue($params,'Password')),'Password');
-		$ContactPhone = helpers::validatePhone((helpers::getArrayValue($params,'ContactPhone')),'ContactPhone');
-
+		
+		$ClassId = helpers::getArrayValue($params,'ClassId');
+		$Subject = helpers::validateString((helpers::getArrayValue($params,'Subject')),'Subject');
+		$CourseNumber = helpers::validateString((helpers::getArrayValue($params,'CourseNumber')),'CourseNumber');
+		$CourseName = helpers::validateString((helpers::getArrayValue($params,'CourseName')),'CourseName');
+		$Lab = helpers::validateString((helpers::getArrayValue($params,'Lab')),'Lab');
+		$ApprovedBy = helpers::validateInt((helpers::getArrayValue($params,'ApprovedBy')),'ApprovedBy');
+		
+		//todo
 		$insertQuery = "
-			INSERT INTO proStudent (StudentId, EmailAddress, Password, FirstName, LastName, ContactPhone, FavoriteTutorId, DateEntered) 
-			VALUES (NULL, '$EmailAddress', '$Password', '$FirstName', '$LastName', '$ContactPhone', NULL, CURRENT_TIMESTAMP);
-		";
-	
+			INSERT INTO proClassInformation (ClassId, Subject, CourseNumber, CourseName, Lab, ApprovedBy, DateEntered) 
+			VALUES (NULL, upper('$Subject'), '$CourseNumber', '$CourseName', $Lab, '$ApprovedBy', CURRENT_TIMESTAMP);
+	";
 		$selectQuery = "
 			SELECT 
-			s.StudentId
-			, s.EmailAddress
-			, '********' Password
-			, s.FirstName
-			, s.LastName
-			, s.ContactPhone
-			, s.FavoriteTutorId
-			, s.DateEntered
-			, case when t.tutorId is null then 'YES' else 'NO' end isTutor
-			FROM proStudent as s
-			left outer join proTutor as t on s.StudentId = t.StudentId
-			where s.EmailAddress = '$EmailAddress'
+			ClassId, Subject, CourseNumber, Lab, CourseName, ApprovedBy, DateEntered
+			FROM proClassInformation 
+			where  Subject = '$Subject' and  CourseNumber = '$CourseNumber' and Lab = $Lab and CourseName = '$CourseName'
 		";
 		
-		
+//throw new ResponseException(500, "[$insertQuery]");	
+	
 		$obj = helpers::runQuery($selectQuery);
 		if ($obj)
 		{
-			throw new ResponseException(200,'Student already exists in database');
+			throw new ResponseException(200,'Class already exists in database');
 		}
 		helpers::runQuery($insertQuery);
 		$obj = helpers::runQuery($selectQuery);
 		
 		$retobj = array();
 		$retobj['Record'] = helpers::runQuery($selectQuery);
-		$retobj["attributes"] = helpers::runQuery("select count(0) TotalRecordCount from proStudent");
+		$retobj["attributes"] = helpers::runQuery("select count(0) TotalRecordCount from proClassInformation");
 		return $retobj;
 	}
 	
 	public static function getAction($data,$params)
 	{
 
-		$isTutor = helpers::validateInt((helpers::getArrayValue($params,'isTutor')),'isTutor');
-		$LastName = helpers::validateValueString((helpers::getArrayValue($params,'LastName')),'LastName');
-		$FirstName = helpers::validateValueString((helpers::getArrayValue($params,'FirstName')),'FirstName');
+		$Subject = helpers::validateValueString((helpers::getArrayValue($params,'Subject')),'Subject');
+		$CourseNumber = helpers::validateValueString((helpers::getArrayValue($params,'CourseNumber')),'CourseNumber');
+		$CourseName = helpers::validateValueString((helpers::getArrayValue($params,'CourseName')),'CourseName');
 		
-			
+		 	
 		$selectQuery = "
 			SELECT 
-			s.StudentId
-			, s.EmailAddress
-			, '********' Password
-			, s.FirstName
-			, s.LastName
-			, s.ContactPhone
-			, s.FavoriteTutorId
-			, s.DateEntered
-			, case when t.tutorId is null then 'NO' else 'YES' end isTutor
-			FROM proStudent as s
-			left outer join proTutor as t on s.StudentId = t.StudentId
+			c.ClassId, c.Subject, c.CourseNumber, c.Lab, c.CourseName, c.ApprovedBy, c.DateEntered
+			, concat(p.FirstName , ' ' , p.LastName) as  ApprovedByName
+			FROM proClassInformation c
+ 			inner join proAdministrator  as p on c.ApprovedBy = p.AdminId
 			where 1 = 1
 		";
-		if ($isTutor == 1) {
-			$selectQuery .= " and t.tutorId is not null ";
+
+		
+		if ($Subject != "") {
+			$selectQuery .= " and c.Subject like '%$Subject%' ";
 		}
-		elseif ($isTutor == 2){
-			$selectQuery .= " and t.tutorId is null ";
+		elseif ($CourseNumber != ""){
+			$selectQuery .= " and c.CourseNumber like '%$CourseNumber%' ";
 		}
-		if ($LastName != "") {
-			$selectQuery .= " and s.LastName like '%$LastName%' ";
-		}
-		if ($FirstName != "") {
-			$selectQuery .= " and s.FirstName like '%$FirstName%' ";
+		if ($CourseName != "") {
+			$selectQuery .= " and c.CourseName like '%$CourseName%' ";
 		}
 		
+//throw new ResponseException(500, "$selectQuery");	
 		
 
 		
@@ -192,7 +191,7 @@ class dataClassinfo
 		$retobj = array();
 		
 		$retobj['Records'] = helpers::runQuery($selectQuery);
-		$retobj["attributes"] = helpers::runQuery("select count(0) TotalRecordCount from proStudent");
+		$retobj["attributes"] = helpers::runQuery("select count(0) TotalRecordCount from proClassInformation");
 		
 		return $retobj;
 	}
