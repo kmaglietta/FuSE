@@ -1,23 +1,5 @@
 <?php include('_masterHeader.php');?>
 
-<!--<link href="http://jtable.org/Content/themes/lightcolor/jquery-ui.css" rel="stylesheet" type="text/css" />-->
-
-<!--
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js" type="text/javascript"></script>
-<link href="http://www.jtable.org/Scripts/jtable/themes/metro/blue/jtable.css" rel="stylesheet" type="text/css" />
-<link href="http://www.jtable.org/Content/themes/metroblue/jquery-ui.css" rel="stylesheet" type="text/css" />
--->
-
-
-
-<script src="/~jherna65/jquery/jquery-3.1.1.min.js"></script>
-<script src="/~jherna65/jquery/jquery-ui-1.12.1/jquery-ui.min.js" type="text/javascript"></script>
-
-
-<link href="/~jherna65/jquery/jtable.2.4.0/themes/lightcolor/blue/jtable.css" rel="stylesheet" type="text/css" />
-<script src="/~jherna65/jquery/jtable.2.4.0/jquery.jtable.js" type="text/javascript"></script>
-<link href="/~jherna65/jquery/jquery-ui-1.12.1/jquery-ui.css" rel="stylesheet" type="text/css" />
 
 
 
@@ -192,7 +174,7 @@
 			<option value="1">Yes</option>
 			<option value="2">No</option>
 		  </select>
-		  <button type="submit" id="LoadRecordsButton">Refresh records</button>
+		 <button type="submit" id="LoadRecordsButton">Refresh records</button> <button type="button" onClick="window.location.href = window.location.href">Clear</button>
 	    </form>
 	</div>
 	

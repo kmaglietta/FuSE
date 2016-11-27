@@ -1,28 +1,10 @@
 <?php include('_masterHeader.php');?>
 
-<!--<link href="http://jtable.org/Content/themes/lightcolor/jquery-ui.css" rel="stylesheet" type="text/css" />-->
-
-<!--
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js" type="text/javascript"></script>
-<link href="http://www.jtable.org/Scripts/jtable/themes/metro/blue/jtable.css" rel="stylesheet" type="text/css" />
-<link href="http://www.jtable.org/Content/themes/metroblue/jquery-ui.css" rel="stylesheet" type="text/css" />
--->
-
-
-
-<script src="/~jherna65/jquery/jquery-3.1.1.min.js"></script>
-<script src="/~jherna65/jquery/jquery-ui-1.12.1/jquery-ui.min.js" type="text/javascript"></script>
-
-
-<link href="/~jherna65/jquery/jtable.2.4.0/themes/lightcolor/blue/jtable.css" rel="stylesheet" type="text/css" />
-<script src="/~jherna65/jquery/jtable.2.4.0/jquery.jtable.js" type="text/javascript"></script>
-<link href="/~jherna65/jquery/jquery-ui-1.12.1/jquery-ui.css" rel="stylesheet" type="text/css" />
 
 
 
 <div class="col-xs-12 text-center">
-    <h2>Classinfos Administration</h2>
+    <h2>Class Information Administration</h2>
 </div>
 <br>
 	<script type="text/javascript">
@@ -41,7 +23,7 @@
 					listAction: function (postData, jtParams) {
 					    return $.Deferred(function ($dfd) {
 						  $.ajax({
-							 url: 'apiTest/?action=getClassinfos&jtStartIndex=' + jtParams.jtStartIndex + '&jtPageSize=' + jtParams.jtPageSize + '&jtSorting=' + jtParams.jtSorting + '&FirstName=' + FirstName + '&LastName=' + LastName + '&isTutor=' + isTutor         ,
+							 url: 'apiTest/?action=getClassinfos&jtStartIndex=' + jtParams.jtStartIndex + '&jtPageSize=' + jtParams.jtPageSize + '&jtSorting=' + jtParams.jtSorting + '&Subject=' + Subject + '&CourseNumber=' + CourseNumber + '&CourseName=' + CourseName         ,
 							type: 'POST',
 							dataType: 'json',
 							data: postData,
@@ -106,51 +88,48 @@
 				},
 				fields: {
 					//``, ``, ``, ``, ``, ``, ``, ``
-					ClassinfoId: {
+					ClassId: {
 						key: true,
 						create: false,
 						edit: false,
 						list: false
 					},
-					EmailAddress: {
-						title: 'Email Address',
-						create: true,
-						edit: false,
-						list: true
-						
-					},
-					Password: {
-						title: 'Set Password',
+					Subject: {
+						title: 'Subject',
 						create: true,
 						edit: true,
+						list: true
+						
+					},
+					CourseNumber: {
+						title: 'Course Number',
+						create: true,
+						edit: true,
+						list: true
+						
+					},
+					Lab: {
+						title: 'Lab',
+						options: { 1 : 'L', 0: '\f' },
+		
+						
+					},
+					CourseName: {
+						title: 'Course Name',
+						create: true,
+						edit: true,
+						list: true
+					},
+					ApprovedBy: {
+						title: 'ApprovedBy',
+						options: 'apiTest/?action=getDirectornames',
 						list: false
-						
 					},
-					FirstName: {
-						title: 'First Name'
-						
-					},
-					LastName: {
-						title: 'Last Name'
-						
-					},
-					ContactPhone: {
-						title: 'Contact Phone'
-						
-					},
-					isTutor: {
-						title: 'Approved Tutor',
+					ApprovedByName: {
+						title: 'Approved By',
 						create: false,
 						edit: false,
 						list: true
-						
-						
-					},
-					FavoriteTutorId: {
-						title: 'FavoriteTutorId',
-						create: false,
-						edit: false,
-						list: false
 					},
 					DateEntered: {
 						title: 'Date Entered',
@@ -168,9 +147,9 @@
 			$('#LoadRecordsButton').click(function (e) {
 				e.preventDefault();
 				$('#TableContainer').jtable('load', {
-				    FirstName: $('#FirstName').val(),
-				    LastName: $('#LastName').val(),
-				    isTutor: $('#isTutor').val()
+				    Subject: $('#Subject').val(),
+				    CourseNumber: $('#CourseNumber').val(),
+				    CourseName: $('#CourseName').val()
 				});
 			});
 			
@@ -184,21 +163,14 @@
 
 	<div class="filtering">
 	    <form>
-		  First Name: <input type="text" name="FirstName" id="FirstName" />
-		  Last Name: <input type="text" name="LastName" id="LastName" />
-		  is Tutor: 
-		  <select id="isTutor" name="isTutor">
-			<option selected="selected" value="0">Show All</option>
-			<option value="1">Yes</option>
-			<option value="2">No</option>
-		  </select>
-		  <button type="submit" id="LoadRecordsButton">Refresh records</button>
+		  Subject: <input type="text" name="Subject" id="Subject" />
+		  Course Number: <input type="text" name="CourseNumber" id="CourseNumber" />
+			Course Name: <input type="text" name="CourseName" id="CourseName" />
+		  <button type="submit" id="LoadRecordsButton">Refresh records</button> <button type="button" onClick="window.location.href = window.location.href">Clear</button>
 	    </form>
 	</div>
 	
-<ul>
-<li>To reset a password do an edit and change the *********, otherwise leave as is</li>
-</ul>
+<br />
 	<div id="TableContainer" />
 
 </div>

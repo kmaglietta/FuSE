@@ -2,7 +2,7 @@
 
 
 <script>
-$(document).ready(function() {
+var table = $(document).ready(function() {
     $('#courses').DataTable( {
 	    "ajax": {
 			"url": "apiTest/?action=getlist",
@@ -13,8 +13,10 @@ $(document).ready(function() {
 		  { "data": 'coursename' },
 		  { "data": 'name' },
 		  { "data": 'location' },
+		  { "data": 'date' },
 		  { "data": 'starttime' },
-		  { "data": 'endtime' }
+		  { "data": 'endtime' },
+		  { "data": 'status' }
 	    ]
 	, "deferRender": true,
 
@@ -23,6 +25,17 @@ $(document).ready(function() {
        }
 
     } );
+    
+
+        table.rows().every( function ( rowIdx, tableLoop, rowLoop ) {
+        var data = this.data();        
+        console.log(data);
+        
+        data[0] = '*ddddd ' + data[0];
+                
+        this.data(data);
+    });
+    
 
 } );
 </script>
@@ -47,8 +60,10 @@ $(document).ready(function() {
 		    <th>Course Name</th>
 		    <th>Tutor Name</th>
 		    <th>Location</th>
+		    <th>Date</th>
 		    <th>Start Time</th>
 		    <th>End Time</th>
+		    <th>Status</th>
 		</tr>
 	  </thead>
 	</table>

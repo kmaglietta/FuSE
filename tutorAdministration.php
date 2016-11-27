@@ -12,7 +12,7 @@
 
 		    //Prepare jTable
 			$('#TableContainer').jtable({
-				title: 'Admins Administration',
+				title: 'Tutor Management',
 				paging: true, //Enable paging
 				pageSize: 10, //Set page size (default: 10)
 				sorting: true, //Enable sorting
@@ -22,7 +22,7 @@
 					listAction: function (postData, jtParams) {
 					    return $.Deferred(function ($dfd) {
 						  $.ajax({
-							 url: 'apiTest/?action=getDirectors&jtStartIndex=' + jtParams.jtStartIndex + '&jtPageSize=' + jtParams.jtPageSize + '&jtSorting=' + jtParams.jtSorting + '&FirstName=' + FirstName + '&LastName=' + LastName  ,
+							 url: 'apiTest/?action=getTutors&jtStartIndex=' + jtParams.jtStartIndex + '&jtPageSize=' + jtParams.jtPageSize + '&jtSorting=' + jtParams.jtSorting + '&StudentName=' + StudentName + '&CourseName=' + CourseName  ,
 							type: 'POST',
 							dataType: 'json',
 							data: postData,
@@ -39,7 +39,7 @@
 					, createAction: function (postData) {
 						  return $.Deferred(function ($dfd) {
 							$.ajax({
-							    url: 'apiTest/?action=addDirector',
+							    url: 'apiTest/?action=addTutor',
 							    type: 'POST',
 							    dataType: 'json',
 							    data: postData,
@@ -55,7 +55,7 @@
 					, updateAction: function (postData, jtParams) {
 					    return $.Deferred(function ($dfd) {
 						  $.ajax({
-							 url: 'apiTest/?action=updateDirector',
+							 url: 'apiTest/?action=updateTutor',
 							type: 'POST',
 							dataType: 'json',
 							data: postData,
@@ -71,7 +71,7 @@
 //					, deleteAction: function (postData, jtParams) {
 //					    return $.Deferred(function ($dfd) {
 //						  $.ajax({
-//							 url: 'apiTest/?action=deleteDirector',
+//							 url: 'apiTest/?action=deleteTutor',
 //							type: 'POST',
 //							dataType: 'json',
 //							data: postData,
@@ -87,34 +87,55 @@
 				},
 				fields: {
 					//``, ``, ``, ``, ``, ``, ``, ``
-					AdminId: {
+					TutorId: {
 						key: true,
 						create: false,
 						edit: false,
 						list: false
 					},
-					EmailAddress: {
-						title: 'Email Address',
-						create: true,
+					StudentId: {
+						title: 'Student Name',
+						options: 'apiTest/?action=getStudentnames',
+						list: false
+					},
+					StudentName: {
+						title: 'Student Name',
+						create: false,
 						edit: false,
 						list: true
-						
 					},
-					Password: {
-						title: 'Set Password',
-						create: true,
-						edit: true,
+					ClassId: {
+						title: 'Class approved for',
+						options: 'apiTest/?action=getClassinfonames',
 						list: false
-						
 					},
-					FirstName: {
-						title: 'First Name'
-						
+					ApprovedForClassName: {
+						title: 'Class approved for',
+						create: false,
+						edit: false,
+						list: true
 					},
-					LastName: {
-						title: 'Last Name'
-						
+					ApprovedByAdminId: {
+						title: 'Approved By',
+						options: 'apiTest/?action=getDirectornames',
+						list: false
 					},
+					
+					ApprovedOn: {
+						title: 'Approved On',
+						type: 'date',
+						create: false,
+						edit: false,
+						list: true
+					},
+					
+					ApprovedByName: {
+						title: 'Approved By',
+						create: false,
+						edit: false,
+						list: true
+					},
+					
 					DateEntered: {
 						title: 'Date Entered',
 						type: 'date',
@@ -131,8 +152,8 @@
 			$('#LoadRecordsButton').click(function (e) {
 				e.preventDefault();
 				$('#TableContainer').jtable('load', {
-				    FirstName: $('#FirstName').val(),
-				    LastName: $('#LastName').val()
+				    StudentName: $('#StudentName').val(),
+				    CourseName: $('#CourseName').val()
 				});
 			});
 			
@@ -146,15 +167,13 @@
 
 	<div class="filtering">
 	    <form>
-		  First Name: <input type="text" name="FirstName" id="FirstName" />
-		  Last Name: <input type="text" name="LastName" id="LastName" />
-		 <button type="submit" id="LoadRecordsButton">Refresh records</button> <button type="button" onClick="window.location.href = window.location.href">Clear</button>
+		  Student Name: <input type="text" name="StudentName" id="StudentName" />
+		  Course Name: <input type="text" name="CourseName" id="CourseName" />
+		  <button type="submit" id="LoadRecordsButton">Refresh records</button> <button type="button" onClick="window.location.href = window.location.href">Clear</button> 
 	    </form>
 	</div>
 	
-<ul>
-<li>To reset a password do an edit and change the *********, otherwise leave as is</li>
-</ul>
+<br>
 	<div id="TableContainer" />
 
 </div>

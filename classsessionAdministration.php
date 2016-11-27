@@ -1,0 +1,327 @@
+<?php include('_masterHeader.php');?>
+
+
+
+<style>
+	input[name="SessionEndTime"] .ui-datepicker-calendar {display: none;}
+</style>
+<div class="col-xs-12 text-center">
+    <h2>Session Management</h2>
+</div> 
+<br> 
+	<script type="text/javascript">
+
+		$(document).ready(function () {
+
+		    //Prepare jTable
+			$('#TableContainer').jtable({
+				title: 'Session Management',
+				paging: true, //Enable paging
+				pageSize: 10, //Set page size (default: 10)
+				sorting: true, //Enable sorting
+				defaultSorting: 'EmailAddress ASC', //Set default sorting
+				actions: {
+					
+					listAction: function (postData, jtParams) {
+					    return $.Deferred(function ($dfd) {
+						  $.ajax({
+							 url: 'apiTest/?action=getClasssession&jtStartIndex=' + jtParams.jtStartIndex + '&jtPageSize=' + jtParams.jtPageSize + '&jtSorting=' + jtParams.jtSorting + '&StudentName=' + StudentName + '&CourseName=' + CourseName  ,
+							type: 'POST',
+							dataType: 'json',
+							data: postData,
+							success: function (data) {
+							    $dfd.resolve(data);
+							},
+							error: function () {
+							    $dfd.reject();
+							}
+						  });
+					    });
+					}
+
+					, createAction: function (postData) {
+						  return $.Deferred(function ($dfd) {
+							$.ajax({
+							    url: 'apiTest/?action=addClasssession',
+							    type: 'POST',
+							    dataType: 'json',
+							    data: postData,
+							    success: function (data) {
+								  $dfd.resolve(data);
+							    },
+							    error: function () {
+								  $dfd.reject();
+							    }
+							});
+						  });
+					    }
+					, updateAction: function (postData, jtParams) {
+					    return $.Deferred(function ($dfd) {
+						  $.ajax({
+							 url: 'apiTest/?action=updateClasssession',
+							type: 'POST',
+							dataType: 'json',
+							data: postData,
+							success: function (data) {
+							    $dfd.resolve(data);
+							},
+							error: function () {
+							    $dfd.reject();
+							}
+						  });
+					    });
+					}
+//					, deleteAction: function (postData, jtParams) {
+//					    return $.Deferred(function ($dfd) {
+//						  $.ajax({
+//							 url: 'apiTest/?action=deleteClasssession',
+//							type: 'POST',
+//							dataType: 'json',
+//							data: postData,
+//							success: function (data) {
+//							    $dfd.resolve(data);
+//							},
+//							error: function () {
+//							    $dfd.reject();
+//							}
+//						  });
+//					    });
+//					}
+				},
+				fields: {
+					//``, ``, ``, ``, ``, ``, ``, ``
+					SessionId: {
+						key: true,
+						create: false,
+						edit: false,
+						list: false
+					},
+					TutorId: {
+						title: 'Select Approved Section',
+						options: 'apiTest/?action=getTutornames',
+						create: true,
+						edit: true,
+						list: false
+					},
+					StudentName: {
+						title: 'Tutor Name',
+						create: false,
+						edit: false,
+						list: true
+					}, 
+					
+					  
+					ClassSession: {
+						title: 'Approved for Class',
+						create: false,
+						edit: false,
+						list: true
+					}, 
+					
+					LocationId: {
+						title: 'Location',
+						options: 'apiTest/?action=getLocationnames',
+					},
+					
+					SessionStartTime: {
+						title: 'Session Start',
+//						display: function (data) {
+//							try {
+//							  return dateFormat(data.record.SessionStartTime, "yyyy-mm-dd h:MM TT");
+//							}
+//							catch (exception) {
+//								return null;	
+//							}
+//							
+//						    }
+					},
+					
+					SessionEndTime: {
+						title: 'Session End',
+//						display: function (data) {
+//							try {
+//							  return dateFormat(data.record.SessionEndTime, "yyyy-mm-dd h:MM TT");
+//							}
+//							catch (exception) {
+//								return null;	
+//							}
+//							
+//						    }
+						
+					},
+					Canceled: {
+						title: 'Canceled?',
+						options: { 1 : 'Yes', 0: 'No' },
+					},
+					CancelReason: {
+						title: 'Cancel Reason' 
+					},
+
+					
+					Canceled: {
+						title: 'Canceled?',
+						options: { 1 : 'Yes', 0: 'No' },
+					},
+					
+					CanceledByTutor: {
+						title: 'Canceled By Tutor',
+						options: { 1 : 'Yes', 0 : 'No' },
+						create: false,
+						edit: false,
+						list: true
+					},
+					
+					CanceledByAdminId: {
+						title: 'CanceledByAdminId' ,
+						options: 'apiTest/?action=getDirectornames'
+					},
+					DateCanceled: {
+						title: 'Date Canceled',
+						type: 'date',
+						create: false,
+						edit: false,
+						list: true
+					},
+					
+					DateEntered: {
+						title: 'Date Entered',
+						type: 'date',
+						create: false,
+						edit: false,
+						list: false
+					}
+				}
+				,
+				formCreated: function (event, data) 
+				    {
+					 $("#Edit-CanceledByAdminId").prepend("<option value='' selected='selected'></option>");
+					 
+					 
+					 var $input_start_time = data.form.find ('input[name="SessionStartTime"]');
+					 var $input_end_time = data.form.find ('input[name="SessionEndTime"]');
+					 
+					 $input_start_time.addClass("date");
+					 $input_start_time.addClass("time");
+					 
+					 $input_end_time.addClass("date");
+					 $input_end_time.addClass("time");
+					 
+					  $input_start_time.addClass("timepicker");
+					  $input_end_time.addClass("timepicker");
+					 
+					 $input_start_time.datetimepicker(
+					 	{ 
+						 dateFormat: 'yy-mm-dd'
+						 , timeFormat: 'hh:mm tt'
+						 , maxDate: "+3m"
+						 , minDate: "0d"
+						 , numberOfMonths: 2
+						 , stepMinute: 15
+						 , hourMin: 7
+						 , hourMax: 21
+						  , addSliderAccess: true
+						 , sliderAccessArgs: { touchonly: false }
+						// , controlType: 'select'
+//						, oneLine: true
+//						, timeFormat: 'hh:mm tt'
+						 , onClose: function(dateText, inst) {
+							if ($input_end_time.val() != '') {
+								var testStartDate = $input_start_time.datetimepicker('getDate');
+								var testEndDate = $input_end_time.datetimepicker('getDate');
+								if (testStartDate > testEndDate)
+									$input_end_time.datetimepicker('setDate', testStartDate);
+							}
+							else {
+								$input_end_time.val(dateText);
+							}
+						}
+						 , onSelect: function (selectedDateTime){
+								$input_end_time.datetimepicker('option', 'minDate', $input_start_time.datetimepicker('getDate') );
+								$input_end_time.datetimepicker('option', 'maxDate', $input_start_time.datetimepicker('getDate') );
+								//$input_end_time.datetimepicker('option', 'hourMin', $input_start_time.datetimepicker('getDate') );
+								//$input_end_time.datetimepicker('option', 'hourMax', $input_start_time.datetimepicker('getDate') );
+							}
+						});
+						
+					$input_end_time.datetimepicker(
+					 	{ 
+						  dateFormat: 'yy-mm-dd'
+						 , timeFormat: 'hh:mm tt'
+						 , stepMinute: 15
+						 //, maxHour: "+3h"
+						 //, maxDate: "+3h"
+						 , hourMin: 7
+						 , hourMax: 21
+						 , addSliderAccess: true
+						 , sliderAccessArgs: { touchonly: false }
+						// , controlType: 'select'
+//						, oneLine: true
+//						, timeFormat: 'hh:mm tt'
+						 , onClose: function(dateText, inst) {
+							if ($input_start_time.val() != '') {
+								var testStartDate = $input_start_time.datetimepicker('getDate');
+								var testEndDate = $input_end_time.datetimepicker('getDate');
+								if (testStartDate > testEndDate)
+									$input_start_time.datetimepicker('setDate', testEndDate);
+							}
+							else {
+								$input_start_time.val(dateText);
+							}
+						}
+						//, onSelect: function (selectedDateTime){
+						//		$input_start_time.datetimepicker('option', 'maxDate', $input_end_time.datetimepicker('getDate') );
+						//	}
+						});
+						
+
+						
+		
+				    }
+			});
+
+			//$('#TableContainer').jtable('load');
+
+			//Re-load records when user click 'load records' button.
+			$('#LoadRecordsButton').click(function (e) {
+				e.preventDefault();
+				$('#TableContainer').jtable('load', {
+				    StudentName: $('#StudentName').val(),
+				    CourseName: $('#CourseName').val()
+				});
+			});
+			
+			//$(function(){
+//			 $.timepicker.datetimepicker(
+//			  	{
+//				 	stepMinute: 10 	
+//				}
+//			  );
+//			});
+			    
+			//Load all records when page is first shown
+			$('#LoadRecordsButton').click();
+
+		});
+
+	</script>
+	
+
+
+	
+<div style="width:95%; margin-left:auto; margin-right:auto;">
+
+	<div class="filtering">
+	    <form>
+		  Student Name: <input type="text" name="StudentName" id="StudentName" />
+		  Course Name: <input type="text" name="CourseName" id="CourseName" />
+		  <button type="submit" id="LoadRecordsButton">Refresh records</button> <button type="button" onClick="window.location.href = window.location.href">Clear</button> 
+	    </form>
+	</div>
+	
+<br>
+	<div id="TableContainer" />
+
+</div>
+
+<?php include('_masterFooter.php');?>
+
