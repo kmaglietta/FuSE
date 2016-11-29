@@ -1,12 +1,13 @@
-<div class="container main" id="main" ng-hide="dismiss">
+<div class="col-xs-12 col-sm-6 col-md-8 col-md-offset-2 center-block container main"
+id="main" ng-hide="dismiss">
   <div class="row">
     <div class="jumbotron home-content">
-      <h1>Welcome!!</h1>
+      <h1>Welcome, {{ vm.userData.username }}</h1>
       <p class="lead">
-        Hello Solar System!
-      </p>
-      <p><a href class="btn btn-lg btn-success" ng-click="vm.logout()">LOGOUT&nbsp;
-        <span class="fa fa-check"></span></a></p>
+        Cheers to you, {{ vm.userData.role }}
+      </p><br/>
+      <a href class="top-buffer btn btn-lg btn-success" ng-click="vm.logout()">LOGOUT&nbsp;
+        <span class="fa fa-check"></span></a>
     </div>
   </div>
 </div>

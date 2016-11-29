@@ -1,20 +1,13 @@
 'use strict';
 
 angular.module('tossApp')
-  .factory('dataService', function($http, toastr, $log, $resource){
+  .factory('dataService', function($http, toaster, $log){
     // This is to connect to API
     var factory = {};
-    var service = 'php/index.php?action=';
+    var service = 'php/index.php?';
 
     factory.toast = function (data){
-      var status = data.status;
-      if (status === "error" ){
-        toastr.error(data.message, data.status);
-      } else if (this.status === "success"){
-        toastr.success(data.message, data.status);
-      } else {
-        toastr.info('???', 'An unknown error has occurred');
-      }
+      toaster.pop(data.status, "", data.message, 10000, 'trustedHtml');
     };
     factory.post = function(q, object) {
       return $http.post(service + q, object).then(function (result) {
@@ -35,9 +28,6 @@ angular.module('tossApp')
       return $http.delete(service + q).then(function (result) {
         return result.data;
       })
-    };
-    factory.actionCall = function (q) {
-      return $resource('/php/index.php?action=:actionType');
     };
 
     return factory;

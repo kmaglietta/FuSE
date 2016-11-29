@@ -13,20 +13,40 @@ class db_handler{
     mysqli_close($this->conn);
   }
 
-  public function getRecord($query) {
-    // Get one user record
-    $r = $this->conn->query($query . " LIMIT 1") or die($this->conn->error . __LINE__);
-    return $result = $r->fetch_assoc();
-  }
-
   public function getSession(){
-
+    // User session
+    if (!isset($_SESSION)) session_start();
+    $s = array();
+    if (isset($_SESSION['id'])) {
+      $s['id'] = $_SESSION['id'];
+      $s['username'] = $_SESSION['username'];
+      $s['role'] = $_SESSION['role'];
+    } else {
+      $s['id'] = '';
+      $s['username'] = 'guest';
+      $s['role'] = '';
+    }
+    return $s;
   }
-  /*public function updateTokenIntoTable($table, $token, $userid){
-    // This function is to update the user session token
-    $query = "UPDATE " . $table . " SET token='$token' WHERE uid='$userid'";
-    $r = $this->conn->query($query) or die($this->conn->error.__LINE__);
-  }*/
+  public function destroySession(){
+    // Destroy user session
+    if (!isset($_SESSION)) session_start();
+    if (isset($_SESSION['id'])) {
+      unset($_SESSION['id']);
+      unset($_SESSION['username']);
+      unset($_SESSION['role']);
+      $info = 'info';
+      if (isset($_COOKIE['info'])) {
+        // Destroy session cookie
+        setcookie($info, '', time() - $cookie_time);
+      }
+      session_destroy();
+      $status = 'success';
+    } else {
+      $status = 'fail';
+    }
+    return $status;
+  }
   public function getTutoringRecords(){
     $query = "SELECT * FROM tutoringSessions AS t WHERE t.active = 1";
     $result = $this->conn->query($query) or die($this->conn->error . __LINE__);
@@ -39,6 +59,23 @@ class db_handler{
       return $rows;
     } else {
       return $rows;
+    }
+  }
+  public function getUserRecords($user, $password){
+    // Fetch user record if exists
+    $query = "SELECT u.id, u.username, u.role FROM users AS u
+    WHERE u.username LIKE '" . $user
+    . "' AND u.password LIKE '" . $password . "' LIMIT 1;";
+    $result = $this->conn->query($query) or die($this->conn->error . __LINE__);
+    $row = array();
+    $records = mysqli_num_rows($result);
+    if($records > 0){
+      return $row = $result->fetch_assoc();
+    } else {
+      return $error = array(
+        'code' => 401,
+        'type' => 'No such user found'
+      );
     }
   }
 

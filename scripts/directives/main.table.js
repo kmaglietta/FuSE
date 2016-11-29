@@ -55,7 +55,7 @@ function m_controller($scope, $log, $q, dataService, NgTableParams, DTOptionsBui
         defer.resolve(data.response);
       });
       return defer.promise;*/
-      return dataService.get('getusers').then(function (data) {
+      return dataService.get('action=getusers').then(function (data) {
         return data.response;
       });
     })
@@ -93,7 +93,7 @@ angular.module('tossApp')
   .component('myTable', {
     templateUrl: 'templates/table.main.html',
     bindings: {
-      // Two-way binding
+      // One-way binding
       info: '<'
     },
     controller:m_controller

@@ -12,7 +12,7 @@ angular
     'ngSanitize',
     'ngTouch',
     'ui.router',
-    'toastr',
+    'toaster',
     'ngStorage',
     'datatables',
     'datatables.bootstrap',
@@ -22,45 +22,109 @@ angular
     $stateProvider
       .state('home', {
         url:'/',
-        abstract: false,
-        templateUrl: 'templates/main.html',
-        controller: 'MainCtrl',
-        controllerAs: 'vm'
-      })
-      .state('profile', {
-        url:'/profile',
-        templateUrl: 'templates/profile.html',
-        controller: 'ProfileCtrl',
-        controllerAs: 'vm'
+        views: {
+          'header':{
+            templateUrl: 'templates/nav.html',
+            controller: 'NavCtrl',
+            controllerAs: 'vm'
+          },
+          'content':{
+            templateUrl: 'templates/main.html',
+            controller: 'MainCtrl',
+            controllerAs: 'vm'
+          },
+          'footer':{
+            templateUrl: 'templates/footer.html',
+            controller: 'FooterCtrl',
+            controllerAs: 'vm'
+          }
+        }
       })
       .state('contact', {
         url:'/contact',
-        templateUrl:'templates/contact.html',
-        controller:'ContactCtrl',
-        controllerAs:'vm'
+        views: {
+          'header':{
+            templateUrl: 'templates/nav.html',
+            controller: 'NavCtrl',
+            controllerAs: 'vm'
+          },
+          'content':{
+            templateUrl: 'templates/contact.html',
+            controller: 'ContactCtrl',
+            controllerAs: 'vm'
+          },
+          'footer':{
+            templateUrl: 'templates/footer.html',
+            controller: 'FooterCtrl',
+            controllerAs: 'vm'
+          }
+        }
       })
       .state('dashboard', {
         url:'/dashboard',
-        abstract: true,
-        data:{
-          authenticated: true
+        resolve: {
+          authenticate: authenticate
         },
-        templateUrl:'templates/dashboard.html',
-        controller:'DashboardCtrl',
-        controllerAs:'vm'
+        views: {
+          'header':{
+            templateUrl: 'templates/nav.html',
+            controller: 'NavCtrl',
+            controllerAs: 'vm'
+          },
+          'content':{
+            templateUrl: 'templates/dashboard.html',
+            controller: 'DashboardCtrl',
+            controllerAs: 'vm'
+          },
+          'footer':{
+            templateUrl: 'templates/footer.html',
+            controller: 'FooterCtrl',
+            controllerAs: 'vm'
+          }
+        }
       })
       .state('analytics', {
         url:'/analytics',
-        templateUrl:'templates/analytics.html',
-        controller:'AnalyticsCtrl',
-        controllerAs:'vm'
+        resolve: {
+          authenticate: authenticate
+        },
+        views: {
+          'header':{
+            templateUrl: 'templates/nav.html',
+            controller: 'NavCtrl',
+            controllerAs: 'vm'
+          },
+          'content':{
+            templateUrl: 'templates/analytics.html',
+            controller: 'AnalyticsCtrl',
+            controllerAs: 'vm'
+          },
+          'footer':{
+            templateUrl: 'templates/footer.html',
+            controller: 'FooterCtrl',
+            controllerAs: 'vm'
+          }
+        }
       })
       .state('login', {
         url:'/login',
-        abstract: false,
-        templateUrl:'templates/login.html',
-        controller:'LoginCtrl',
-        controllerAs:'vm'
+        views: {
+          'header':{
+            templateUrl: 'templates/nav.html',
+            controller: 'NavCtrl',
+            controllerAs: 'vm'
+          },
+          'content':{
+            templateUrl: 'templates/login.html',
+            controller: 'LoginCtrl',
+            controllerAs: 'vm'
+          },
+          'footer':{
+            templateUrl: 'templates/footer.html',
+            controller: 'FooterCtrl',
+            controllerAs: 'vm'
+          }
+        }
       })
       .state('error', {
         templateUrl:'templates/404.html'
@@ -69,7 +133,6 @@ angular
     // Define route when the field is empty
     // Redirect it to the main page
     $urlRouterProvider.when('', '/');
-
     $urlRouterProvider.otherwise(function($injector, $location){
       var state = $injector.get('$state');
       //state.go('error');
@@ -78,17 +141,43 @@ angular
     });
 
   })
-  .config(function(toastrConfig) {
-    // Toaster configuration
-    angular.extend(toastrConfig, {
-      autoDismiss: true,
-      containerId: 'toast-container',
-      maxOpened: 0,
-      newestOnTop: true,
-      positionClass: 'toast-top-center',
-      preventDuplicates: false,
-      preventOpenDuplicates: false,
-      target: 'body',
-      timeOut: 3000
-    });
+  .constant('AUTH_EVENTS', {
+    loginSuccess: 'auth-login-success',
+    loginFailed: 'auth-login-failed',
+    logoutSuccess: 'auth-logout-success',
+    sessionTimeout: 'auth-session-timeout',
+    notAuthenticated: 'auth-not-authenticated',
+    notAuthorized: 'auth-not-authorized'
   });
+
+
+  function authenticate($q, userService, $state, $timeout) {
+    /*if (userService.isAuthenticated()) {
+      // Resolve the promise successfully
+      return $q.when();
+    } else {
+      // The next bit of code is asynchronously tricky
+      $timeout(function() {
+        // This runs after the authentication promise has been rejected
+        // Go to the login page
+        $state.go('login');
+      });
+      // Reject the authentication promise to prevent the state from being loaded
+      return $q.reject('guest');
+    }*/
+    var defer = $q.defer();
+    userService.isAuthenticated().then(function(data){
+      if (data.response.username != 'guest') {
+        defer.resolve('Allowed');
+      } else {
+        $timeout(function() {
+          // This runs after the authentication promise has been rejected
+          // Go to the login page
+          $state.go('login');
+        });
+        defer.reject('Not Allowed');
+      }
+    });
+    return defer.promise;
+
+  }

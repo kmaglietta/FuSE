@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="bower_components/angular-toastr/dist/angular-toastr.min.css" />
+    <link rel="stylesheet" href="bower_components/AngularJS-Toaster/toaster.min.css" />
     <link rel="stylesheet" href="bower_components/angular-datatables/dist/css/angular-datatables.min.css" />
     <link rel="stylesheet" href="bower_components/angular-datatables/dist/plugins/bootstrap/datatables.bootstrap.min.css" />
     <link rel="stylesheet" href="https://unpkg.com/ng-table@2.1.0/bundles/ng-table.css"/>
@@ -33,51 +33,11 @@
   <!--[if lt IE 9]>
   <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
 <![endif]-->
+    <div ui-view="header"><!-- Inject navbar using UI-Router --></div>
+    <div class="route" ui-view="content"> <!-- Inject content using UI-Router --> </div>
+    <toaster-container toaster-options="{'time-out': 3000}"></toaster-container>
 
-    <header class="header" ng-controller="NavCtrl">
-      <div class="navbar navbar-default navbar-custom" role="navigation">
-        <div class="container">
-          <div class="navbar-header">
-
-            <button type="button" class="navbar-toggle collapsed" ng-click="isNavCollapsed = !isNavCollapsed"
-            data-toggle="collapse" data-target="#js-navbar-collapse" aria-expanded="false">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-
-          <a class="navbar-brand" ui-sref="home"><img src="img/fau-home-logo.png"/></a>
-          </div>
-
-          <div class="collapse navbar-collapse navbar-right" id="js-navbar-collapse" uib-collapse="isNavCollapsed">
-
-            <ul class="nav navbar-nav">
-              <li><a ui-sref="home">Home</a></li>
-              <!-- Profile page will double as a login page if not already logged in -->
-              <li ui-sref-active-eq="activeNav"><a ui-sref="login">Login</a></li>
-              <li ui-sref-active-eq="activeNav"><a ui-sref="profile">Profile</a></li>
-              <!-- Visible to both tutors and Admin -->
-              <li ui-sref-active-eq="activeNav"><a ui-sref="contact">Contact</a></li>
-              <!-- Visible to Admin only -->
-              <li ui-sref-active-eq="activeNav"><a ui-sref="dashboard">Dashboard</a></li>
-              <li ui-sref-active-eq="activeNav"><a ui-sref="analytics">Analytics</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </header>
-
-    <div class="route" ui-view> <!-- Inject content using UI-Router --> </div>
-    <div id="toast-container">
-    </div>
-
-    <footer class="footer">
-      <div class="container">
-        <p>Build with <span class="glyphicon glyphicon-heart"></span> from FuSE</p>
-      </div>
-    </footer>
+    <div ui-view="footer"><!-- Inject navbar using UI-Router --></div>
 
     <!-- Dependency scripts -->
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
@@ -89,7 +49,7 @@
     <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
     <script src="bower_components/angular-touch/angular-touch.js"></script>
     <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
-    <script src="bower_components/angular-toastr/dist/angular-toastr.tpls.min.js"></script>
+    <script src="bower_components/AngularJS-Toaster/toaster.min.js"></script>
     <script src="bower_components/ngstorage/ngStorage.min.js"></script>
     <script src="bower_components/angular-datatables/dist/plugins/bootstrap/angular-datatables.bootstrap.min.js"></script>
     <script src="bower_components/angular-datatables/dist/angular-datatables.min.js"></script>
@@ -104,6 +64,7 @@
     <script src="scripts/controllers/contact.js"></script>
     <script src="scripts/controllers/nav.js"></script>
     <script src="scripts/controllers/auth.js"></script>
+    <script src="scripts/controllers/footer.js"></script>
     <script src="scripts/directives/main.table.js"></script>
     <script src="scripts/controllers/dashboard.js"></script>
     <script src="scripts/directives/tutor.table.js"></script>

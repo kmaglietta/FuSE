@@ -62,3 +62,8 @@
 .form .register-form {
   display: none;
 }
+
+.demo-authentication {
+  margin-top: 100px;
+  background: #eee;
+}

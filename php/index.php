@@ -14,7 +14,6 @@ class apiCall {
   }
 }
 
-
 function executeApi () {
 
   $api = new rest();
@@ -26,13 +25,60 @@ function executeApi () {
   $method = $_SERVER['REQUEST_METHOD'];
   $params = $_REQUEST;
 
-  $action = missingAction($params, 'action');
+  $action = missinParams($params, 'action');
   if($action === 'getusers'){
     $data['response'] = $db->getTutoringRecords();
+
+  } elseif ($action === 'login') {
+    // Get JSON read-only stream
+    if (isset($_SESSION)) {
+      session_destroy();
+    }
+    $r = array();
+    $r = file_get_contents('php://input');
+    $request = json_decode($r, true);
+    $username = $request['username'];
+    $password = $request['password'];
+    // Match provided username and password
+    $data['response'] = $db->getUserRecords($username, $password);
+    if (!isset($data['response']['id'])) {
+      // If failed
+      $error['status'] = $data['response']['code'];
+      $error['message'] = $api->getHttpStatusMessage($error['status']);
+    } else {
+      if (!isset($_SESSION)) {
+        session_start();
+        $_SESSION['id'] = $data['response']['id'];
+        $_SESSION['username'] = $username;
+        $_SESSION['role'] = $data['response']['role'];
+      }
+    }
+
+  } elseif ($action === 'logout') {
+    $status = $db->destroySession();
+    if ($status === 'fail') {
+      $error['status'] = 400;
+      $error['message'] = $api->getHttpStatusMessage($error['status']);
+    }
+
+  } elseif ($action === 'getsession') {
+    // Get user's session
+    $request = file_get_contents('php://input');
+    $request = json_decode($request);
+    $data['response'] = $db->getSession();
+
+  } elseif ($action === 'getrole') {
+    // Get the role of a user
+    $id = missinParams($param, 'id');
+    if (id != -1) {
+
+    }
+
   } elseif ($action === 400) {
     // Action is empty
     $error['status'] = $action;
     $error['message'] = $api->getHttpStatusMessage($action);
+
   } else {
     // Action is undefined
     $error['status'] = 404;
@@ -54,6 +100,7 @@ function executeApi () {
 
   $response = encodeJson($data);
   echo $response;
+  flush();
 }
 
 function encodeJson($responseData) {
@@ -61,12 +108,12 @@ function encodeJson($responseData) {
   return $jsonResponse;
 }
 
-function missingAction($array, $property)
+function missinParams($array, $property)
 {
   if (array_key_exists($property, $array)) {
     return strtolower($array[$property]);
   } else {
-    return $error = 400;
+    return $error = -1;
   }
 }
 

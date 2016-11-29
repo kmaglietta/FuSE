@@ -82,10 +82,10 @@
 }
 
 .navbar-custom .navbar-toggle:hover,
-.navbar-custom .navbar-toggle:focus {
-  background-color: #18BC9C;
+.navbar-custom .navbar-toggle:focus,
+.navbar-custom .navbar-toggle:active {
+  background-color: #2C3E50;
   color: white;
-  border-color: #18BC9C;
 }
 
 @media (min-width: 768px) {
