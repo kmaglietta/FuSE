@@ -24,7 +24,7 @@ class db_handler{
     } else {
       $s['id'] = '';
       $s['username'] = 'guest';
-      $s['role'] = '';
+      $s['role'] = 'guest';
     }
     return $s;
   }
@@ -72,6 +72,43 @@ class db_handler{
     if($records > 0){
       return $row = $result->fetch_assoc();
     } else {
+      return $error = array(
+        'code' => 401,
+        'type' => 'No such user found'
+      );
+    }
+  }
+  public function getUserRole($id) {
+    // Fetch user's role based on their id
+    $id = (int)$id;
+    $query = "SELECT u.role FROM users u WHERE u.id LIKE '" . $id . "' LIMIT 1;";
+    $result = $this->conn->query($query) or die($this->conn->error . __LINE__);
+
+    if ($result->num_rows > 0) {
+      $r = array();
+      return $r = $result->fetch_assoc();
+    }
+    else {
+      return $error = array(
+        'code' => 401,
+        'type' => 'No such user found'
+      );
+    }
+  }
+  public function getUserProfile($id) {
+    // Fetch user's profile based on their id
+    $id = (int)$id;
+    $query = "SELECT ts.name, ts.coursename, td.rating FROM tutoringsessions ts
+    INNER JOIN tutordata td ON td.sessionId LIKE ts.sessionId
+    WHERE ts.active NOT LIKE 0
+    AND ts.profileId LIKE " . $id . ";";
+    $result = $this->conn->query($query) or die($this->conn->error . __LINE__);
+
+    if ($result->num_rows > 0) {
+      $r = array();
+      return $r = $result->fetch_assoc();
+    }
+    else {
       return $error = array(
         'code' => 401,
         'type' => 'No such user found'

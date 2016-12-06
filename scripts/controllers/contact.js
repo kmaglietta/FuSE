@@ -10,6 +10,5 @@ angular.module('tossApp')
         console.log('The form has been submitted successfully');
         $state.reload();
       }
-
     }
   });

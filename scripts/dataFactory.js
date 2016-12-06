@@ -5,6 +5,7 @@ angular.module('tossApp')
     // This is to connect to API
     var factory = {};
     var service = 'php/index.php?';
+    var exService = 'http://lamp.cse.fau.edu/~jherna65/apiTest/'
 
     factory.toast = function (data){
       toaster.pop(data.status, "", data.message, 10000, 'trustedHtml');

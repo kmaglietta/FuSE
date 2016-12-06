@@ -17,18 +17,17 @@
       <div class="collapse navbar-collapse navbar-right" id="js-navbar-collapse" uib-collapse="isNavCollapsed">
 
         <ul class="nav navbar-nav">
-          <li ui-sref-active-eq="activeNav"><a ui-sref="home">Home</a></li>
-          <!-- Profile page will double as a login page if not already logged in -->
+          <li ui-sref-active-eq="activeNav" ui-sref-active-eq>
+            <a ui-sref="home">Home</a>
+          </li>
           <li ng-if="vm.userData==null" ui-sref-active-eq="activeNav">
             <a ui-sref="login">Login</a>
           </li>
-          <!-- Visible to both tutors and Admin -->
-          <li ui-sref-active-eq="activeNav"><a ui-sref="contact">Contact</a></li>
           <!-- Visible to logged in user only -->
-          <li ng-if="vm.userData!=null&&vm.userData.username!='guest'" ui-sref-active-eq="activeNav">
+          <li ng-if="vm.userData!=null&&vm.userData.role!='guest'" ui-sref-active-eq="activeNav">
             <a ui-sref="dashboard">Dashboard</a>
           </li>
-          <li ng-if="vm.userData!=null&&vm.userData.username!='guest'" ui-sref-active-eq="activeNav">
+          <li ng-if="vm.userData!=null&&vm.userData.role=='admin'" ui-sref-active-eq="activeNav">
             <a ui-sref="analytics">Analytics</a>
           </li>
         </ul>

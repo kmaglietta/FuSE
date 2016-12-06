@@ -63,16 +63,26 @@ function executeApi () {
 
   } elseif ($action === 'getsession') {
     // Get user's session
-    $request = file_get_contents('php://input');
-    $request = json_decode($request);
+    //$request = file_get_contents('php://input');
+    //$request = json_decode($request);
     $data['response'] = $db->getSession();
 
   } elseif ($action === 'getrole') {
     // Get the role of a user
-    $id = missinParams($param, 'id');
-    if (id != -1) {
+    $r = array();
+    $r = file_get_contents('php://input');
+    $request = json_decode($r, true);
+    $id = $request['id'];
+    $data['response'] = $db->getUserRole($id);
 
-    }
+  } elseif ($action === 'getprofile') {
+    // Fetch user's profile based on user's id
+    $id = missinParams($params, 'id');
+    /*$r = array();
+    $r = file_get_contents('php://input');
+    $request = json_decode($r, true);
+    $id = $request['id'];*/
+    $data['response'] = $db->getUserProfile($id);
 
   } elseif ($action === 400) {
     // Action is empty
@@ -115,6 +125,12 @@ function missinParams($array, $property)
   } else {
     return $error = -1;
   }
+}
+
+function calAvg($input, $sum, $totalNum) {
+  $sum *= ($totalNum - 1);
+  $total = ($sum + $input) / $totalNum;
+  return $total;
 }
 
 executeApi();

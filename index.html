@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>My Homepage</title>
+    <title>Go Owl Tutoring</title>
 
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
@@ -29,15 +29,15 @@
 <body ng-app="tossApp">
     <!--[if lte IE 8]>
     <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-  <![endif]-->
-  <!--[if lt IE 9]>
-  <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
-<![endif]-->
+    <![endif]-->
+    <!--[if lt IE 9]>
+    <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <![endif]-->
     <div ui-view="header"><!-- Inject navbar using UI-Router --></div>
     <div class="route" ui-view="content"> <!-- Inject content using UI-Router --> </div>
     <toaster-container toaster-options="{'time-out': 3000}"></toaster-container>
 
-    <div ui-view="footer"><!-- Inject navbar using UI-Router --></div>
+    <div ui-view="footer"><!-- Inject footer using UI-Router --></div>
 
     <!-- Dependency scripts -->
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
@@ -59,6 +59,7 @@
 
     <!-- Custom scripts -->
     <script src="scripts/app.js"></script>
+    <script src="scripts/dataFactory.js"></script>
     <script src="scripts/controllers/main.js"></script>
     <script src="scripts/controllers/about.js"></script>
     <script src="scripts/controllers/contact.js"></script>
@@ -67,8 +68,9 @@
     <script src="scripts/controllers/footer.js"></script>
     <script src="scripts/directives/main.table.js"></script>
     <script src="scripts/controllers/dashboard.js"></script>
+    <script src="scripts/controllers/profile.js"></script>
     <script src="scripts/directives/tutor.table.js"></script>
-    <script src="scripts/dataFactory.js"></script>
+    <script src="scripts/directives/dashboard.component.js"></script>
 
 </body>
 

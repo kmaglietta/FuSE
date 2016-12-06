@@ -23,6 +23,6 @@ https://github.com/huston007/ng-annotate-loader <- Run ng-annotate on the bundle
 * ~~Integrate PHP + MySQL~~
 * Integrate messaging system
 * Implement Analytics page
-* Implement Dashboard page
+* ~~Implement Dashboard page~~
 * ~~User authentication using AngularJS and UI-Router~~
 * Remove all bower components and change them all to CDN

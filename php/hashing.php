@@ -30,10 +30,7 @@ class hashing{
   }*/
 
   public static function check_password($password, $fetchedPassword){
-    //return password_verify($password, $fetchedPassword);
-    // DO NOT USE THIS IN PROD
-    if($password == $fetchedPassword) return true;
-    else return false;
+    return password_verify($password, $fetchedPassword);
   }
 }
 

@@ -1,13 +1,17 @@
-<div class="col-xs-12 col-sm-6 col-md-8 col-md-offset-2 center-block container main"
-id="main" ng-hide="dismiss">
+<div class="presentable container main"
+id="main">
   <div class="row">
-    <div class="jumbotron home-content">
-      <h1>Welcome, {{ vm.userData.username }}</h1>
-      <p class="lead">
-        Cheers to you, {{ vm.userData.role }}
-      </p><br/>
-      <a href class="top-buffer btn btn-lg btn-success" ng-click="vm.logout()">LOGOUT&nbsp;
-        <span class="fa fa-check"></span></a>
+    <div class="col-xs-12 col-sm-6 col-md-8 col-md-offset-2">
+      <div class="home-content center-block ">
+        <h1>Welcome, {{ vm.userData.username }}</h1>
+        <p class="lead">
+          Cheers to you, {{ vm.userData.role }}
+        </p>
+        <a href class="top-buffer btn btn-lg btn-success" ng-click="vm.logout()">LOGOUT&nbsp;
+          <span class="fa fa-check"></span></a>
+      </div>
     </div>
   </div>
 </div>
+
+<admin-dashboard ng-if="vm.role=='admin'" info="'Admin views'"></admin-dashboard>

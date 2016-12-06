@@ -6,24 +6,11 @@
   </div>
 </div>
 
-<div class="container col-xs-12 col-sm-6 col-md-8 col-md-offset-2 center-block main"
-id="main" ng-hide="dismiss">
+<div class="container mainTable presentable">
   <div class="row">
-    <div class="jumbotron home-content">
-      <h1>Online Searchable Schedule</h1>
-      <p class="lead">
-        Hello Galaxy!
-      </p>
-      <p><a href class="btn btn-lg btn-success" ng-click="dismiss=true">Dismiss&nbsp;
-        <span class="fa fa-check"></span></a></p>
+    <div class="center-block col-xs-12 col-sm-6 col-md-8 col-md-offset-2">
+      <my-table info="'Available Tutoring Sessions'" class="tutorings">
+      </my-table>
     </div>
-  </div>
-</div>
-
-<div class="center-block col-xs-12 col-sm-6 col-md-8 col-md-offset-2 presentable container mainTable">
-  <div class="row">
-    <my-table info="'Available Tutoring Sessions'" class="tutorings">
-      <!-- Main table template will be inserted here -->
-    </my-table>
   </div>
 </div>

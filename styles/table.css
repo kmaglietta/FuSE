@@ -3,9 +3,7 @@
 .clickable {
   cursor: pointer;
 }
-.presentable {
-  background: white;
-}
+
 #main-intro{
   font-family: 'Roboto Condensed', 'Roboto', serif;
   text-align: center;

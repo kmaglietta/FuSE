@@ -1,7 +1,3 @@
-CREATE DATABASE IF NOT EXISTS gotFuse;
-
-USE gotFuse;
-
 --
 -- Table structure for table `users`
 --

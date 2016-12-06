@@ -26,7 +26,17 @@ body {
   float: none !important;
 }
 .top-buffer {
-  margin-top: 50px;
+  margin-top: 25px;
+}
+.bottom-buffer {
+  margin-bottom: 25px;
+}
+.buffer {
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+.presentable {
+  background: white;
 }
 /* Resize the profile image */
 .pic-profile {
@@ -150,4 +160,25 @@ img.img-banner{
     padding: 0;
     text-align: center;
   }
+}
+
+
+/*
+
+ * Profile image
+
+ */
+.profile-header-container{
+    margin: 0 auto;
+    text-align: center;
+}
+
+.profile-header-img > img.img-circle {
+    width: 120px;
+    height: 120px;
+    border: 2px solid #51D2B7;
+}
+
+.profile-statemate {
+  padding: 33px;
 }
