@@ -2,8 +2,8 @@
 
 
 <script>
-var table = $(document).ready(function() {
-    $('#courses').DataTable( {
+ $(document).ready(function() {
+   var table = $('#courses').DataTable( {
 	    "ajax": {
 			"url": "apiTest/?action=getlist",
 			"type": "POST"
@@ -16,28 +16,53 @@ var table = $(document).ready(function() {
 		  { "data": 'date' },
 		  { "data": 'starttime' },
 		  { "data": 'endtime' },
-		  { "data": 'status' }
+		  { "data": 'status' , 
+             	render: function ( data, type, row ) {
+              		return '<div class="' + data.toLowerCase() + '">' + data + '</div>';
+            	}
+		  }
+		  ,
+		  { "data": 'studentid' , 
+             	render: function ( data, type, row ) {
+              		return '<a href="/~jherna65/tutorProfile.php?studentid='+data+'"><img src="/~jherna65/images/user-id-32.png" width="32" height="32" alt=""/></a>';
+            	}
+		}
+
 	    ]
 	, "deferRender": true,
 
 	"oLanguage": {
          "sSearch": "Search any field:"
-       }
+	   , "sEmptyTable": "No Sessions are available at this time..."
+	   ,  "sZeroRecords": "No Sessions are available at this time..."
+       },
+	 "language": {
+		"emptyTable": "No Sessions are available at this time..."
+		, "zeroRecords": "No Sessions are available at this time..."
+	    }
+
 
     } );
     
+        setInterval( function () {
+		    table.ajax.reload( null, false ); // user paging is not reset on reload
+		}, 10000 );
 
-        table.rows().every( function ( rowIdx, tableLoop, rowLoop ) {
-        var data = this.data();        
-        console.log(data);
+
+});   
+
+        //table.rows().every( function ( rowIdx, tableLoop, rowLoop ) {
+        //var data = this.data();        
+        //console.log(data);
         
-        data[0] = '*ddddd ' + data[0];
-                
-        this.data(data);
-    });
-    
+	  //table.ajax.reload( null, false );
+        //data[0] = '*ddddd ' + data[0];
+        //this.data(data);
+    //});
 
-} );
+
+
+
 </script>
 
 <div class="makeresponsive">
@@ -64,6 +89,7 @@ var table = $(document).ready(function() {
 		    <th>Start Time</th>
 		    <th>End Time</th>
 		    <th>Status</th>
+		    <th>View Profile</th>
 		</tr>
 	  </thead>
 	</table>

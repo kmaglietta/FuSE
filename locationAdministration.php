@@ -44,7 +44,7 @@
 							    dataType: 'json',
 							    data: postData,
 							    success: function (data) {
-								  $dfd.resolve(data);
+								  $dfd.resolve(data); $('#TableContainer').jtable('reload');
 							    },
 							    error: function () {
 								  $dfd.reject();
@@ -60,7 +60,7 @@
 							dataType: 'json',
 							data: postData,
 							success: function (data) {
-							    $dfd.resolve(data);
+							    $dfd.resolve(data); $('#TableContainer').jtable('reload');
 							},
 							error: function () {
 							    $dfd.reject();
@@ -76,7 +76,7 @@
 //							dataType: 'json',
 //							data: postData,
 //							success: function (data) {
-//							    $dfd.resolve(data);
+//							    $dfd.resolve(data); //$('#TableContainer').jtable('reload');
 //							},
 //							error: function () {
 //							    $dfd.reject();
@@ -102,18 +102,18 @@
 					},
 					RequiresBooking: {
 						title: 'Requires Booking',
-						options: { 1 : 'Yes', 0: 'No' }					
+						options: { 0 : 'No', 1 : 'Yes' }					
 					},
 					MultiBookingAllowed: {
 						title: 'Multi Booking?'	,
-						options: { 1 : 'Yes', 0: 'No' }											
+						options: { 0 : 'No', 1 : 'Yes' }											
 					},
 					MaxNumberUsers: {
 						title: 'Max Capacity'
 					},
 					Active: {
 						title: 'Active',
-						options: { 1 : 'Yes', 0: 'No' }
+						options: { 0 : 'No', 1 : 'Yes' }
 					},
 					ApprovedBy: {
 						title: 'ApprovedBy',

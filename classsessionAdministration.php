@@ -47,7 +47,8 @@
 							    dataType: 'json',
 							    data: postData,
 							    success: function (data) {
-								  $dfd.resolve(data);
+								  $dfd.resolve(data); 
+								  $('#TableContainer').jtable('reload');
 							    },
 							    error: function () {
 								  $dfd.reject();
@@ -63,7 +64,7 @@
 							dataType: 'json',
 							data: postData,
 							success: function (data) {
-							    $dfd.resolve(data);
+							    $dfd.resolve(data); $('#TableContainer').jtable('reload');
 							},
 							error: function () {
 							    $dfd.reject();
@@ -71,22 +72,22 @@
 						  });
 					    });
 					}
-//					, deleteAction: function (postData, jtParams) {
-//					    return $.Deferred(function ($dfd) {
-//						  $.ajax({
-//							 url: 'apiTest/?action=deleteClasssession',
-//							type: 'POST',
-//							dataType: 'json',
-//							data: postData,
-//							success: function (data) {
-//							    $dfd.resolve(data);
-//							},
-//							error: function () {
-//							    $dfd.reject();
-//							}
-//						  });
-//					    });
-//					}
+					, deleteAction: function (postData, jtParams) {
+					    return $.Deferred(function ($dfd) {
+						  $.ajax({
+							 url: 'apiTest/?action=deleteClasssession',
+							type: 'POST',
+							dataType: 'json',
+							data: postData,
+							success: function (data) {
+							    $dfd.resolve(data); $('#TableContainer').jtable('reload');
+							},
+							error: function () {
+							    $dfd.reject();
+							}
+						  });
+					    });
+					}
 				},
 				fields: {
 					//``, ``, ``, ``, ``, ``, ``, ``
@@ -125,55 +126,66 @@
 					
 					SessionStartTime: {
 						title: 'Session Start',
-//						display: function (data) {
-//							try {
-//							  return dateFormat(data.record.SessionStartTime, "yyyy-mm-dd h:MM TT");
-//							}
-//							catch (exception) {
-//								return null;	
-//							}
-//							
-//						    }
+						format:    'MM-DD-YYYY h:mm A',
+						//display: function (data) {
+						//	try {
+						//	  return dateFormat(data.record.SessionStartTime, "yyyy-mm-dd h:MM TT");
+						//	}
+						//	catch (exception) {
+						//		//var today = new Date();
+						//		//return dateFormat( today, "yyyy-mm-dd h:MM TT");	
+						//		return null;
+						//	}
+						//	
+						 //   }
+						 
 					},
 					
 					SessionEndTime: {
 						title: 'Session End',
-//						display: function (data) {
-//							try {
-//							  return dateFormat(data.record.SessionEndTime, "yyyy-mm-dd h:MM TT");
-//							}
-//							catch (exception) {
-//								return null;	
-//							}
-//							
-//						    }
+						display: function (data) {
+							try {
+							  return dateFormat(data.record.SessionEndTime, "yyyy-mm-dd h:MM TT");
+							}
+							catch (exception) {
+								//var today = new Date();
+								//return dateFormat( today, "yyyy-mm-dd h:MM TT");	
+								return null;
+							}
+							
+						    }
 						
 					},
 					Canceled: {
 						title: 'Canceled?',
-						options: { 1 : 'Yes', 0: 'No' },
+						options: { 0 : 'No', 1 : 'Yes' },
+						create: false,
+						edit: true,
+						list: true
+						
 					},
 					CancelReason: {
-						title: 'Cancel Reason' 
+						title: 'Cancel Reason' ,
+						create: false,
+						edit: true,
+						list: true
 					},
 
-					
-					Canceled: {
-						title: 'Canceled?',
-						options: { 1 : 'Yes', 0: 'No' },
-					},
-					
 					CanceledByTutor: {
 						title: 'Canceled By Tutor',
-						options: { 1 : 'Yes', 0 : 'No' },
+						options: { 0 : 'No', 1 : 'Yes' },
 						create: false,
-						edit: false,
+						edit: true,
 						list: true
 					},
 					
 					CanceledByAdminId: {
-						title: 'CanceledByAdminId' ,
-						options: 'apiTest/?action=getDirectornames'
+						title: 'Canceled By Admin' ,
+						options: 'apiTest/?action=getDirectornames',
+						create: false,
+						edit: true,
+						list: true
+						
 					},
 					DateCanceled: {
 						title: 'Date Canceled',
@@ -190,11 +202,30 @@
 						edit: false,
 						list: false
 					}
+					,
+					Status: {
+						title: 'Status',
+						create: false,
+						edit: false,
+						list: true, 
+						display: function (data) {
+							try
+							{
+							 return '<div class="' + (data.record.Status).toLowerCase() + '2">' + data.record.Status + '</div>'; 
+							}
+							catch (ex)
+							{
+							 return '';	
+							}
+					     }
+					}
+					
 				}
 				,
 				formCreated: function (event, data) 
 				    {
-					 $("#Edit-CanceledByAdminId").prepend("<option value='' selected='selected'></option>");
+					 $("#Edit-CanceledByAdminId").prepend("<option value='0' selected='selected'></option>");
+					 //
 					 
 					 
 					 var $input_start_time = data.form.find ('input[name="SessionStartTime"]');
@@ -273,10 +304,28 @@
 						//	}
 						});
 						
-
+			//			 //Initialize validation logic when a form is created
+				//		 data.form.find('input[name="CancelReason"]').addClass('validate[required]');
+	    	 	    //            //data.form.find('input[name="EmailAddress"]').addClass('validate[required,custom[email]]');
+			   //             //data.form.find('input[name="Password"]').addClass('validate[required]');
+			   //            // data.form.find('input[name="BirthDate"]').addClass('validate[required,custom[date]]');
+			  //              //data.form.find('input[name="Education"]').addClass('validate[required]');
+			//                data.form.validationEngine();
 						
 		
-				    }
+				    },
+				    
+			            ////Validate form when it is being submitted
+			            //formSubmitting: function (event, data) {
+			            //    return data.form.validationEngine('validate');
+			            //},
+			            ////Dispose validation logic when form is closed
+			            //formClosed: function (event, data) {
+			            //    data.form.validationEngine('hide');
+			            //    data.form.validationEngine('detach');
+			            //}
+				
+
 			});
 
 			//$('#TableContainer').jtable('load');

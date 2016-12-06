@@ -20,6 +20,14 @@ class dataClasssession
 			, concat(c.Subject , ' ' , c.Coursename, ' ' ,  c.CourseName) as ClassSession
 			, concat(s.FirstName , ' ' , s.LastName) as StudentName
 			
+			, case when TS.Canceled = 0 then 
+				case 
+					when NOW() between TS.SessionStartTime and TS.SessionEndTime then 'Active'
+					when TS.SessionEndTime <= NOW() then 'Completed'
+					else 'Upcoming' 
+				end	
+			else 'Canceled' end Status
+			
 			
 			 FROM 
 			proTutoringSession TS
@@ -31,7 +39,7 @@ class dataClasssession
 		";
 		
 		$deleteQuery = "
-			DELETE FROM proTutor WHERE proTutor.TutorId =  $SessionId
+			DELETE FROM proTutoringSession WHERE SessionId =  $SessionId
 		";
 		
 		$obj = helpers::runQuery($selectQuery);
@@ -56,6 +64,12 @@ class dataClasssession
 		$LocationId = helpers::getArrayValue($params,'LocationId');
 		$SessionStartTime = helpers::getArrayValue($params,'SessionStartTime');
 		$SessionEndTime = helpers::getArrayValue($params,'SessionEndTime');
+				
+		$Canceled = helpers::getArrayValue($params,'Canceled');
+		$CanceledByAdminId = helpers::getArrayValue($params,'CanceledByAdminId');
+		$CancelReason = helpers::getArrayValue($params,'CancelReason');
+		$CanceledByTutor = helpers::getArrayValue($params,'CanceledByTutor');
+
 
 		$selectQuery = "
 			SELECT
@@ -66,6 +80,13 @@ class dataClasssession
 			, concat(c.Subject , ' ' , c.Coursename, ' ' ,  c.CourseName) as ClassSession
 			, concat(s.FirstName , ' ' , s.LastName) as StudentName
 			
+			, case when TS.Canceled = 0 then 
+				case 
+					when NOW() between TS.SessionStartTime and TS.SessionEndTime then 'Active'
+					when TS.SessionEndTime <= NOW() then 'Completed'
+					else 'Upcoming' 
+				end	
+			else 'Canceled' end Status
 			
 			 FROM 
 			proTutoringSession TS
@@ -91,11 +112,16 @@ class dataClasssession
 				TutorId = $TutorId, 
 				LocationId = $LocationId, 
 				SessionStartTime = STR_TO_DATE('$SessionStartTime','%Y-%m-%d %h:%i %p')  , 
-				SessionEndTime = STR_TO_DATE('$SessionEndTime','%Y-%m-%d %h:%i %p')
-			
+				SessionEndTime = STR_TO_DATE('$SessionEndTime','%Y-%m-%d %h:%i %p'),
+				Canceled = $Canceled, 
+				CancelReason = '$CancelReason',
+				CanceledByAdminId = $CanceledByAdminId,
+				DateCanceled = 
+					case when $CanceledByAdminId > 0 or $CanceledByTutor > 0 then NOW() else null end,
+				CanceledByTutor = $CanceledByTutor
 			where SessionId = $SessionId
 		";
-//throw new ResponseException(500, "[$updateQuery]");
+//
 		$selectQuery = "
 			SELECT
 
@@ -104,7 +130,13 @@ class dataClasssession
 			
 			, concat(c.Subject , ' ' , c.Coursename, ' ' ,  c.CourseName) as ClassSession
 			, concat(s.FirstName , ' ' , s.LastName) as StudentName
-			
+			, case when TS.Canceled = 0 then 
+				case 
+					when NOW() between TS.SessionStartTime and TS.SessionEndTime then 'Active'
+					when TS.SessionEndTime <= NOW() then 'Completed'
+					else 'Upcoming' 
+				end	
+			else 'Canceled' end Status
 			
 			 FROM 
 			proTutoringSession TS
@@ -122,6 +154,8 @@ class dataClasssession
 			throw new ResponseException(200,'SessionId does not exists in database');
 		}
 		
+//throw new ResponseException(500, "[$updateQuery]");
+
 		
 		helpers::runQuery($updateQuery);
 		$obj = helpers::runQuery($selectQuery);
@@ -140,7 +174,11 @@ class dataClasssession
 		$LocationId = helpers::getArrayValue($params,'LocationId');
 		$SessionStartTime = helpers::getArrayValue($params,'SessionStartTime');
 		$SessionEndTime = helpers::getArrayValue($params,'SessionEndTime');
-		
+		//$Canceled = helpers::getArrayValue($params,'Canceled');
+		//$CanceledByAdminId = helpers::validateInt($params,'CanceledByAdminId');
+		//$CancelReason = helpers::getArrayValue($params,'CancelReason');
+
+
 		
 		$ClassId = helpers::getArrayValue($params,'ClassId');
 		$ApprovedByAdminId = helpers::getArrayValue($params,'ApprovedByAdminId');
@@ -154,6 +192,13 @@ class dataClasssession
 			, concat(c.Subject , ' ' , c.Coursename, ' ' ,  c.CourseName) as ClassSession
 			, concat(s.FirstName , ' ' , s.LastName) as StudentName
 			
+			, case when TS.Canceled = 0 then 
+				case 
+					when NOW() between TS.SessionStartTime and TS.SessionEndTime then 'Active'
+					when TS.SessionEndTime <= NOW() then 'Completed'
+					else 'Upcoming' 
+				end	
+			else 'Canceled' end Status
 			
 			 FROM 
 			proTutoringSession TS
@@ -162,10 +207,10 @@ class dataClasssession
 			inner join proClassInformation as c on c.ClassId = t.ClassId
 			
 			where 
-				t.TutorId = $TutorId
-				and t.LocationId = $LocationId
-				and t.SessionStartTime = STR_TO_DATE('$SessionStartTime','%Y-%m-%d %h:%i %p') 
-				and t.SessionEndTime = STR_TO_DATE('$SessionEndTime','%Y-%m-%d %h:%i %p')
+				TS.TutorId = $TutorId
+				and TS.LocationId = $LocationId
+				and TS.SessionStartTime = STR_TO_DATE('$SessionStartTime','%Y-%m-%d %h:%i %p') 
+				and TS.SessionEndTime = STR_TO_DATE('$SessionEndTime','%Y-%m-%d %h:%i %p')
 
 		";
 		$obj = helpers::runQuery($selectQuery);
@@ -174,12 +219,14 @@ class dataClasssession
 			throw new ResponseException(200,'Session combination already exists in database');
 		}
 
+		//,Canceled,CanceledByAdminId
+		//,$Canceled, case when $CanceledByAdminId = 0  then NULL else $CanceledByAdminId end		
 		$insertQuery = "
-			INSERT INTO proTutoringSession (SessionId, TutorId, LocationId, SessionStartTime, SessionEndTime, DateEntered) 
+			INSERT INTO proTutoringSession (SessionId, TutorId, LocationId, SessionStartTime, SessionEndTime, DateCreated) 
 			VALUES (NULL, $TutorId, $LocationId, STR_TO_DATE('$SessionStartTime','%Y-%m-%d %h:%i %p') , STR_TO_DATE('$SessionEndTime','%Y-%m-%d %h:%i %p'), CURRENT_TIMESTAMP);
 		";
 	
-		
+//throw new ResponseException(500, "[$insertQuery]");			
 		
 		$obj = helpers::runQuery($selectQuery);
 		if ($obj)
@@ -188,7 +235,7 @@ class dataClasssession
 		}
 		helpers::runQuery($insertQuery);
 		$obj = helpers::runQuery($selectQuery);
-		
+//throw new ResponseException(500, "[$selectQuery]");		
 		$retobj = array();
 		$retobj['Record'] = helpers::runQuery($selectQuery);
 		$retobj["attributes"] = helpers::runQuery("select count(0) TotalRecordCount from proTutoringSession");
@@ -212,6 +259,13 @@ class dataClasssession
 			, concat(c.Subject , ' ' , c.Coursename, ' ' ,  c.CourseName) as ClassSession
 			, concat(s.FirstName , ' ' , s.LastName) as StudentName
 			
+			, case when TS.Canceled = 0 then 
+				case 
+					when NOW() between TS.SessionStartTime and TS.SessionEndTime then 'Active'
+					when TS.SessionEndTime <= NOW() then 'Completed'
+					else 'Upcoming' 
+				end	
+			else 'Canceled' end Status
 			
 			 FROM 
 			proTutoringSession TS

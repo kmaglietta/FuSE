@@ -73,7 +73,7 @@ class dataTutor
 			t.TutorId, t.StudentId, t.ClassId, t.ApprovedOn, t.ApprovedByAdminId, t.DateEntered
 			
 			, concat(s.FirstName , ' ' , s.LastName) as StudentName
-			, concat(c.Subject , ' ' , c.Coursename, ' ' ,  c.CourseName) as ApprovedForClassName
+			, concat(c.Subject , ' ' , c.CourseNumber, ' ' ,  c.CourseName) as ApprovedForClassName
 			, concat(p.FirstName , ' ' , p.LastName) as ApprovedByName
 			
 			FROM proTutor t
@@ -242,6 +242,120 @@ class dataTutor
 		
 		return $retobj;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	public function getprofileAction($data,$params){
+		
+		$StudentId = helpers::getArrayValue($params,'StudentId');
+		
+		$selectQuery = "
+			
+		SELECT 
+			t.StudentId
+			, s.FirstName
+			, s.LastName
+			, concat(s.FirstName , ' ' , s.LastName) as StudentName
+			, min(t.ApprovedOn) TutorSince
+			, count(1) TotalStudentsTutored
+			, sum(tss.StudentRating ) TotalRatingSum
+			, sum( case when tss.StudentRating > 0 then 1 else 0 end) TotalStudentsRatedTutor
+			, sum(tss.StudentRating ) /  sum( case when tss.StudentRating > 0 then 1 else 0 end)  AverageRating
+			
+			
+			from 
+			proTutor t 
+			inner join proStudent s on s.StudentId = t.StudentId
+			inner join proTutoringSession ts on ts.TutorId = t.TutorId 
+			left join  proTutoringSessionStudents tss   on tss.SessionId = ts.SessionId
+
+			where t.StudentId = $StudentId
+			
+			group by t.StudentId
+			, s.FirstName
+			, s.LastName
+			, concat(s.FirstName , ' ' , s.LastName)
+			
+		";
+		
+		$retobj = array();
+		
+		$retobj['Records'] = helpers::runQuery($selectQuery);
+		//$retobj["attributes"] = helpers::runQuery("select count(0) TotalRecordCount from proTutor");
+		return $retobj;
+	}
+
+
+	public function gettutorclassesAction($data,$params){
+		
+		$StudentId = helpers::getArrayValue($params,'StudentId');
+		
+		$selectQuery = "
+			
+				SELECT 
+					
+				
+				concat(c.Subject , ' ' , c.CourseNumber) Course
+				, c.CourseName
+				
+				, sum(tss.StudentRating ) TotalRatingSum
+							, sum( case when tss.StudentRating > 0 then 1 else 0 end) TotalStudentsRatedTutor
+							, sum(tss.StudentRating ) /  sum( case when tss.StudentRating > 0 then 1 else 0 end)  AverageRating
+							
+						FROM proTutor t
+							inner join proAdministrator  as p on t.ApprovedByAdminId = p.AdminId
+							inner join proStudent as s on s.StudentId = t.StudentId
+							inner join proClassInformation as c on c.ClassId = t.ClassId
+				inner join proTutoringSession ts on ts.TutorId = t.TutorId
+				
+				left join  proTutoringSessionStudents tss   on tss.SessionId = ts.SessionId
+				
+				
+				where t.StudentId = $StudentId
+				
+				group by 
+				concat(c.Subject , ' ' , c.CourseNumber) 
+				, c.CourseName
+				
+				order by 1,2
+							
+			
+		";
+//throw new ResponseException(500, "[$selectQuery]");		
+		$retobj = array();
+		
+		$retobj['Records'] = helpers::runQuery($selectQuery);
+		$retobj["attributes"] = helpers::runQuery("
+		
+			SELECT 
+					
+				count(distinct t.TutorId) TotalRecordCount
+							
+						FROM proTutor t
+							inner join proAdministrator  as p on t.ApprovedByAdminId = p.AdminId
+							inner join proStudent as s on s.StudentId = t.StudentId
+							inner join proClassInformation as c on c.ClassId = t.ClassId
+				inner join proTutoringSession ts on ts.TutorId = t.TutorId
+				
+				left join  proTutoringSessionStudents tss   on tss.SessionId = ts.SessionId
+				
+				
+				where t.StudentId = $StudentId
+				
+				
+
+		
+		
+		
+		");
+		return $retobj;
+	}	
+	
 
 
 	

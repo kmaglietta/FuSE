@@ -12,22 +12,23 @@ class dataMain
 			, concat(l.BuildingName, ' ' , l.RoomNumber) as location
 			, dayname(ts.SessionStartTime) day
 			, DATE(ts.SessionStartTime) date
-			, TIME_FORMAT(ts.SessionStartTime,'%H:%i') starttime
-			, TIME_FORMAT(ts.SessionEndTime,'%H:%i') endtime
-			, case when l.active = 1 then 
+			, TIME_FORMAT(ts.SessionStartTime,'%h:%i %p') starttime
+			, TIME_FORMAT(ts.SessionEndTime,'%h:%i %p') endtime
+			, case when ts.Canceled = 0 then 
 				case 
 					when NOW() between ts.SessionStartTime and ts.SessionEndTime then 'Active'
 					when ts.SessionEndTime <= NOW() then 'Completed'
 					else 'Upcoming' 
 				end	
 			else 'Canceled' end status
+			, s.studentid
 			FROM proStudent s
 			inner join proTutor t on s.StudentId = t.StudentId
 			inner join proClassInformation  c on t.ClassId = c.ClassId
 			inner join proTutoringSession ts on ts.TutorId = t.TutorId
 			inner join proLocation l on l.LocationId = ts.LocationId
 			
-			where ts.SessionEndTime >= DATE_ADD(NOW(),INTERVAL - 1 hour)
+			where ts.SessionEndTime >= DATE_ADD(NOW(),INTERVAL - 24 hour)
 			and ts.SessionEndTime <= DATE_ADD(CURDATE(),INTERVAL 7 day)
 			
 			Order by ts.SessionStartTime, c.coursename, concat(s.FirstName , ' ' , s.LastName)
@@ -49,15 +50,16 @@ class dataMain
 			, concat(l.BuildingName, ' ' , l.RoomNumber) as location
 			, dayname(ts.SessionStartTime) day
 			, ts.SessionStartTime
-			, TIME_FORMAT(ts.SessionStartTime,'%H:%i') starttime
-			, TIME_FORMAT(ts.SessionEndTime,'%H:%i') endtime
-			, case when l.active = 1 then 
+			, TIME_FORMAT(ts.SessionStartTime,'%h:%i %p') starttime
+			, TIME_FORMAT(ts.SessionEndTime,'%h:%i %p') endtime
+			, case when ts.Canceled = 0 then 
 				case 
 					when NOW() between ts.SessionStartTime and ts.SessionEndTime then 'Active'
 					when ts.SessionEndTime <= NOW() then 'Completed'
 					else 'Upcoming' 
 				end	
 			else 'Canceled' end status
+			, s.studentid
 			FROM proStudent s
 			inner join proTutor t on s.StudentId = t.StudentId
 			inner join proClassInformation  c on t.ClassId = c.ClassId

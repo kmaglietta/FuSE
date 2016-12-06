@@ -43,6 +43,14 @@ class post
 	public function getTutorsAction($data,$params)		{ $dataClass = new dataTutor(); 	return $dataClass->getAction($data,$params); }	
 	public function getTutornamesAction($data,$params)	{ $dataClass = new dataTutor(); 	return $dataClass->getnamesAction($data,$params);  }	
 	
+	public function getProfileAction($data,$params)		{ $dataClass = new dataTutor(); 	return $dataClass->getprofileAction($data,$params);  }	
+	public function getTutorclassesAction($data,$params)	{ $dataClass = new dataTutor(); 	return $dataClass->gettutorclassesAction($data,$params);  }	
+	
+	
+	
+	
+	
+	
 	public function addClasssessionAction($data,$params)		{ $dataClass = new dataClasssession(); 	return $dataClass->addAction($data,$params); }
 	public function updateClasssessionAction($data,$params)	{ $dataClass = new dataClasssession(); 	return $dataClass->updateAction($data,$params); }
 	public function deleteClasssessionAction($data,$params) 	{ $dataClass = new dataClasssession(); 	return $dataClass->deleteAction($data,$params); }

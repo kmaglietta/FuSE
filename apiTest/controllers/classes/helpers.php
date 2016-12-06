@@ -21,12 +21,12 @@ class helpers
 	public static function validateInt($data, $varname){
 		if ($data == "")
 		{
-			$data == 0;
+			$data = 0;
 		}
 		$data = filter_var($data, FILTER_SANITIZE_NUMBER_INT);
 		if ($data == "")
 		{
-			$data == 0;
+			$data = 0;
 		}
 		return $data;
 	}
@@ -140,7 +140,6 @@ class helpers
 			return "";
 		}
 	}
-	
 	
 	
 }

@@ -45,7 +45,7 @@
 							    dataType: 'json',
 							    data: postData,
 							    success: function (data) {
-								  $dfd.resolve(data);
+								  $dfd.resolve(data); $('#TableContainer').jtable('reload');
 							    },
 							    error: function () {
 								  $dfd.reject();
@@ -61,7 +61,7 @@
 							dataType: 'json',
 							data: postData,
 							success: function (data) {
-							    $dfd.resolve(data);
+							    $dfd.resolve(data); $('#TableContainer').jtable('reload');
 							},
 							error: function () {
 							    $dfd.reject();
@@ -77,7 +77,7 @@
 							dataType: 'json',
 							data: postData,
 							success: function (data) {
-							    $dfd.resolve(data);
+							    $dfd.resolve(data); //$('#TableContainer').jtable('reload');
 							},
 							error: function () {
 							    $dfd.reject();

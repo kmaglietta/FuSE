@@ -123,6 +123,9 @@ body,html{
   border-color: #18BC9C;
 }
 
+
+
+
 @media (min-width: 768px) {
   .navbar-custom {
     padding: 25px 0;
@@ -142,6 +145,7 @@ body,html{
   .navbar-custom.affix .navbar-brand {
     font-size: 1.5em;
   }
+  
 }
 
 
@@ -349,6 +353,8 @@ header {clear:both;}
 				margin-right:auto; }
 	.fixed .col-xs-3{display:table-row}
 	.fixed label, .fixed input {display: table-cell;}
+
+
 			
 		}
 		@media screen and (max-width: 500px) {
@@ -413,6 +419,7 @@ header {clear:both;}
     margin-left: -10px;
     transform: scale(.9, .9);
   } 
+   
       
 }
 
@@ -485,9 +492,43 @@ and (max-device-width : 1024px) {
 }
 
 
+
 } /* <-----------------missing bracket */
 
 
+
+
+@media (max-width: 1000px) {
+.logo{
+display: block;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+	background: url(/~jherna65/images/fau-logo.png);
+	background-size: 350px 35px;
+	background-repeat: no-repeat;
+	
+  width: 350px; /* Width of new image */
+  height: 35px; /* Height of new image */
+  padding-left: 350px; /* Equal to width of new image */
+}
+}
+
+
+@media (max-width: 768px) {
+.logo{
+display: block;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+	background: url(/~jherna65/images/fau-logo-sm.png);
+	background-size: 117px 50px;
+	background-repeat: no-repeat;
+	
+  width: 117px; /* Width of new image */
+  height: 50px; /* Height of new image */
+  padding-left: 117px; /* Equal to width of new image */
+  margin:10px;
+}
+}
 
 
 

@@ -3,6 +3,8 @@
 
 <script>
 $(document).ready(function() {
+	
+	//alert($.fn.dataTable.version);
  
 /* table ************ */
     var table = $('#courses').DataTable( {
@@ -17,15 +19,27 @@ $(document).ready(function() {
 		  { "data": 'location' },
 		  { "data": 'starttime' },
 		  { "data": 'endtime' },
-		  { "data": 'status' }
+		  { "data": 'status' , 
+             	render: function ( data, type, row ) {
+              		return '<div class="' + data.toLowerCase() + '">' + data + '</div>';
+            	}
+		  }
 	    ]
 	, 
+	"order": [ [4,'asc'], [5,'asc'] ]
+	,
 	"deferRender": true,
 	"sDom" : 'rt',
 
 	"oLanguage": {
          "sSearch": "Search any field:"
-       }
+	   , "sEmptyTable": "No Sessions are available at this time..."
+	   ,  "sZeroRecords": "No Sessions are available at this time..."
+       },
+	 "language": {
+		"emptyTable": "No Sessions are available at this time..."
+		, "zeroRecords": "No Sessions are available at this time..."
+	    }
 	 
     } );
     
@@ -33,25 +47,13 @@ $(document).ready(function() {
             
             if(table.page() === table.page('last').page()) {
                 table.page('first');
+		    table.ajax.reload( null, false ); 
             } else {
                 table.page('next');
             }
-            table.draw('page');
-        }, 5000); 
-
- //table.rows().every( function ( rowIdx, tableLoop, rowLoop ) {
- //       var data = this.data();        
-//        //console.log(data);
-//	  alert(data);
-        
-//        data[0] = '*ddddd ' + data[0];
-                
- //       //this.data(data);
-//    });
-//https://datatables.net/reference/api/columns().every()
-
-// Draw once all updates are done
-//table.draw();
+          	//  table.draw('page');
+	   	table.draw('page');
+        }, 3000); 
 
 
 });
@@ -75,6 +77,13 @@ $(document).ready(function() {
 	  </thead>
 	</table>
 </div>
+
+<!---
+update proTutoringSession
+set SessionStartTime = DATE_ADD(now(),INTERVAL -1 hour)
+, SessionEndTime = DATE_ADD(now(),INTERVAL 5 hour)
+
+--->
 
 
 <?php include('_masterFooter.php');?>

@@ -47,10 +47,18 @@ Use samples and references
 	<!-- jQuery library -->
 	<script type="text/javascript" src="/~jherna65/jquery/jquery-3.1.1.min.js"></script>
 	<script type="text/javascript" src="/~jherna65/jquery/jquery-ui-1.12.1/jquery-ui.js"></script>
-	<script type="text/javascript" src="/~jherna65/jquery/jquery-ui-timepicker-addon.js"></script>
+	<script type="text/javascript" src="/~jherna65/jquery/jquery-ui-1.12.1/jquery-ui-timepicker-addon.js"></script>
+	<script type="text/javascript" src="/~jherna65/jquery/jquery-ui-1.12.1/jquery-ui-timepicker-addon-i18n.min.js"></script>
+	<script type="text/javascript" src="/~jherna65/jquery/jquery-ui-1.12.1/jquery-ui-sliderAccess.js"></script>
+	
+	
+	
 	<script type="text/javascript" src="/~jherna65/jquery/datatables.1.10.12/jquery.dataTables.min.js"></script>
 	<script type="text/javascript" src="/~jherna65/jquery/date.format.js"></script> 
 	<script type="text/javascript" src="/~jherna65/jquery/jtable.2.4.0/jquery.jtable.js" ></script> 
+	
+<script type="text/javascript" src="/~jherna65/jquery/jquery.validationEngine.js"></script>
+<script type="text/javascript" src="/~jherna65/jquery/jquery.validationEngine-en.js"></script>
 	
 	<link rel="stylesheet" type="text/css" href="/~jherna65/styles/jquery-ui-timepicker-addon.css">
 	<link rel="stylesheet" type="text/css" href="/~jherna65/jquery/jquery-ui-1.12.1/jquery-ui.css"/>
@@ -68,7 +76,8 @@ Use samples and references
 	<link rel="stylesheet" type="text/css" href="/~jherna65/styles/style.css">
 	<link rel="stylesheet" type="text/css" href="/~jherna65/jquery/jtable.2.4.0/themes/lightcolor/blue/jtable.css"/>
 
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.2.0/jquery.rateyo.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.2.0/jquery.rateyo.min.js"></script>
 
 	
     </head>
@@ -91,8 +100,8 @@ Use samples and references
 				<span class="icon-bar"></span>
 			</button>
 			<?php endif; ?>
-			
-			<a class="navbar-brand" href="/~jherna65/index.php"><img src="/~jherna65/images/fau-logo.png"/></a>
+			<!--- class="navbar-brand" --->
+			<a  href="/~jherna65/index.php"><img src="/~jherna65/images/fau-logo.png" class="logo"/></a>
 		  
               </div>
 
@@ -107,7 +116,7 @@ Use samples and references
 			</ul>
 		</div>
 		<?php else : ?>
-			<div style="float:right; color:white; font: Segoe, 'Segoe UI', 'DejaVu Sans', 'Trebuchet MS', Verdana, sans-serif; font-size:2.2em; font-variant:normal;">Go Owl Tutor - LIVE SESSIONS</div>
+			<div style=" color:white; font: Segoe, 'Segoe UI', 'DejaVu Sans', 'Trebuchet MS', Verdana, sans-serif; font-size:1.8em; font-variant:normal; padding-top:10px; text-align:right;">Go Owl Tutor - LIVE SESSIONS</div>
 		<?php endif; ?>
 		  
 		  
@@ -118,18 +127,40 @@ Use samples and references
         
     <div> 
      
-     
     	<?php if(strpos($page, 'dashboard.php') == false) : ?>
-	<div style="padding:5px; display:inline-table; background-color:black;">
-		&nbsp;&nbsp;<a href="directorAdministration.php">Administrators</a> 
-		&nbsp;&nbsp;<a href="studentAdministration.php">Student Management</a> 
-		&nbsp;&nbsp;<a href="locationAdministration.php">Location Management</a> 
-		&nbsp;&nbsp;<a href="classinfoAdministration.php">Class Management</a> 
-		&nbsp;&nbsp;<a href="tutorAdministration.php">Tutor Management</a> 
-		&nbsp;&nbsp;<a href="classsessionAdministration.php">Tutoring Session Management</a> 
-		
-		&nbsp;&nbsp;&nbsp;&nbsp;<a href="dashboard.php">Auto Cycle Dashboard</a> 
-	</div>
+     <style>
+	    #nav {
+		padding: 0;
+		width: 100%;
+		float: left;
+		margin: -20px auto 10px auto;
+		list-style: none;
+		background-color: #f2f2f2;
+		border-bottom: 2px solid #f2f2f2; 
+		border-top: 1px solid #ccc; }
+	#nav li {
+		float: right; }
+	#nav li a {
+		display: block;
+		padding: 5px 20px;
+		text-decoration: none;
+		font-weight: bold;
+		color: #069;
+		border-right: 1px solid #ccc; 
+		font-size:13px;
+		}
+	#nav li a:hover {
+		color: #c00;
+		background-color: #fff; }
+     </style>
+	<ul id="nav">
+		<li><a href="directorAdministration.php">Administrators</a></li>
+		<li><a href="studentAdministration.php">Students</a> </li>
+		<li><a href="locationAdministration.php">Locations</a> </li>
+		<li><a href="classinfoAdministration.php">Classes</a> </li>
+		<li><a href="classsessionAdministration.php">Tutoring Session</a></li>
+		<li><a href="dashboard.php">Auto Cycle Dashboard</a> </li>
+	</ul>
 	<?php endif; ?>
 	
 </div>    
