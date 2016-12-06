@@ -22,7 +22,7 @@
 					listAction: function (postData, jtParams) {
 					    return $.Deferred(function ($dfd) {
 						  $.ajax({
-							 url: 'apiTest/?action=getLocations&jtStartIndex=' + jtParams.jtStartIndex + '&jtPageSize=' + jtParams.jtPageSize + '&jtSorting=' + jtParams.jtSorting + '&BuildingName=' + BuildingName         ,
+							 url: 'http://lamp.cse.fau.edu/~jherna65/apiTest/?action=getLocations&jtStartIndex=' + jtParams.jtStartIndex + '&jtPageSize=' + jtParams.jtPageSize + '&jtSorting=' + jtParams.jtSorting + '&BuildingName=' + BuildingName         ,
 							type: 'POST',
 							dataType: 'json',
 							data: postData,
@@ -39,7 +39,7 @@
 					, createAction: function (postData) {
 						  return $.Deferred(function ($dfd) {
 							$.ajax({
-							    url: 'apiTest/?action=addLocation&',
+							    url: 'http://lamp.cse.fau.edu/~jherna65/apiTest/?action=addLocation&',
 							    type: 'POST',
 							    dataType: 'json',
 							    data: postData,
@@ -55,7 +55,7 @@
 					, updateAction: function (postData, jtParams) {
 					    return $.Deferred(function ($dfd) {
 						  $.ajax({
-							 url: 'apiTest/?action=updateLocation',
+							 url: 'http://lamp.cse.fau.edu/~jherna65/apiTest/?action=updateLocation',
 							type: 'POST',
 							dataType: 'json',
 							data: postData,
@@ -71,7 +71,7 @@
 //					, deleteAction: function (postData, jtParams) {
 //					    return $.Deferred(function ($dfd) {
 //						  $.ajax({
-//							 url: 'apiTest/?action=deleteLocation',
+//							 url: 'http://lamp.cse.fau.edu/~jherna65/apiTest/?action=deleteLocation',
 //							type: 'POST',
 //							dataType: 'json',
 //							data: postData,

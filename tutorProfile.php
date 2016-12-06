@@ -19,7 +19,7 @@ if ((isset($_REQUEST['studentid'])) && (!empty($_REQUEST['studentid'])))
 			
 			 $.ajax({
 				type: 'POST',
-				url: 'apiTest/?action=getprofile&StudentId=' + studentid,
+				url: 'http://lamp.cse.fau.edu/~jherna65/apiTest/?action=getprofile&StudentId=' + studentid,
 				dataType: 'json',
 				success: function(response){                    
 					//console.log(response);
@@ -57,7 +57,7 @@ if ((isset($_REQUEST['studentid'])) && (!empty($_REQUEST['studentid'])))
 					listAction: function (postData, jtParams) {
 					    return $.Deferred(function ($dfd) {
 						  $.ajax({
-							 url: 'apiTest/?action=getTutorclasses&StudentId=' + studentid,
+							 url: 'http://lamp.cse.fau.edu/~jherna65/apiTest/?action=getTutorclasses&StudentId=' + studentid,
 							type: 'POST',
 							dataType: 'json',
 							data: postData,

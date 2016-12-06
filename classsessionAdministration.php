@@ -25,7 +25,7 @@
 					listAction: function (postData, jtParams) {
 					    return $.Deferred(function ($dfd) {
 						  $.ajax({
-							 url: 'apiTest/?action=getClasssession&jtStartIndex=' + jtParams.jtStartIndex + '&jtPageSize=' + jtParams.jtPageSize + '&jtSorting=' + jtParams.jtSorting + '&StudentName=' + StudentName + '&CourseName=' + CourseName  ,
+							 url: 'http://lamp.cse.fau.edu/~jherna65/apiTest/?action=getClasssession&jtStartIndex=' + jtParams.jtStartIndex + '&jtPageSize=' + jtParams.jtPageSize + '&jtSorting=' + jtParams.jtSorting + '&StudentName=' + StudentName + '&CourseName=' + CourseName  ,
 							type: 'POST',
 							dataType: 'json',
 							data: postData,
@@ -42,7 +42,7 @@
 					, createAction: function (postData) {
 						  return $.Deferred(function ($dfd) {
 							$.ajax({
-							    url: 'apiTest/?action=addClasssession',
+							    url: 'http://lamp.cse.fau.edu/~jherna65/apiTest/?action=addClasssession',
 							    type: 'POST',
 							    dataType: 'json',
 							    data: postData,
@@ -59,7 +59,7 @@
 					, updateAction: function (postData, jtParams) {
 					    return $.Deferred(function ($dfd) {
 						  $.ajax({
-							 url: 'apiTest/?action=updateClasssession',
+							 url: 'http://lamp.cse.fau.edu/~jherna65/apiTest/?action=updateClasssession',
 							type: 'POST',
 							dataType: 'json',
 							data: postData,
@@ -75,7 +75,7 @@
 					, deleteAction: function (postData, jtParams) {
 					    return $.Deferred(function ($dfd) {
 						  $.ajax({
-							 url: 'apiTest/?action=deleteClasssession',
+							 url: 'http://lamp.cse.fau.edu/~jherna65/apiTest/?action=deleteClasssession',
 							type: 'POST',
 							dataType: 'json',
 							data: postData,

@@ -22,7 +22,7 @@
 					listAction: function (postData, jtParams) {
 					    return $.Deferred(function ($dfd) {
 						  $.ajax({
-							 url: 'apiTest/?action=getDirectors&jtStartIndex=' + jtParams.jtStartIndex + '&jtPageSize=' + jtParams.jtPageSize + '&jtSorting=' + jtParams.jtSorting + '&FirstName=' + FirstName + '&LastName=' + LastName  ,
+							 url: 'http://lamp.cse.fau.edu/~jherna65/apiTest/?action=getDirectors&jtStartIndex=' + jtParams.jtStartIndex + '&jtPageSize=' + jtParams.jtPageSize + '&jtSorting=' + jtParams.jtSorting + '&FirstName=' + FirstName + '&LastName=' + LastName  ,
 							type: 'POST',
 							dataType: 'json',
 							data: postData,
@@ -39,7 +39,7 @@
 					, createAction: function (postData) {
 						  return $.Deferred(function ($dfd) {
 							$.ajax({
-							    url: 'apiTest/?action=addDirector',
+							    url: 'http://lamp.cse.fau.edu/~jherna65/apiTest/?action=addDirector',
 							    type: 'POST',
 							    dataType: 'json',
 							    data: postData,
@@ -55,7 +55,7 @@
 					, updateAction: function (postData, jtParams) {
 					    return $.Deferred(function ($dfd) {
 						  $.ajax({
-							 url: 'apiTest/?action=updateDirector',
+							 url: 'http://lamp.cse.fau.edu/~jherna65/apiTest/?action=updateDirector',
 							type: 'POST',
 							dataType: 'json',
 							data: postData,
@@ -71,7 +71,7 @@
 //					, deleteAction: function (postData, jtParams) {
 //					    return $.Deferred(function ($dfd) {
 //						  $.ajax({
-//							 url: 'apiTest/?action=deleteDirector',
+//							 url: 'http://lamp.cse.fau.edu/~jherna65/apiTest/?action=deleteDirector',
 //							type: 'POST',
 //							dataType: 'json',
 //							data: postData,
