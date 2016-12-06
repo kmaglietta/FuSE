@@ -2,8 +2,7 @@
 1.0.3
 
 # What's new?
-#### 29 Nov 2016:
-+ User authentication has been added
+#### 06 Dec 2016:
 + PHP API updated
 + Template routing has been reworked
 
