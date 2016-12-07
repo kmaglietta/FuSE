@@ -11,16 +11,17 @@ function m_controller($scope, $log, $compile, $q, dataService, DTOptionsBuilder,
     ctrl.data = [];
     ctrl.dtInstance = {};
     ctrl.user = {};
+    ctrl.reloadData = reloadData;
 
     // DataTable configuration
-    ctrl.dtOptions = DTOptionsBuilder.fromFnPromise(function () {
+    ctrl.dtOptions = DTOptionsBuilder.newOptions().fromFnPromise(function () {
       /*var defer = $q.defer();
       dataService.get('getusers').then(function (data) {
         defer.resolve(data.response);
       });
       return defer.promise;*/
-      return dataService.get('action=getusers').then(function (data) {
-        return data.response;
+      return dataService.johnAction('action=getlist').then(function (data) {
+        return data.data;
       });
     })
     .withDOM('frtip')
@@ -28,32 +29,36 @@ function m_controller($scope, $log, $compile, $q, dataService, DTOptionsBuilder,
     .withPaginationType('full_numbers')
     .withDisplayLength(10)
     .withOption('resposive', true)
-    .withOption('deferRender', true)
-    .withOption('createdRow', createdRow)
     .withOption('order', [
       5, 'asc'
     ])
     .withLanguage({
-      'sLoadingRecords': 'Loading...',
-      'sZeroRecords': 'No records found'
-    });
+      "sEmptyTable": "No data available in table",
+      "sInfo": "Showing _START_ to _END_ of _TOTAL_ entries",
+      "sInfoEmpty": "Showing 0 to 0 of 0 entries",
+      "sLoadingRecords": "Loading...",
+      "sProcessing":"Processing...",
+      "sSearch": "Search All Field:",
+      "sZeroRecords": "No matching records found",
+    })
+    .withOption('deferRender', true)
+    .withOption('createdRow', createdRow);
     /*.withOption('initComplete', function() {
       angular.element('.dataTables_filter input').attr('placeholder', 'Search table');
     });*/
+
     ctrl.dtColumns = [
-      DTColumnBuilder.newColumn('sessionId').withTitle('ID').notVisible(),
-      DTColumnBuilder.newColumn('class').withTitle('Class').notSortable(),
+      DTColumnBuilder.newColumn('class').withTitle('Class'),
       DTColumnBuilder.newColumn('coursename').withTitle('Course Name'),
       DTColumnBuilder.newColumn('name').withTitle('Name'),
       DTColumnBuilder.newColumn('location').withTitle('Location'),
       DTColumnBuilder.newColumn('starttime').withTitle('Start Time'),
       DTColumnBuilder.newColumn('endtime').withTitle('End Time'),
-      DTColumnBuilder.newColumn('profileId').withTitle('PID').notVisible(),
+      DTColumnBuilder.newColumn('status').withTitle('Status'),
+      DTColumnBuilder.newColumn('studentid').withTitle('SID').notVisible(),
       DTColumnBuilder.newColumn(null).withTitle('Actions').notSortable()
             .renderWith(profileLink)
     ];
-    ctrl.reloadData = reloadData;
-    ctrl.dtInstance = {};
 
 
     // Clear the input field
@@ -66,11 +71,11 @@ function m_controller($scope, $log, $compile, $q, dataService, DTOptionsBuilder,
 
     function createdRow(row, data, dataIndex) {
       // Recompiling so we can bind Angular directive to the DT
-      $compile(angular.element(row).contents())($scope);
+      $compile(angular.element(row).contents())(ctrl);
     }
     function profileLink(data, type, full, meta) {
       // Create a link to tutor's profile
-      ctrl.user[data.profileId] = data.profileId;
+      ctrl.user[data.studentid] = data.studentid;
       return '<a ui-sref="profile({ profileId: $ctrl.user[' + data.profileId + ']})">View Profile</a>';
     }
     function reloadData() {

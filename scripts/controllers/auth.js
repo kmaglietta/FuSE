@@ -14,7 +14,7 @@ angular.module('tossApp')
       value: false
     }
 
-    ctrl.userLogin = function(){
+    /*ctrl.userLogin = function(){
       $log.log('Signing in...');
       if (ctrl.isAdmin.value == true) {
         var _data = {
@@ -44,13 +44,24 @@ angular.module('tossApp')
       }, function() {
         $log.error('Sign in failed ' + data.status + ' ' + data.message);
       });
-    };
+    };*/
+
+    ctrl.userLogin = function() {
+      var credentials = 'EmailAddress=' + ctrl.username + '&Password=' + ctrl.password;
+      $log.log(credentials);
+      userService.johnLogin(credentials).then(function (data) {
+        if (data.success == true) {
+          ctrl.data = data.Record;
+          $log.log(ctrl.data[0].guiid);
+        }
+      });
+    }
   }
 
   function userService($http, $log) {
     var factory = {};
     var service = 'php/index.php?';
-    //var service = 'http://lamp.cse.fau.edu/~jherna65/apiTest/?';
+    var exService = 'http://lamp.cse.fau.edu/~jherna65/apiTest/?';
 
     factory.login = function(credentials) {
       return $http.post(service + 'action=login', credentials)
@@ -76,6 +87,13 @@ angular.module('tossApp')
       // Log user out
       return $http.get(service + 'action=logout')
       .then(function (response) {
+        return response.data;
+      });
+    };
+
+    factory.johnLogin = function(obj) {
+      // User authentication with John's API
+      return $http.post(exService + 'action=getuser&' + obj).then(function (response) {
         return response.data;
       });
     };
