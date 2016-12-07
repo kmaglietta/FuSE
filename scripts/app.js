@@ -12,7 +12,9 @@ angular
     'ngSanitize',
     'ngTouch',
     'ui.router',
-    'toaster',
+    'ui.bootstrap',
+    'toastr',
+    'ngTable',
     'ngStorage',
     'datatables',
     'datatables.bootstrap'
@@ -274,15 +276,27 @@ angular
       return $location.path();
     });
 
+  })
+  .config(function(toastrConfig) {
+    angular.extend(toastrConfig, {
+      autoDismiss: false,
+      containerId: 'toast-container',
+      maxOpened: 0,
+      newestOnTop: true,
+      positionClass: 'toast-top-center',
+      preventDuplicates: false,
+      preventOpenDuplicates: false,
+      target: 'body'
+    });
   });
 
 
-  function authenticate($q, userService, $state, $timeout) {
+  function authenticate($q, $localStorage, $state, $timeout) {
     // Check user's login status through the use of ui router resolve
 
-    /*if (userService.isAuthenticated()) {
+    if ($localStorage.guiid != null) {
       // Resolve the promise successfully
-      return $q.when();
+      return $q.when('Authorized');
     } else {
       // The next bit of code is asynchronously tricky
       $timeout(function() {
@@ -291,9 +305,9 @@ angular
         $state.go('login');
       });
       // Reject the authentication promise to prevent the state from being loaded
-      return $q.reject('guest');
-    }*/
-    var defer = $q.defer();
+      return $q.reject($localStorage.guiid == null);
+    }
+    /*var defer = $q.defer();
     userService.isAuthenticated().then(function(data){
       if (data.response.username != 'guest') {
         defer.resolve('Allowed');
@@ -306,6 +320,6 @@ angular
         defer.reject('Not Allowed');
       }
     });
-    return defer.promise;
+    return defer.promise;*/
 
   }

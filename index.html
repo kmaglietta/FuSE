@@ -14,7 +14,8 @@
     <link rel="stylesheet" href="bower_components/AngularJS-Toaster/toaster.min.css" />
     <link rel="stylesheet" href="bower_components/angular-datatables/dist/css/angular-datatables.min.css" />
     <link rel="stylesheet" href="bower_components/angular-datatables/dist/plugins/bootstrap/datatables.bootstrap.min.css" />
-    <link rel="stylesheet" href="https://unpkg.com/ng-table@2.1.0/bundles/ng-table.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/ng-table@3.0.1/bundles/ng-table.min.css"/>
+    <link rel="stylesheet" href="bower_components/angular-toastr/dist/angular-toastr.min.css"/>
 
     <!-- Custom stylesheet -->
     <link rel="stylesheet" href="styles/main.css">
@@ -24,6 +25,7 @@
     <link rel="stylesheet" href="styles/search.css">
     <link rel="stylesheet" href="styles/dashboard.css">
     <link rel="stylesheet" href="styles/login.css">
+    <link rel="stylesheet" href="styles/profile.css">
 </head>
 
 <body ng-app="tossApp">
@@ -35,7 +37,6 @@
     <![endif]-->
     <div ui-view="header"><!-- Inject navbar using UI-Router --></div>
     <div class="route" ui-view="content"> <!-- Inject content using UI-Router --> </div>
-    <toaster-container toaster-options="{'time-out': 3000}"></toaster-container>
 
     <div ui-view="footer"><!-- Inject footer using UI-Router --></div>
 
@@ -53,7 +54,9 @@
     <script src="bower_components/ngstorage/ngStorage.min.js"></script>
     <script src="bower_components/angular-datatables/dist/plugins/bootstrap/angular-datatables.bootstrap.min.js"></script>
     <script src="bower_components/angular-datatables/dist/angular-datatables.min.js"></script>
-    <script src="https://unpkg.com/ng-table@2.1.0/bundles/ng-table.js"></script>
+    <script src="bower_components/angular-toastr/dist/angular-toastr.tpls.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.3.0/ui-bootstrap-tpls.min.js"></script>
+    <script src="https://unpkg.com/ng-table@3.0.1/bundles/ng-table.min.js"></script>
     <!-- Datatables dependency -->
     <script src="bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 
@@ -69,7 +72,6 @@
     <script src="scripts/directives/main.table.js"></script>
     <script src="scripts/controllers/dashboard.js"></script>
     <script src="scripts/controllers/profile.js"></script>
-    <script src="scripts/directives/tutor.table.js"></script>
     <script src="scripts/directives/dashboard.component.js"></script>
 
 </body>

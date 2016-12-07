@@ -52,7 +52,10 @@ angular.module('tossApp')
       userService.johnLogin(credentials).then(function (data) {
         if (data.success == true) {
           ctrl.data = data.Record;
-          $log.log(ctrl.data[0].guiid);
+          if (ctrl.data[0].guiid != null) {
+            $log.log(ctrl.data[0].guiid);
+          }
+
         }
       });
     }
@@ -97,6 +100,7 @@ angular.module('tossApp')
         return response.data;
       });
     };
+
 
     return factory;
   }

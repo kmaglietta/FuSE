@@ -9,6 +9,9 @@
   font-weight: 700;
   border-bottom: 2px solid red;
 }
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: white;
+}
 
 /* Current state of the navbar*/
 .navbar-default .navbar-nav > .activeNav > a,
@@ -84,7 +87,8 @@
 .navbar-custom .navbar-toggle:hover,
 .navbar-custom .navbar-toggle:focus,
 .navbar-custom .navbar-toggle:active {
-  background-color: #2C3E50;
+  border-color: #C0392B;
+  background-color: #C0392B;
   color: white;
 }
 

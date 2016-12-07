@@ -4,9 +4,11 @@
 <button ng-click="$ctrl.reloadData()" type="button" class="btn btn-info">
     <i class="fa fa-refresh"></i>&nbsp;Reload data
 </button>
+<div class="table-responsive">
 <table datatable="" dt-options="$ctrl.dtOptions" dt-columns="$ctrl.dtColumns"
- class="table table-striped">
+ class="table table-striped dt-responsive display nowrap" cellspacing="0">
 </table>
+</div>
 
 <!--<table ng-table="$ctrl.tableParams" class="table table-condensed table-striped">
   <tr ng-repeat="person in $data">

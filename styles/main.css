@@ -161,24 +161,3 @@ img.img-banner{
     text-align: center;
   }
 }
-
-
-/*
-
- * Profile image
-
- */
-.profile-header-container{
-    margin: 0 auto;
-    text-align: center;
-}
-
-.profile-header-img > img.img-circle {
-    width: 120px;
-    height: 120px;
-    border: 2px solid #51D2B7;
-}
-
-.profile-statemate {
-  padding: 33px;
-}

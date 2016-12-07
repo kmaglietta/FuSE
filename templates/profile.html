@@ -1,17 +1,45 @@
-<div class="container center-block" id="profile-page">
-  <div class="row">
-    <div class="col-xs-12 col-sm-8 col-md-10 presentable bottom-buffer">
-      <div class="buffer profile-header-img col-xs-6 col-sm-2 col-md-2 col-md-offset-2">
-        <img class="img-circle" src="https://api.adorable.io/avatars/285/hey@miadn.png" />
+<div class="container center-block presentable" id="profile-page">
+  <div class="row col-xs-12 col-sm-8 col-md-10 col-md-offset-2">
+    <div class="top-buffer">
+      <div class="profile-header-img col-sm-2 col-md-2">
+        <img class="img-circle" src="img/shinobunn.png" />
       </div>
-      <div class="buffer profile-statement col-xs-6 col-sm-2 col-md-4 col-md-offset-2">
-        <p>Hi, my name is {{ vm.data.name }}</p>
-        <p>I teach {{ vm.data.coursename }}</p>
-        <p>Rating: {{ vm.data.rating }} stars</p>
-        <p>(Description goes here)</p>
+      <div class="profile-statement col-sm-6 col-md-4 col-md-offset-2">
+        <div class="profile-title">
+          <h2 id="titleName">{{ vm.data.StudentName }}</h2>
+        </div>
+        <p>
+          <span class="marketing-point">Name:</span> {{ vm.data.StudentName }}
+        </p>
+        <p>
+          <span class="marketing-point">Teaching Since:</span> {{ vm.data.TutorSince }}
+        </p>
+        <p>
+          <span class="marketing-point">Total Students Tutored:</span> {{ vm.data.TotalStudentsTutored }}
+        </p>
+        <p>
+          <span class="marketing-point">Overall Rating:</span>
+          <span uib-rating ng-model="vm.rate" max="vm.max" read-only="vm.isReadonly"
+          on-hover="vm.hoverOver(value)" on-leave="vm.overStar = null"
+          titles="['one','two','three']" aria-labelledby="default-rating"></span>
+          <span class="label" ng-class="{'label-warning': vm.percent<30, 'label-info': vm.percent>=30 && vm.percent<70, 'label-success': vm.percent>=70}"
+            ng-show="vm.overStar && !vm.isReadonly">{{ vm.percent }}%</span>
+        </p>
       </div>
     </div>
   </div>
   <div class="row">
+    <div class="buffer col-xs-12 col-sm-6 col-md-8 col-md-offset-2">
+      <div class="table-responsive">
+        <table ng-table="vm.tableParams" class="table table-striped table-condensed center-items">
+          <tr ng-repeat="row in $data track by row.Course">
+            <td data-title="'Course'">{{ row.Course }}</td>
+            <td data-title="'Course Name'">{{ row.CourseName }}</td>
+            <td data-title="'Total Students Who Rated'">{{ row.TotalStudentsRatedTutor }}</td>
+            <td data-title="'Session Avg. Rating'">{{ row.AverageRating }}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
   </div>
 </div>

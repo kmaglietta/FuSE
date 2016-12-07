@@ -1,11 +1,5 @@
 'use strict';
 
-/**
- * @ngdoc directive
- * @name tossApp.directive:myTable
- * @description
- * # myTable
- */
 function m_controller($scope, $log, $compile, $q, dataService, DTOptionsBuilder, DTColumnBuilder){
     var ctrl = this;
     ctrl.data = [];
@@ -14,7 +8,7 @@ function m_controller($scope, $log, $compile, $q, dataService, DTOptionsBuilder,
     ctrl.reloadData = reloadData;
 
     // DataTable configuration
-    ctrl.dtOptions = DTOptionsBuilder.newOptions().fromFnPromise(function () {
+    ctrl.dtOptions = DTOptionsBuilder.fromFnPromise(function () {
       /*var defer = $q.defer();
       dataService.get('getusers').then(function (data) {
         defer.resolve(data.response);
@@ -32,6 +26,8 @@ function m_controller($scope, $log, $compile, $q, dataService, DTOptionsBuilder,
     .withOption('order', [
       5, 'asc'
     ])
+    .withOption('deferRender', true)
+    .withOption('createdRow', createdRow)
     .withLanguage({
       "sEmptyTable": "No data available in table",
       "sInfo": "Showing _START_ to _END_ of _TOTAL_ entries",
@@ -40,9 +36,7 @@ function m_controller($scope, $log, $compile, $q, dataService, DTOptionsBuilder,
       "sProcessing":"Processing...",
       "sSearch": "Search All Field:",
       "sZeroRecords": "No matching records found",
-    })
-    .withOption('deferRender', true)
-    .withOption('createdRow', createdRow);
+    });
     /*.withOption('initComplete', function() {
       angular.element('.dataTables_filter input').attr('placeholder', 'Search table');
     });*/
@@ -60,23 +54,14 @@ function m_controller($scope, $log, $compile, $q, dataService, DTOptionsBuilder,
             .renderWith(profileLink)
     ];
 
-
-    // Clear the input field
-    ctrl.clearSearch = function(){
-      // Empty the string
-      ctrl.searchTutor.class='';
-      // Clean the form of root scope
-      $scope.searchForm.$setPristine();
-    }
-
     function createdRow(row, data, dataIndex) {
       // Recompiling so we can bind Angular directive to the DT
-      $compile(angular.element(row).contents())(ctrl);
+      $compile(angular.element(row).contents())($scope);
     }
     function profileLink(data, type, full, meta) {
       // Create a link to tutor's profile
       ctrl.user[data.studentid] = data.studentid;
-      return '<a ui-sref="profile({ profileId: $ctrl.user[' + data.profileId + ']})">View Profile</a>';
+      return '<a ui-sref="profile({ profileId: $ctrl.user[' + data.studentid + ']})">View Profile</a>';
     }
     function reloadData() {
       // Reload the data on the table
