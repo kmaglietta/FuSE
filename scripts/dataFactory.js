@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('tossApp')
-  .factory('dataService', function($http, toastr, $log){
+  .factory('dataService', function($http, $log){
     // This is to connect to API
     var factory = {};
     var service = 'php/index.php?';

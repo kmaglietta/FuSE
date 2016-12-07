@@ -45,7 +45,7 @@ angular.module('tossApp')
       $log.error('Get profile failed ' + data.status + ' ' + data.message);
     });*/
 
-    profileService.getJohnProfile('action=getprofile', ctrl.profileId).then(function (data) {
+    profileService.getJohnProfile(action, ctrl.profileId).then(function (data) {
       ctrl.data = data.Records[0];
       $log.log(ctrl.data);
       ctrl.rate = ctrl.data.AverageRating;
@@ -56,7 +56,8 @@ angular.module('tossApp')
     ctrl.tableParams = new NgTableParams({}, {
       getData: function(params) {
         // ajax request to api
-        return profileService.getJohnProfile('action=getTutorclasses', ctrl.profileId).then(function (data) {
+        action = 'action=getTutorclasses';
+        return profileService.getJohnProfile(action, ctrl.profileId).then(function (data) {
           params.total(data.inlineCount); // recal. page nav controls
           return data.Records;
         }, function() {

@@ -67,3 +67,8 @@
   margin-top: 100px;
   background: #eee;
 }
+
+.authentication-form .checkbox {
+  padding-left: 45px;
+  text-align: left;
+}

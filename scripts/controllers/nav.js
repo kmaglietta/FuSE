@@ -5,8 +5,9 @@ angular.module('tossApp')
     let ctrl = this;
     ctrl.userData = null;
 
-    if ($localStorage.userData != null) {
+    if ($localStorage.userGuiid != null) {
       ctrl.userData = [];
-      ctrl.userData = $localStorage.userData;
+      ctrl.userData.role = $localStorage.userRole;
+      ctrl.userData.userGuiid = $localStorage.userGuiid;
     } else ctrl.userData = null;
   });

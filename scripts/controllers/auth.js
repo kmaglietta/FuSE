@@ -6,7 +6,7 @@ angular.module('tossApp')
 
   //
 
-  function login_controller($scope, userService, $log, $rootScope, $localStorage, $injector){
+  function login_controller($scope, userService, $log, $localStorage, $injector, toaster){
     var ctrl = this;
     ctrl.login = {};
     ctrl.data = [];
@@ -47,16 +47,31 @@ angular.module('tossApp')
     };*/
 
     ctrl.userLogin = function() {
+      $localStorage.$reset();
       var credentials = 'EmailAddress=' + ctrl.username + '&Password=' + ctrl.password;
-      $log.log(credentials);
+      if (ctrl.isAdmin == true) credentials = credentials + '&isAdmin=' + ctrl.isAdmin;
+
       userService.johnLogin(credentials).then(function (data) {
         if (data.success == true) {
-          ctrl.data = data.Record;
-          if (ctrl.data[0].guiid != null) {
-            $log.log(ctrl.data[0].guiid);
+          if (data.Record != null) {
+            ctrl.data = data.Record[0];
+            $log.log(ctrl.data);
+            $localStorage.userGuiid = ctrl.data.guiid;
+            $localStorage.userId = ctrl.data.StudentId;
+            $localStorage.userRole = 'admin';
+            $injector.get('$state').go('dashboard');
+          } else {
+            toaster.pop({
+              type:'warning',
+              title:'Error',
+              body:'Invalid username/password',
+              tapToDismiss: true,
+              timeout:3000
+            });
           }
-
         }
+      }, function() {
+        $log.error('An Error has occurred ' + data.status + ' ' + data.message);
       });
     }
   }
@@ -100,6 +115,11 @@ angular.module('tossApp')
         return response.data;
       });
     };
+    factory.johnDashboard = function(obj) {
+      return $http.post(exService + 'action=getprofile&StudentId=' + obj).then(function (response) {
+        return response.data;
+      });
+    }
 
 
     return factory;

@@ -13,7 +13,7 @@ angular
     'ngTouch',
     'ui.router',
     'ui.bootstrap',
-    'toastr',
+    'toaster',
     'ngTable',
     'ngStorage',
     'datatables',
@@ -276,25 +276,13 @@ angular
       return $location.path();
     });
 
-  })
-  .config(function(toastrConfig) {
-    angular.extend(toastrConfig, {
-      autoDismiss: false,
-      containerId: 'toast-container',
-      maxOpened: 0,
-      newestOnTop: true,
-      positionClass: 'toast-top-center',
-      preventDuplicates: false,
-      preventOpenDuplicates: false,
-      target: 'body'
-    });
   });
 
 
   function authenticate($q, $localStorage, $state, $timeout) {
     // Check user's login status through the use of ui router resolve
 
-    if ($localStorage.guiid != null) {
+    if ($localStorage.userGuiid != null) {
       // Resolve the promise successfully
       return $q.when('Authorized');
     } else {
@@ -305,7 +293,7 @@ angular
         $state.go('login');
       });
       // Reject the authentication promise to prevent the state from being loaded
-      return $q.reject($localStorage.guiid == null);
+      return $q.reject('Not Authorized');
     }
     /*var defer = $q.defer();
     userService.isAuthenticated().then(function(data){
