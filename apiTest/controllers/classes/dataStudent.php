@@ -83,13 +83,13 @@ class dataStudent
 		
 		$updateQuery = "
 			Update proStudent set
-				Password = CASE '$Password' = '********' then Password else '$Password' end
+				Password = CASE  when '$Password' = '********' then Password else '$Password' end
 				, FirstName = '$FirstName' 
 				, LastName =  '$LastName' 
 				, ContactPhone =  '$ContactPhone'
 			where StudentId = '$StudentId'
 		";
-		
+//throw new ResponseException(500, "[$updateQuery]");	
 		$obj = helpers::runQuery($selectQuery);
 		if (!$obj)
 		{
@@ -211,6 +211,122 @@ class dataStudent
 		
 		return $retobj;
 	}
+	
+	
+	public function getuserAction($data,$params){
+		$EmailAddress = helpers::getArrayValue($params,'EmailAddress');
+		$Password = helpers::getArrayValue($params,'Password');
+		
+		
+		$selectQuery = "
+		SELECT 
+
+			StudentId 
+			, guiid 
+			FROM proStudent 
+			where EmailAddress = '$EmailAddress'  
+			and Password = '$Password' 
+		";
+		
+		$retobj = array();
+		$retobj['Record'] = helpers::runQuery($selectQuery);
+		//$retobj["attributes"] = helpers::runQuery("select count(0) TotalRecordCount from proTutor");
+//throw new ResponseException(500, "[$selectQuery]");	
+
+		return $retobj;
+		
+	}
+	
+	
+	
+	public function getstudentprofileAction($data,$params){
+		
+		$StudentId = helpers::getArrayValue($params,'StudentId');
+		
+		$selectQuery = "
+			
+		SELECT 
+			s.StudentId
+			, s.FirstName
+			, s.LastName
+			, concat(s.FirstName , ' ' , s.LastName) as StudentName
+	
+		
+			from 
+			proStudent s
+			where s.StudentId = $StudentId
+			
+			
+		";
+	 	
+		$retobj = array();
+	
+		$retobj['Records'] = helpers::runQuery($selectQuery);
+		//$retobj["attributes"] = helpers::runQuery("select count(0) TotalRecordCount from proTutor");
+		return $retobj;
+	}
+
+
+	public function getstudentclassesAction($data,$params){
+		
+		$StudentId = helpers::getArrayValue($params,'StudentId');
+		
+		$selectQuery = "
+			
+SELECT 
+concat(c.Subject , ' ' , c.CourseNumber) Course
+, c.CourseName
+, tss.studentRating
+FROM proTutor t
+inner join proAdministrator  as p on t.ApprovedByAdminId = p.AdminId
+inner join proStudent as s on s.StudentId = t.StudentId
+inner join proClassInformation as c on c.ClassId = t.ClassId
+inner join proTutoringSession ts on ts.TutorId = t.TutorId
+left join  proTutoringSessionStudents tss   on tss.SessionId = ts.SessionId
+				
+where s.StudentId = $StudentId
+
+group by 
+concat(c.Subject , ' ' , c.CourseNumber) 
+, c.CourseName
+order by 1,2
+							
+			
+		";
+//throw new ResponseException(500, "[$selectQuery]");		
+		$retobj = array();
+		
+		$retobj['Records'] = helpers::runQuery($selectQuery);
+		$retobj["attributes"] = helpers::runQuery("
+		
+			SELECT 
+					
+				count(distinct t.TutorId) TotalRecordCount
+							
+						FROM proTutor t
+							inner join proAdministrator  as p on t.ApprovedByAdminId = p.AdminId
+							inner join proStudent as s on s.StudentId = t.StudentId
+							inner join proClassInformation as c on c.ClassId = t.ClassId
+				inner join proTutoringSession ts on ts.TutorId = t.TutorId
+				
+				left join  proTutoringSessionStudents tss   on tss.SessionId = ts.SessionId
+				
+				
+				where t.StudentId = $StudentId
+				
+				
+
+		
+		
+		
+		");
+		return $retobj;
+	}
+	
+	
+	
+	
+	
 
 
 	

@@ -55,7 +55,7 @@ class dataDirector
 		$LastName = helpers::validateValueString((helpers::getArrayValue($params,'LastName')),'LastName');
 		$FirstName = helpers::validateValueString((helpers::getArrayValue($params,'FirstName')),'FirstName');
 		$Password = helpers::validateValueString((helpers::getArrayValue($params,'Password')),'Password');
-		$ContactPhone = helpers::validatePhone((helpers::getArrayValue($params,'ContactPhone')),'ContactPhone');
+		//$ContactPhone = helpers::validatePhone((helpers::getArrayValue($params,'ContactPhone')),'ContactPhone');
 
 		$selectQuery = "
 			SELECT 
@@ -67,7 +67,7 @@ class dataDirector
 		
 		$updateQuery = "
 			Update proAdministrator set
-				Password = CASE '$Password' = '********' then Password else '$Password' end
+				Password = CASE when '$Password' = '********' then Password else '$Password' end
 				, FirstName = '$FirstName' 
 				, LastName =  '$LastName' 
 			where AdminId = '$AdminId'

@@ -305,7 +305,67 @@ class dataClasssession
 		$retobj = array();
 		
 		$retobj['Records'] = helpers::runQuery($selectQuery);
-		$retobj["attributes"] = helpers::runQuery("select count(0) TotalRecordCount from proTutoringSession");
+		$retobj["attributes"] = helpers::runQuery("select count(0) TotalRecordCount  FROM 
+			proTutoringSession TS
+			inner join proTutor as t  on TS.TutorId = t.TutorId
+			inner join proStudent as s on s.StudentId = t.StudentId
+			inner join proClassInformation as c on c.ClassId = t.ClassId");
+		
+		return $retobj;
+	}
+
+
+
+
+public static function gettutoredlistAction($data,$params)
+	{
+
+		$StudentId = helpers::getArrayValue($params,'StudentId');
+			
+		$selectQuery = "
+			
+			SELECT
+
+			TS.SessionId 
+                        
+			
+			, concat(c.Subject , ' ' , c.Coursename, ' ' ,  c.CourseName) as ClassSession
+			, concat(s.FirstName , ' ' , s.LastName) as StudentName
+			
+			, case when TS.Canceled = 0 then 
+				case 
+					when NOW() between TS.SessionStartTime and TS.SessionEndTime then 'Active'
+					when TS.SessionEndTime <= NOW() then 'Completed'
+					else 'Upcoming' 
+				end	
+			else 'Canceled' end Status
+			
+			 FROM 
+			proTutoringSession TS
+			inner join proTutor as t  on TS.TutorId = t.TutorId
+			inner join proStudent as s on s.StudentId = t.StudentId
+			inner join proClassInformation as c on c.ClassId = t.ClassId
+
+
+			
+			where s.studentId = $StudentId
+			
+		";
+
+//throw new ResponseException(500, "[$selectQuery]");
+		
+		$retobj = array();
+		
+		$retobj['Records'] = helpers::runQuery($selectQuery);
+		$retobj["attributes"] = helpers::runQuery("select count(0) TotalRecordCount  FROM 
+			proTutoringSession TS
+			inner join proTutor as t  on TS.TutorId = t.TutorId
+			inner join proStudent as s on s.StudentId = t.StudentId
+			inner join proClassInformation as c on c.ClassId = t.ClassId
+
+
+			
+			where s.studentId = $StudentId");
 		
 		return $retobj;
 	}
