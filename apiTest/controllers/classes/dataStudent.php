@@ -225,17 +225,31 @@ class dataStudent
 	public function getuserAction($data,$params){
 		$EmailAddress = helpers::getArrayValue($params,'EmailAddress');
 		$Password = helpers::getArrayValue($params,'Password');
+		$isAdmin = helpers::validateInt((helpers::getArrayValue($params,'isAdmin')),'isAdmin');
 		
-		
-		$selectQuery = "
-		SELECT 
-
-			StudentId 
-			, guiid 
-			FROM proStudent 
-			where EmailAddress = '$EmailAddress'  
-			and Password = '$Password' 
-		";
+		if (isAdmin == 1)
+		{
+			$selectQuery = "
+			SELECT 
+				AdminId 
+				, guiid 
+				FROM proAdministrator 
+				where EmailAddress = '$EmailAddress'  
+				and Password = '$Password' 
+			";	
+		}
+		else
+		{
+			$selectQuery = "
+			SELECT 
+	
+				StudentId 
+				, guiid 
+				FROM proStudent 
+				where EmailAddress = '$EmailAddress'  
+				and Password = '$Password' 
+			";
+		}
 		
 		$retobj = array();
 		$retobj['Record'] = helpers::runQuery($selectQuery);
