@@ -36,7 +36,12 @@ class post
 	public function deleteStudentAction($data,$params) 	{ $dataClass = new dataStudent(); 	return $dataClass->deleteAction($data,$params); }
 	public function getStudentsAction($data,$params)	{ $dataClass = new dataStudent(); 	return $dataClass->getAction($data,$params); }	
 	public function getStudentnamesAction($data,$params)	{ $dataClass = new dataStudent(); 	return $dataClass->getnamesAction($data,$params);  }	
+	public function getstudentclassesAction($data,$params)	{ $dataClass = new dataStudent(); 	return $dataClass->getstudentclassesAction($data,$params);  }	
+	public function getstudentprofileAction($data,$params)	{ $dataClass = new dataStudent(); 	return $dataClass->getstudentprofileAction($data,$params);  }	
+	public function getuserAction($data,$params)		{ $dataClass = new dataStudent(); 	return $dataClass->getuserAction($data,$params); }
 	
+
+
 	public function addTutorAction($data,$params)		{ $dataClass = new dataTutor(); 	return $dataClass->addAction($data,$params); }
 	public function updateTutorAction($data,$params)	{ $dataClass = new dataTutor(); 	return $dataClass->updateAction($data,$params); }
 	public function deleteTutorAction($data,$params) 	{ $dataClass = new dataTutor(); 	return $dataClass->deleteAction($data,$params); }
@@ -46,7 +51,7 @@ class post
 	public function getProfileAction($data,$params)		{ $dataClass = new dataTutor(); 	return $dataClass->getprofileAction($data,$params);  }	
 	public function getTutorclassesAction($data,$params)	{ $dataClass = new dataTutor(); 	return $dataClass->gettutorclassesAction($data,$params);  }	
 	
-	
+
 	
 	
 	
@@ -55,6 +60,8 @@ class post
 	public function updateClasssessionAction($data,$params)	{ $dataClass = new dataClasssession(); 	return $dataClass->updateAction($data,$params); }
 	public function deleteClasssessionAction($data,$params) 	{ $dataClass = new dataClasssession(); 	return $dataClass->deleteAction($data,$params); }
 	public function getClasssessionAction($data,$params)		{ $dataClass = new dataClasssession(); 	return $dataClass->getAction($data,$params); }	
+
+	public function gettutoredlistAction($data,$params)		{ $dataClass = new dataClasssession(); 	return $dataClass->gettutoredlistAction($data,$params); }	
 
 
 	public function getlistAction($data,$params)		{ $dataClass = new dataMain(); 		return $dataClass->getlistAction($data,$params); }
