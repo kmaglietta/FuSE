@@ -22,7 +22,7 @@
 					listAction: function (postData, jtParams) {
 					    return $.Deferred(function ($dfd) {
 						  $.ajax({
-							 url: 'http://lamp.cse.fau.edu/~jherna65/apiTest/?action=getTutors&jtStartIndex=' + jtParams.jtStartIndex + '&jtPageSize=' + jtParams.jtPageSize + '&jtSorting=' + jtParams.jtSorting + '&StudentName=' + StudentName + '&CourseName=' + CourseName  ,
+							 url: 'http://lamp.cse.fau.edu/~jherna65/apiTest/?action=getTutors&jtStartIndex=' + jtParams.jtStartIndex + '&jtPageSize=' + jtParams.jtPageSize + '&jtSorting=' + jtParams.jtSorting + '&iSearch=' + iSearch  ,
 							type: 'POST',
 							dataType: 'json',
 							data: postData,
@@ -152,8 +152,7 @@
 			$('#LoadRecordsButton').click(function (e) {
 				e.preventDefault();
 				$('#TableContainer').jtable('load', {
-				    StudentName: $('#StudentName').val(),
-				    CourseName: $('#CourseName').val()
+				    iSearch: $('#iSearch').val()
 				});
 			});
 			
@@ -167,8 +166,7 @@
 
 	<div class="filtering">
 	    <form>
-		  Student Name: <input type="text" name="StudentName" id="StudentName" />
-		  Course Name: <input type="text" name="CourseName" id="CourseName" />
+		  Search: <input type="text" name="iSearch" id="iSearch" />
 		  <button type="submit" id="LoadRecordsButton">Refresh records</button> <button type="button" onClick="window.location.href = window.location.href">Clear</button> 
 	    </form>
 	</div>

@@ -247,8 +247,8 @@ class dataClasssession
 
 		//$StudentName = helpers::validateValueString((helpers::getArrayValue($params,'StudentName')),'StudentName');
 		//$FirstName = helpers::validateValueString((helpers::getArrayValue($params,'FirstName')),'FirstName');
-		 
-			
+		 $iSearch = helpers::validateValueString((helpers::getArrayValue($params,'iSearch')),'iSearch');
+		$isCanceled = helpers::validateInt((helpers::getArrayValue($params,'isCanceled')),'isCanceled');
 		$selectQuery = "
 			
 			SELECT
@@ -277,13 +277,19 @@ class dataClasssession
 			
 			where 1 = 1
 		";
-
-		//if ($StudentName != "") {
-//			$selectQuery .= " and concat(s.FirstName , ' ' , s.LastName) like '%$StudentName%' ";
-//		}
-//		if ($CourseName != "") {
-//			$selectQuery .= " and concat(c.Subject , ' ' , c.Coursename, ' ' ,  c.CourseName) like '%$CourseName%' ";
-//		}
+		if ($isCanceled == 1) {
+			$selectQuery .= " and TS.Canceled  = 1 ";
+		}
+		elseif ($isCanceled == 2){
+			$selectQuery .= " and TS.Canceled = 0 ";
+		}
+		if ($iSearch != ""  ) {
+			$selectQuery .= " and ( concat(c.Subject , ' ' , c.Coursename, ' ' ,  c.CourseName) like '%$iSearch%' 
+							or concat(s.FirstName , ' ' , s.LastName) like '%$iSearch%' 
+							)
+			";
+		}
+		
 		
 		$jtSorting = helpers::getArrayValue($params,'jtSorting');
 		if ($jtSorting != "" && $jtSorting != "undefined" ){

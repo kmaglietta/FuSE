@@ -109,10 +109,8 @@ Use samples and references
 		<div class="collapse navbar-collapse navbar-right" id="js-navbar-collapse" uib-collapse="isNavCollapsed">
 			<ul class="nav navbar-nav">
 				<li><a href="/~jherna65/index.php">Home</a></li>
-				<!-- Profile page will double as a login page if not already logged in -->
-				<li ui-sref-active-eq="activeNav"><a ui-sref="login">Login</a></li>
-				<!-- Visible to both tutors and Admin -->
-				<li ui-sref-active-eq="activeNav"><a ui-sref="contact">Messages</a></li>
+				<li><a ui-sref="login">Login</a></li>
+				<li><a href="/~jherna65/dashboard.php">Auto Cycle Schedule</a></li>
 			</ul>
 		</div>
 		<?php else : ?>
@@ -129,18 +127,28 @@ Use samples and references
      
     	<?php if(strpos($page, 'dashboard.php') == false) : ?>
      <style>
-	    #nav {
+     		#nav2 {
 		padding: 0;
 		width: 100%;
 		float: left;
-		margin: -20px auto 10px auto;
+		margin: 0px auto 9px auto;
 		list-style: none;
 		background-color: #f2f2f2;
 		border-bottom: 2px solid #f2f2f2; 
 		border-top: 1px solid #ccc; }
-	#nav li {
+	    #nav {
+		padding: 0;
+		width: 100%;
+		float: left;
+		/*margin: -20px auto 10px auto;*/
+		margin: -20px auto 0 auto;
+		list-style: none;
+		background-color: #f2f2f2;
+		border-bottom: 2px solid #f2f2f2; 
+		border-top: 1px solid #ccc; }
+	#nav li ,#nav2 li {
 		float: right; }
-	#nav li a {
+	#nav li a,#nav2 li a {
 		display: block;
 		padding: 5px 20px;
 		text-decoration: none;
@@ -149,18 +157,32 @@ Use samples and references
 		border-right: 1px solid #ccc; 
 		font-size:13px;
 		}
-	#nav li a:hover {
+	#nav li a:hover,#nav2 li a:hover {
 		color: #c00;
 		background-color: #fff; }
      </style>
 	<ul id="nav">
+		<li>ADMIN MENU</li>
 		<li><a href="directorAdministration.php">Administrators</a></li>
-		<li><a href="studentAdministration.php">Students</a> </li>
-		<li><a href="locationAdministration.php">Locations</a> </li>
-		<li><a href="classinfoAdministration.php">Classes</a> </li>
 		<li><a href="classsessionAdministration.php">Tutoring Session</a></li>
-		<li><a href="dashboard.php">Auto Cycle Dashboard</a> </li>
+		<li><a href="locationAdministration.php">Locations</a></li>
+		<li><a href="classinfoAdministration.php">Classes</a></li>
+		<li><a href="tutorAdministration.php">Tutor</a></li>
+		<li><a href="studentAdministration.php">Students</a></li>
+		<!--<li><a href="dashboard.php">Auto Cycle Dashboard</a></li>-->
+		
 	</ul>
+	<ul id="nav2">
+		<li>TUTOR MENU</li>
+		<li><a href="reviewSessions.php">Review my Tutoring Sessions</a></li>
+		<li><a href="sessionSelectStudents.php">Add Student to Session</a></li>
+		
+	</ul>
+	<ul id="nav2">
+		<li>STUDENT MENU</li>
+		<li><a href="sessionsAttended.php">See my attended Classes</a></li>
+		
+	</ul><br>
 	<?php endif; ?>
 	
 </div>    

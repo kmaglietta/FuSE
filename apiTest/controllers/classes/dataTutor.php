@@ -189,8 +189,7 @@ class dataTutor
 	public static function getAction($data,$params)
 	{
 
-		$StudentName = helpers::validateValueString((helpers::getArrayValue($params,'StudentName')),'StudentName');
-		$FirstName = helpers::validateValueString((helpers::getArrayValue($params,'FirstName')),'FirstName');
+		$iSearch = helpers::validateValueString((helpers::getArrayValue($params,'iSearch')),'iSearch');
 		
 			
 		$selectQuery = "
@@ -211,12 +210,24 @@ class dataTutor
 			where 1 = 1
 		";
 
-		if ($StudentName != "") {
-			$selectQuery .= " and concat(s.FirstName , ' ' , s.LastName) like '%$StudentName%' ";
+//		if ($StudentName != "") {
+//			$selectQuery .= " and concat(s.FirstName , ' ' , s.LastName) like '%$StudentName%' ";
+//		}
+//		if ($CourseName != "") {
+//			$selectQuery .= " and concat(c.Subject , ' ' , c.Coursename, ' ' ,  c.CourseName) like '%$CourseName%' ";
+//		}
+		
+		if ($iSearch != ""  ) {
+			$selectQuery .= " and ( concat(s.FirstName , ' ' , s.LastName) like '%$iSearch%' 
+							or concat(c.Subject , ' ' , c.Coursename, ' ' ,  c.CourseName) like '%$iSearch%' 
+							or concat(p.FirstName , ' ' , p.LastName) like '%$iSearch%' 
+							or s.EmailAddress like '%$iSearch%' 
+							
+							)
+			";
 		}
-		if ($CourseName != "") {
-			$selectQuery .= " and concat(c.Subject , ' ' , c.Coursename, ' ' ,  c.CourseName) like '%$CourseName%' ";
-		}
+		
+		
 		
 		$jtSorting = helpers::getArrayValue($params,'jtSorting');
 		if ($jtSorting != "" && $jtSorting != "undefined" ){

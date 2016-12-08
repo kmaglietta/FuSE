@@ -1,8 +1,8 @@
 <?php include('_masterHeader.php');?>
 
 
-
-
+<?php /*?>url: 'http://lamp.cse.fau.edu/~jherna65/apiTest/?action=getStudents&jtStartIndex=' + jtParams.jtStartIndex + '&jtPageSize=' + jtParams.jtPageSize + '&jtSorting=' + jtParams.jtSorting + '&FirstName=' + FirstName + '&LastName=' + LastName + '&isTutor=' + isTutor         ,
+<?php */?>
 <div class="col-xs-12 text-center">
     <h2>Students Administration</h2>
 </div>
@@ -23,7 +23,7 @@
 					listAction: function (postData, jtParams) {
 					    return $.Deferred(function ($dfd) {
 						  $.ajax({
-							 url: 'http://lamp.cse.fau.edu/~jherna65/apiTest/?action=getStudents&jtStartIndex=' + jtParams.jtStartIndex + '&jtPageSize=' + jtParams.jtPageSize + '&jtSorting=' + jtParams.jtSorting + '&FirstName=' + FirstName + '&LastName=' + LastName + '&isTutor=' + isTutor         ,
+							 url: 'http://lamp.cse.fau.edu/~jherna65/apiTest/?action=getStudents&jtStartIndex=' + jtParams.jtStartIndex + '&jtPageSize=' + jtParams.jtPageSize + '&jtSorting=' + jtParams.jtSorting + '&iSearch=' + iSearch + '&isTutor=' + isTutor         ,
 							type: 'POST',
 							dataType: 'json',
 							data: postData,
@@ -69,22 +69,22 @@
 						  });
 					    });
 					}
-					, deleteAction: function (postData, jtParams) {
-					    return $.Deferred(function ($dfd) {
-						  $.ajax({
-							 url: 'http://lamp.cse.fau.edu/~jherna65/apiTest/?action=deleteStudent',
-							type: 'POST',
-							dataType: 'json',
-							data: postData,
-							success: function (data) {
-							    $dfd.resolve(data); //$('#TableContainer').jtable('reload');
-							},
-							error: function () {
-							    $dfd.reject();
-							}
-						  });
-					    });
-					}
+					//, deleteAction: function (postData, jtParams) {
+//					    return $.Deferred(function ($dfd) {
+//						  $.ajax({
+//							 url: 'http://lamp.cse.fau.edu/~jherna65/apiTest/?action=deleteStudent',
+//							type: 'POST',
+//							dataType: 'json',
+//							data: postData,
+//							success: function (data) {
+//							    $dfd.resolve(data); //$('#TableContainer').jtable('reload');
+//							},
+//							error: function () {
+//							    $dfd.reject();
+//							}
+//						  });
+//					    });
+//					}
 				},
 				fields: {
 					//``, ``, ``, ``, ``, ``, ``, ``
@@ -150,8 +150,9 @@
 			$('#LoadRecordsButton').click(function (e) {
 				e.preventDefault();
 				$('#TableContainer').jtable('load', {
-				    FirstName: $('#FirstName').val(),
-				    LastName: $('#LastName').val(),
+				    //FirstName: $('#FirstName').val(),
+				    //LastName: $('#LastName').val(),
+				    iSearch: $('#iSearch').val(),
 				    isTutor: $('#isTutor').val()
 				});
 			});
@@ -166,15 +167,16 @@
 
 	<div class="filtering">
 	    <form>
-		  First Name: <input type="text" name="FirstName" id="FirstName" />
-		  Last Name: <input type="text" name="LastName" id="LastName" />
+	    	Search: <input type="text" name="iSearch" id="iSearch" />
+		<?php /*?>  First Name: <input type="text" name="FirstName" id="FirstName" />
+		  Last Name: <input type="text" name="LastName" id="LastName" /><?php */?>
 		  is Tutor: 
 		  <select id="isTutor" name="isTutor">
 			<option selected="selected" value="0">Show All</option>
 			<option value="1">Yes</option>
 			<option value="2">No</option>
 		  </select>
-		 <button type="submit" id="LoadRecordsButton">Refresh records</button> <button type="button" onClick="window.location.href = window.location.href">Clear</button>
+		 <button type="submit" id="LoadRecordsButton">Search</button> <button type="button" onClick="window.location.href = window.location.href">Clear</button>
 	    </form>
 	</div>
 	

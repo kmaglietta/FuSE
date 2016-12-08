@@ -147,13 +147,14 @@ class dataStudent
 		$retobj["attributes"] = helpers::runQuery("select count(0) TotalRecordCount from proStudent");
 		return $retobj;
 	}
-	
+		
 	public static function getAction($data,$params)
 	{
 
 		$isTutor = helpers::validateInt((helpers::getArrayValue($params,'isTutor')),'isTutor');
-		$LastName = helpers::validateValueString((helpers::getArrayValue($params,'LastName')),'LastName');
-		$FirstName = helpers::validateValueString((helpers::getArrayValue($params,'FirstName')),'FirstName');
+		$iSearch = helpers::validateValueString((helpers::getArrayValue($params,'iSearch')),'iSearch');
+		//$LastName = helpers::validateValueString((helpers::getArrayValue($params,'LastName')),'LastName');
+		//$FirstName = helpers::validateValueString((helpers::getArrayValue($params,'FirstName')),'FirstName');
 		
 			
 		$selectQuery = "
@@ -177,14 +178,22 @@ class dataStudent
 		elseif ($isTutor == 2){
 			$selectQuery .= " and t.tutorId is null ";
 		}
-		if ($LastName != "") {
-			$selectQuery .= " and s.LastName like '%$LastName%' ";
+		//if ($LastName != "") {
+//			$selectQuery .= " and s.LastName like '%$LastName%' ";
+//		}
+//		if ($FirstName != "") {
+//			$selectQuery .= " and s.FirstName like '%$FirstName%' ";
+//		}
+		if ($iSearch != ""  ) {
+			$selectQuery .= " and ( s.FirstName like '%$iSearch%' 
+							or s.LastName like '%$iSearch%' 
+							or s.ContactPhone like '%$iSearch%' 
+							or s.EmailAddress like '%$iSearch%' 
+							
+							)
+			";
 		}
-		if ($FirstName != "") {
-			$selectQuery .= " and s.FirstName like '%$FirstName%' ";
-		}
-		
-		
+//throw new ResponseException(500, "[$selectQuery]");		
 
 		
 		$jtSorting = helpers::getArrayValue($params,'jtSorting');

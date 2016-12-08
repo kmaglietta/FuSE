@@ -142,9 +142,7 @@ class dataClassinfo
 	public static function getAction($data,$params)
 	{
 
-		$Subject = helpers::validateValueString((helpers::getArrayValue($params,'Subject')),'Subject');
-		$CourseNumber = helpers::validateValueString((helpers::getArrayValue($params,'CourseNumber')),'CourseNumber');
-		$CourseName = helpers::validateValueString((helpers::getArrayValue($params,'CourseName')),'CourseName');
+		$iSearch = helpers::validateValueString((helpers::getArrayValue($params,'iSearch')),'iSearch');
 		
 		 	
 		$selectQuery = "
@@ -157,14 +155,15 @@ class dataClassinfo
 		";
 
 		
-		if ($Subject != "") {
-			$selectQuery .= " and c.Subject like '%$Subject%' ";
-		}
-		elseif ($CourseNumber != ""){
-			$selectQuery .= " and c.CourseNumber like '%$CourseNumber%' ";
-		}
-		if ($CourseName != "") {
-			$selectQuery .= " and c.CourseName like '%$CourseName%' ";
+		if ($iSearch != ""  ) {
+			$selectQuery .= " and ( c.Subject like '%$iSearch%' 
+							or c.CourseNumber like '%$iSearch%' 
+							or c.Lab like '%$iSearch%' 
+							or c.CourseName like '%$iSearch%' 
+							or concat(p.FirstName , ' ' , p.LastName) like '%$iSearch%' 
+							
+							)
+			";
 		}
 		
 //throw new ResponseException(500, "$selectQuery");	

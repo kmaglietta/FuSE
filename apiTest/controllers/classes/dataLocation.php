@@ -200,7 +200,7 @@ class dataLocation
 	public static function getAction($data,$params)
 	{
 
-		$BuildingName = helpers::validateValueString((helpers::getArrayValue($params,'BuildingName')),'BuildingName');
+		$iSearch = helpers::validateValueString((helpers::getArrayValue($params,'iSearch')),'iSearch');
 
 		$selectQuery = "
 			SELECT
@@ -222,8 +222,12 @@ class dataLocation
 
 			where 1 = 1
 		";
-		if ($BuildingName != "") {
-			$selectQuery .= " and l.BuildingName like '%$BuildingName%' ";
+		if ($iSearch != ""  ) {
+			$selectQuery .= " and ( BuildingName like '%$iSearch%' 
+							or RoomNumber like '%$iSearch%' 
+							or concat(p.FirstName , ' ' , p.LastName) like '%$iSearch%' 
+							)
+			";
 		}
 		
 		

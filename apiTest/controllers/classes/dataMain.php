@@ -67,9 +67,9 @@ class dataMain
 			inner join proLocation l on l.LocationId = ts.LocationId
 			
 			where ts.SessionEndTime >= DATE_ADD(NOW(),INTERVAL - 1 hour)
-			and ts.SessionEndTime <= DATE_ADD(CURDATE(),INTERVAL 1 day)
+			and ts.SessionEndTime <= DATE_ADD(CURDATE(),INTERVAL 2 day)
 			
-			Order by ts.SessionStartTime, c.coursename, concat(s.FirstName , ' ' , s.LastName)
+			Order by ts.SessionStartTime, ts.SessionEndTime, c.coursename, concat(s.FirstName , ' ' , s.LastName)
 		";
 		
 		// ts.SessionStartTime is today

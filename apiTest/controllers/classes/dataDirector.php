@@ -125,8 +125,7 @@ class dataDirector
 	public static function getAction($data,$params)
 	{
 
-		$LastName = helpers::validateValueString((helpers::getArrayValue($params,'LastName')),'LastName');
-		$FirstName = helpers::validateValueString((helpers::getArrayValue($params,'FirstName')),'FirstName');
+		$iSearch = helpers::validateValueString((helpers::getArrayValue($params,'iSearch')),'iSearch');
 		
 			
 		$selectQuery = "
@@ -137,11 +136,12 @@ class dataDirector
 			where 1 = 1
 		";
 
-		if ($LastName != "") {
-			$selectQuery .= " and LastName like '%$LastName%' ";
-		}
-		if ($FirstName != "") {
-			$selectQuery .= " and FirstName like '%$FirstName%' ";
+		if ($iSearch != ""  ) {
+			$selectQuery .= " and ( FirstName like '%$iSearch%' 
+							or LastName like '%$iSearch%' 
+							or EmailAddress like '%$iSearch%' 
+							)
+			";
 		}
 		
 		$jtSorting = helpers::getArrayValue($params,'jtSorting');

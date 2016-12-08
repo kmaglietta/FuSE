@@ -13,6 +13,7 @@ $(document).ready(function() {
 			"type": "POST"
 		  	}
 	  , "columns": [
+	  	  { "data": 'SessionStartTime', 'visible': false, 'searchable': false,},
 		  { "data": 'class' },
 		  { "data": 'coursename' },
 		  { "data": 'name' },
@@ -23,11 +24,12 @@ $(document).ready(function() {
              	render: function ( data, type, row ) {
               		return '<div class="' + data.toLowerCase() + '">' + data + '</div>';
             	}
-		  }
+		  },
+		  
 	    ]
-	, 
-	"order": [ [4,'asc'], [5,'asc'] ]
+	, "order": [[0,'asc'],[5,'asc'], [6,'asc'] ]
 	,
+
 	"deferRender": true,
 	"sDom" : 'rt',
 
@@ -66,6 +68,7 @@ $(document).ready(function() {
 	<table width="100%" id="courses" class="display " cellspacing="0">
 	  <thead>
 		<tr>
+			<th></th>
 		    <th>Class</th>
 		    <th>Course Name</th>
 		    <th>Tutor Name</th>
