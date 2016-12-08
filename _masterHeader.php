@@ -110,7 +110,7 @@ Use samples and references
 			<ul class="nav navbar-nav">
 				<li><a href="/~jherna65/index.php">Home</a></li>
 				<li><a ui-sref="login">Login</a></li>
-				<li><a href="/~jherna65/dashboard.php">Auto Cycle Schedule</a></li>
+				<li><a href="/~jherna65/dashboard.php">Dashboard</a></li>
 			</ul>
 		</div>
 		<?php else : ?>
@@ -131,7 +131,7 @@ Use samples and references
 		padding: 0;
 		width: 100%;
 		float: left;
-		margin: 0px auto 9px auto;
+		margin: 0px auto 0px auto;
 		list-style: none;
 		background-color: #f2f2f2;
 		border-bottom: 2px solid #f2f2f2; 
@@ -182,7 +182,15 @@ Use samples and references
 		<li>STUDENT MENU</li>
 		<li><a href="sessionsAttended.php">See my attended Classes</a></li>
 		
-	</ul><br>
+	</ul>
+	<ul id="nav2">
+		<li>ALL MENU</li>
+		<li><a href="tutorProfiles.php">Tutor Profiles</a></li>
+		<li><a href="dashboard.php">Auto Cycle Dashboard</a></li>
+	</ul>
+	
+	
+	<br>
 	<?php endif; ?>
 	
 </div>    

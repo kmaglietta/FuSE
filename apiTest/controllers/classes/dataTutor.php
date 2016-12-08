@@ -257,7 +257,84 @@ class dataTutor
 	
 	
 	
+	public function getprofilesAction($data,$params){
+		$isRating = helpers::validateInt((helpers::getArrayValue($params,'isRating')),'isRating');
+		$iSearch = helpers::validateValueString((helpers::getArrayValue($params,'iSearch')),'iSearch');
+		
+		$selectQuery = "
+			
+		SELECT 
+			t.StudentId
+			, s.FirstName
+			, s.LastName
+			, concat(s.FirstName , ' ' , s.LastName) as StudentName
+			, count(1) TotalStudentsTutored
+			, sum( case when tss.StudentRating > 0 then 1 else 0 end) TotalStudentsRatedTutor
+			, FLOOR(sum(tss.StudentRating ) /  sum( case when tss.StudentRating > 0 then 1 else 0 end))  AverageRating
+			
+			
+			from 
+			proTutor t 
+			inner join proStudent s on s.StudentId = t.StudentId
+			inner join proTutoringSession ts on ts.TutorId = t.TutorId 
+			left join  proTutoringSessionStudents tss   on tss.SessionId = ts.SessionId
+
+			
+			
+			
+			where 1 = 1
+		";
+		
+		if ($iSearch != ""  ) {
+			$selectQuery .= " and ( concat(s.FirstName , ' ' , s.LastName) like '%$iSearch%' 
+							)
+			";
+		}
+//	
+
+
+		$selectQuery .= "
+			group by t.StudentId
+			, s.FirstName
+			, s.LastName
+			, concat(s.FirstName , ' ' , s.LastName)
+		";
+		
+		if ($isRating >= 1) {
+			$selectQuery .= " having (FLOOR(sum(tss.StudentRating ) /  sum( case when tss.StudentRating > 0 then 1 else 0 end))) >=  $isRating";
+		}
+				
+		
+		
+		$jtSorting = helpers::getArrayValue($params,'jtSorting');
+		if ($jtSorting != "" && $jtSorting != "undefined" ){
+			$selectQuery .= " ORDER BY $jtSorting";
+		}
+
+		$jtStartIndex = helpers::getArrayValue($params,'jtStartIndex');
+		if ($jtStartIndex != "" ){
+			$selectQuery .= " Limit $jtStartIndex";
+		}
+		
+		
+		$jtPageSize = helpers::getArrayValue($params,'jtPageSize');
+		if ($jtPageSize != "" ){
+			$selectQuery .= " , $jtPageSize";
+		}
+		
+//throw new ResponseException(500, "[$selectQuery]");	
+		$retobj = array();
+		
+		$retobj['Records'] = helpers::runQuery($selectQuery);
+		$retobj["attributes"] = helpers::runQuery("select count(0) TotalRecordCount from 
+			proTutor t 
+			inner join proStudent s on s.StudentId = t.StudentId
+			inner join proTutoringSession ts on ts.TutorId = t.TutorId 
+			left join  proTutoringSessionStudents tss   on tss.SessionId = ts.SessionId");
+		return $retobj;
+	}
 	
+		
 	
 	
 	
@@ -276,8 +353,7 @@ class dataTutor
 			, count(1) TotalStudentsTutored
 			, sum(tss.StudentRating ) TotalRatingSum
 			, sum( case when tss.StudentRating > 0 then 1 else 0 end) TotalStudentsRatedTutor
-			, sum(tss.StudentRating ) /  sum( case when tss.StudentRating > 0 then 1 else 0 end)  AverageRating
-			
+			, (FLOOR(sum(tss.StudentRating ) /  sum( case when tss.StudentRating > 0 then 1 else 0 end))) AverageRating
 			
 			from 
 			proTutor t 
@@ -316,7 +392,7 @@ class dataTutor
 				
 				, sum(tss.StudentRating ) TotalRatingSum
 							, sum( case when tss.StudentRating > 0 then 1 else 0 end) TotalStudentsRatedTutor
-							, sum(tss.StudentRating ) /  sum( case when tss.StudentRating > 0 then 1 else 0 end)  AverageRating
+							, (FLOOR(sum(tss.StudentRating ) /  sum( case when tss.StudentRating > 0 then 1 else 0 end))) AverageRating
 							
 						FROM proTutor t
 							inner join proAdministrator  as p on t.ApprovedByAdminId = p.AdminId

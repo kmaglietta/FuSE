@@ -49,6 +49,7 @@ class post
 	public function getTutornamesAction($data,$params)	{ $dataClass = new dataTutor(); 	return $dataClass->getnamesAction($data,$params);  }	
 	
 	public function getProfileAction($data,$params)		{ $dataClass = new dataTutor(); 	return $dataClass->getprofileAction($data,$params);  }	
+	public function getProfilesAction($data,$params)	{ $dataClass = new dataTutor(); 	return $dataClass->getprofilesAction($data,$params);  }	
 	public function getTutorclassesAction($data,$params)	{ $dataClass = new dataTutor(); 	return $dataClass->gettutorclassesAction($data,$params);  }	
 	
 

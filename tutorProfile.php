@@ -7,7 +7,41 @@ if ((isset($_REQUEST['studentid'])) && (!empty($_REQUEST['studentid'])))
     $studentid= $_REQUEST['studentid'];
 }
 ?>
+<style>
+.stars-container {
+  position: relative;
+  display: inline-block;
+  color: transparent;
+  font-size: 20px;
+}
 
+.stars-container:before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: '★★★★★';
+  color: lightgray;
+  font-size: 20px;
+}
+
+.stars-container:after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: '★★★★★';
+  color: #FFBE00;
+  overflow: hidden;
+  font-size: 20px;
+}
+
+.stars-0:after { width: 0%; }
+.stars-1:after { width: 20%; }
+.stars-2:after { width: 40%; }
+.stars-3:after { width: 60%; }
+.stars-4:after { width: 80%; }
+.stars-5:after { width: 100%; }
+
+</style>
 <!--- icon from https://www.iconfinder.com/icons/285641/id_user_icon#size=128--->
 
 
@@ -101,10 +135,21 @@ if ((isset($_REQUEST['studentid'])) && (!empty($_REQUEST['studentid'])))
 						list: true
 					},
 					AverageRating: {
-						title: 'Average Rating',
-						create: false,
-						edit: false,
-						list: true
+						title: 'Average Rating',					
+						display: function (data) {
+							try {
+								var score = 0;
+								if (data.record.AverageRating)
+								 score = data.record.AverageRating;
+								//return '<span class="stars">' + score + '</span>';
+								return '<div><span class="stars-container stars-' + score + '">★★★★★</span></div>'
+							}
+							catch (ex)
+							{
+							 return '';	
+							}
+						
+						}
 					},
 				}
 			});
