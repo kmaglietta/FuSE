@@ -231,8 +231,12 @@ class dataStudent
 		{
 			$selectQuery = "
 			SELECT 
-				AdminId 
-				, guiid 
+				adminId id
+				, tutorid
+				, UUID() guiid
+				, 1 isAdmin
+				, 0 isTutor
+				, 0 isStudnt 
 				FROM proAdministrator 
 				where EmailAddress = '$EmailAddress'  
 				and Password = '$Password' 
@@ -242,11 +246,15 @@ class dataStudent
 		{
 			$selectQuery = "
 			SELECT 
-	
-				StudentId 
-				, guiid 
-				FROM proStudent 
-				where EmailAddress = '$EmailAddress'  
+				s.StudentId id
+				, t.tutorid
+				, UUID() guiid
+				, 0 isAdmin
+				, case when t.StudentId is null then 1 else 0 end isTutor
+				, 1 isStudnt 
+				FROM proStudent  s
+				left join proTutor t on s.StudentId = t.StudentId
+				where s.EmailAddress = '$EmailAddress'  
 				and Password = '$Password' 
 			";
 		}
