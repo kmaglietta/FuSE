@@ -27,7 +27,8 @@
   background: #f2f2f2;
   border: 0;
   margin: 0 0 15px;
-  padding: 6px;
+  padding: 10px;
+  text-indent: 10px;
   box-sizing: border-box;
   font-size: 14px;
 }
@@ -68,6 +69,6 @@
 }
 
 .authentication-form .checkbox {
-  padding-left: 45px;
+  padding-left: 15px;
   text-align: left;
 }

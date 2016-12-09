@@ -10,3 +10,12 @@ a.s_remove:focus{
   margin-bottom: 15px;
   text-align: center;
 }
+
+/*
+* Datatable custom style
+*/
+.Active {color:#8e44ad;}
+.Upcoming {color: #f1c40f;}
+.Canceled {color:#e74c3c;}
+.Completed {color:#27ae60;}
+table.dataTable.display tbody tr:hover td:last-child div{ color:black ; }/* green*/

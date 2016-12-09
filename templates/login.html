@@ -29,7 +29,9 @@
             <input type="password" class="input-text"
             placeholder="Password" name="password" ng-model="vm.password" required/>
 
-            <div class="checkbox"><input type="checkbox" ng-model="vm.isAdmin.value"/><label>Admin?</label></div>
+            <div class="checkbox">
+              <label><input type="checkbox" ng-model="vm.isAdmin.value"/>Admin?</label>
+            </div>
 
             <button id="login-submit" class="login-submit" ng-disabled="loginForm.$invalid" type="submit">login</button>
           </form>
