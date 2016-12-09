@@ -1,0 +1,18 @@
+<div class="presentable container main"
+id="main">
+  <div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-8 col-md-offset-2">
+      <div class="home-content center-block ">
+        <h1>Welcome back, {{ vm.userData.role }}</h1>
+        <a href class="top-buffer btn btn-lg btn-danger" ng-click="vm.logout()">LOGOUT&nbsp;
+          <span class="fa fa-times-circle"></span></a>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+  </div>
+</div>
+
+<admin-dashboard ng-if="vm.userData!=null&&vm.userData.role=='admin'" info="'Admin views'"></admin-dashboard>
+<tutor-dashboard ng-if="vm.userData!=null&&vm.userData.role=='tutor'" info="'Tutor views'"></tutor-dashboard>
+<student-dashboard ng-if="vm.userData!=null&&vm.userData.role=='student'" info="'Student views'"></student-dashboard>

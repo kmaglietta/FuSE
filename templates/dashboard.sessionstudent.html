@@ -1,0 +1,209 @@
+<!-- jQuery library -->
+<script type="text/javascript" src="jquery/jquery-ui-1.12.1/jquery-ui.js"></script>
+<script type="text/javascript" src="jquery/jquery-ui-1.12.1/jquery-ui-timepicker-addon.js"></script>
+<script type="text/javascript" src="jquery/jquery-ui-1.12.1/jquery-ui-timepicker-addon-i18n.min.js"></script>
+<script type="text/javascript" src="jquery/jquery-ui-1.12.1/jquery-ui-sliderAccess.js"></script>
+
+<script type="text/javascript" src="jquery/date.format.js"></script>
+<script type="text/javascript" src="jquery/jtable.2.4.0/jquery.jtable.js" ></script>
+
+<script type="text/javascript" src="jquery/jquery.validationEngine.js"></script>
+<script type="text/javascript" src="jquery/jquery.validationEngine-en.js"></script>
+
+<link rel="stylesheet" type="text/css" href="styles/jquery-ui-timepicker-addon.css">
+<link rel="stylesheet" type="text/css" href="jquery/jquery-ui-1.12.1/jquery-ui.css"/>
+<link rel="stylesheet" type="text/css" href="jquery/jtable.2.4.0/themes/lightcolor/blue/jtable.css"/>
+
+<script type="text/javascript">
+
+	$(document).ready(function () {
+
+			//Prepare jTable
+		$('#TableContainer').jtable({
+			title: 'Students Administration',
+			paging: true, //Enable paging
+			pageSize: 10, //Set page size (default: 10)
+			sorting: true, //Enable sorting
+			useBootstrap: true,
+			defaultSorting: 'EmailAddress ASC', //Set default sorting
+			actions: {
+
+				listAction: function (postData, jtParams) {
+						return $.Deferred(function ($dfd) {
+						$.ajax({
+						 url: 'http://lamp.cse.fau.edu/~jherna65/apiTest/?action=getStudents&jtStartIndex=' + jtParams.jtStartIndex + '&jtPageSize=' + jtParams.jtPageSize + '&jtSorting=' + jtParams.jtSorting + '&iSearch=' + iSearch + '&isTutor=' + isTutor         ,
+						type: 'POST',
+						dataType: 'json',
+						data: postData,
+						success: function (data) {
+								$dfd.resolve(data);
+						},
+						error: function () {
+								$dfd.reject();
+						}
+						});
+						});
+				}
+
+				, createAction: function (postData) {
+						return $.Deferred(function ($dfd) {
+						$.ajax({
+								url: 'http://lamp.cse.fau.edu/~jherna65/apiTest/?action=addStudent&',
+								type: 'POST',
+								dataType: 'json',
+								data: postData,
+								success: function (data) {
+								$dfd.resolve(data); $('#TableContainer').jtable('reload');
+								},
+								error: function () {
+								$dfd.reject();
+								}
+						});
+						});
+						}
+				, updateAction: function (postData, jtParams) {
+						return $.Deferred(function ($dfd) {
+						$.ajax({
+						 url: 'http://lamp.cse.fau.edu/~jherna65/apiTest/?action=updateStudent',
+						type: 'POST',
+						dataType: 'json',
+						data: postData,
+						success: function (data) {
+								$dfd.resolve(data); $('#TableContainer').jtable('reload');
+						},
+						error: function () {
+								$dfd.reject();
+						}
+						});
+						});
+				}
+				//, deleteAction: function (postData, jtParams) {
+//					    return $.Deferred(function ($dfd) {
+//						  $.ajax({
+//							 url: 'http://lamp.cse.fau.edu/~jherna65/apiTest/?action=deleteStudent',
+//							type: 'POST',
+//							dataType: 'json',
+//							data: postData,
+//							success: function (data) {
+//							    $dfd.resolve(data); //$('#TableContainer').jtable('reload');
+//							},
+//							error: function () {
+//							    $dfd.reject();
+//							}
+//						  });
+//					    });
+//					}
+			},
+			fields: {
+				//``, ``, ``, ``, ``, ``, ``, ``
+				StudentId: {
+					key: true,
+					create: false,
+					edit: false,
+					list: false
+				},
+				EmailAddress: {
+					title: 'Email Address',
+					create: true,
+					edit: false,
+					list: true
+
+				},
+				Password: {
+					title: 'Set Password',
+					create: true,
+					edit: true,
+					list: false
+
+				},
+				FirstName: {
+					title: 'First Name'
+
+				},
+				LastName: {
+					title: 'Last Name'
+
+				},
+				ContactPhone: {
+					title: 'Contact Phone'
+
+				},
+				isTutor: {
+					title: 'Approved Tutor',
+					create: false,
+					edit: false,
+					list: true
+
+
+				},
+				FavoriteTutorId: {
+					title: 'FavoriteTutorId',
+					create: false,
+					edit: false,
+					list: false
+				},
+				DateEntered: {
+					title: 'Date Entered',
+					type: 'date',
+					create: false,
+					edit: false,
+					list: false
+				}
+			}
+		});
+
+		//$('#TableContainer').jtable('load');
+
+		//Re-load records when user click 'load records' button.
+		$('#LoadRecordsButton').click(function (e) {
+			e.preventDefault();
+			$('#TableContainer').jtable('load', {
+					//FirstName: $('#FirstName').val(),
+					//LastName: $('#LastName').val(),
+					iSearch: $('#iSearch').val(),
+					isTutor: $('#isTutor').val()
+			});
+		});
+
+		//Load all records when page is first shown
+		$('#LoadRecordsButton').click();
+
+	});
+
+</script>
+
+<div class="presentable container main"
+id="main">
+  <div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-8 col-md-offset-2">
+      <div class="home-content center-block ">
+        <h2>Students Administration</h2>
+      </div>
+    </div>
+  </div>
+  <div class="buffer row">
+    <div class="col-xs-12 col-sm-6 col-md-8 col-md-offset-2 center-block">
+      <div class="filtering">
+    	  <form>
+          <label>Search: </label><input type="text" name="iSearch" id="iSearch" />
+      	  is Tutor:
+    	     <select id="isTutor" name="isTutor">
+            <option selected="selected" value="0">Show All</option>
+      		  <option value="1">Yes</option>
+      		  <option value="2">No</option>
+      	   </select>
+      	  <button type="submit" class="top-buffer bottom-buffer btn btn-primary" id="LoadRecordsButton">
+              Search
+          </button>
+        </form>
+      </div>
+      <ul>
+        <li>To reset a password do an edit and change the *********, otherwise leave as is</li>
+      </ul>
+
+      <div class="table-responsive nowrap" id="TableContainer">
+
+      </div>
+    </div>
+  </div>
+</div>

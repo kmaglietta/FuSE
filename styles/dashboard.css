@@ -1,0 +1,21 @@
+a.s_remove,
+a.s_remove:hover,
+a.s_remove:focus{
+  color:#e74c3c;
+  text-decoration: none;
+}
+
+.home-content {
+  margin: 0 auto;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+/*
+* Datatable custom style
+*/
+.Active {color:#8e44ad;}
+.Upcoming {color: #f1c40f;}
+.Canceled {color:#e74c3c;}
+.Completed {color:#27ae60;}
+table.dataTable.display tbody tr:hover td:last-child div{ color:black ; }/* green*/

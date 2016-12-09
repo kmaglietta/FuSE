@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed');
+
+.clickable {
+  cursor: pointer;
+}
+
+#main-intro{
+  font-family: 'Roboto Condensed', 'Roboto', serif;
+  text-align: center;
+}
+
+/*	--------------------------------------------------
+	:: Available Tutors Table
+	-------------------------------------------------- */
+
+header {
+  clear: both;
+}
+
+#headerlogo img {
+  margin: 10px;
+}
+
+/*table.table th, table.table thead {
+  background-color: #003366;
+}
+table.table th{
+  padding-left: 25px;
+  color: white;
+  font-weight: bold;
+}
+
+.dataTables_filter label input[type=text] {
+  font-style: italic;
+}
+.dataTables_filter label{
+  margin: 10px;
+}*/
+
+table.table {
+  padding: 25px;
+}
+.tutorings div{
+  margin: 5px;
+}
+.dt-loading {
+  /* Customise loading text */
+  text-align: center;
+  font-family: 'Roboto Condensed', 'Roboto', serif;
+}

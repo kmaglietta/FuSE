@@ -1,0 +1,201 @@
+<!-- jQuery library -->
+<script type="text/javascript" src="jquery/jquery-ui-1.12.1/jquery-ui.js"></script>
+<script type="text/javascript" src="jquery/jquery-ui-1.12.1/jquery-ui-timepicker-addon.js"></script>
+<script type="text/javascript" src="jquery/jquery-ui-1.12.1/jquery-ui-timepicker-addon-i18n.min.js"></script>
+<script type="text/javascript" src="jquery/jquery-ui-1.12.1/jquery-ui-sliderAccess.js"></script>
+
+<script type="text/javascript" src="jquery/date.format.js"></script>
+<script type="text/javascript" src="jquery/jtable.2.4.0/jquery.jtable.js" ></script>
+
+<script type="text/javascript" src="jquery/jquery.validationEngine.js"></script>
+<script type="text/javascript" src="jquery/jquery.validationEngine-en.js"></script>
+
+<link rel="stylesheet" type="text/css" href="styles/jquery-ui-timepicker-addon.css">
+<link rel="stylesheet" type="text/css" href="jquery/jquery-ui-1.12.1/jquery-ui.css"/>
+<link rel="stylesheet" type="text/css" href="jquery/jtable.2.4.0/themes/lightcolor/blue/jtable.css"/>
+
+<script type="text/javascript">
+
+  $(document).ready(function () {
+
+      //Prepare jTable
+    $('#TableContainer').jtable({
+      title: 'Tutor Management',
+      paging: true, //Enable paging
+      pageSize: 10, //Set page size (default: 10)
+      sorting: true, //Enable sorting
+      useBootstrap: true,
+      defaultSorting: 'EmailAddress ASC', //Set default sorting
+      actions: {
+
+        listAction: function (postData, jtParams) {
+            return $.Deferred(function ($dfd) {
+            $.ajax({
+             url: 'http://lamp.cse.fau.edu/~jherna65/apiTest/?action=getTutors&jtStartIndex=' + jtParams.jtStartIndex + '&jtPageSize=' + jtParams.jtPageSize + '&jtSorting=' + jtParams.jtSorting + '&iSearch=' + iSearch  ,
+            type: 'POST',
+            dataType: 'json',
+            data: postData,
+            success: function (data) {
+                $dfd.resolve(data);
+            },
+            error: function () {
+                $dfd.reject();
+            }
+            });
+            });
+        }
+
+        , createAction: function (postData) {
+            return $.Deferred(function ($dfd) {
+            $.ajax({
+                url: 'http://lamp.cse.fau.edu/~jherna65/apiTest/?action=addTutor',
+                type: 'POST',
+                dataType: 'json',
+                data: postData,
+                success: function (data) {
+                $dfd.resolve(data); $('#TableContainer').jtable('reload');
+                },
+                error: function () {
+                $dfd.reject();
+                }
+            });
+            });
+            }
+        , updateAction: function (postData, jtParams) {
+            return $.Deferred(function ($dfd) {
+            $.ajax({
+             url: 'http://lamp.cse.fau.edu/~jherna65/apiTest/?action=updateTutor',
+            type: 'POST',
+            dataType: 'json',
+            data: postData,
+            success: function (data) {
+                $dfd.resolve(data); $('#TableContainer').jtable('reload');
+            },
+            error: function () {
+                $dfd.reject();
+            }
+            });
+            });
+        }
+//					, deleteAction: function (postData, jtParams) {
+//					    return $.Deferred(function ($dfd) {
+//						  $.ajax({
+//							 url: 'http://lamp.cse.fau.edu/~jherna65/apiTest/?action=deleteTutor',
+//							type: 'POST',
+//							dataType: 'json',
+//							data: postData,
+//							success: function (data) {
+//							    $dfd.resolve(data); //$('#TableContainer').jtable('reload');
+//							},
+//							error: function () {
+//							    $dfd.reject();
+//							}
+//						  });
+//					    });
+//					}
+      },
+      fields: {
+        //``, ``, ``, ``, ``, ``, ``, ``
+        TutorId: {
+          key: true,
+          create: false,
+          edit: false,
+          list: false
+        },
+        StudentId: {
+          title: 'Student Name',
+          options: 'http://lamp.cse.fau.edu/~jherna65/apiTest/?action=getStudentnames',
+          list: false
+        },
+        StudentName: {
+          title: 'Student Name',
+          create: false,
+          edit: false,
+          list: true
+        },
+        ClassId: {
+          title: 'Class approved for',
+          options: 'http://lamp.cse.fau.edu/~jherna65/apiTest/?action=getClassinfonames',
+          list: false
+        },
+        ApprovedForClassName: {
+          title: 'Class approved for',
+          create: false,
+          edit: false,
+          list: true
+        },
+        ApprovedByAdminId: {
+          title: 'Approved By',
+          options: 'http://lamp.cse.fau.edu/~jherna65/apiTest/?action=getDirectornames',
+          list: false
+        },
+
+        ApprovedOn: {
+          title: 'Approved On',
+          type: 'date',
+          create: false,
+          edit: false,
+          list: true
+        },
+
+        ApprovedByName: {
+          title: 'Approved By',
+          create: false,
+          edit: false,
+          list: true
+        },
+
+        DateEntered: {
+          title: 'Date Entered',
+          type: 'date',
+          create: false,
+          edit: false,
+          list: false
+        }
+      }
+    });
+
+    //$('#TableContainer').jtable('load');
+
+    //Re-load records when user click 'load records' button.
+    $('#LoadRecordsButton').click(function (e) {
+      e.preventDefault();
+      $('#TableContainer').jtable('load', {
+          iSearch: $('#iSearch').val()
+      });
+    });
+
+    //Load all records when page is first shown
+    $('#LoadRecordsButton').click();
+
+  });
+
+
+  </script>
+
+  <div class="presentable container main"
+  id="main">
+    <div class="row">
+      <div class="col-xs-12 col-sm-6 col-md-8 col-md-offset-2">
+        <div class="home-content center-block ">
+          <h2>Tutor Administration</h2>
+        </div>
+      </div>
+    </div>
+    <div class="buffer row">
+      <div class="col-xs-12 col-sm-6 col-md-8 col-md-offset-2 center-block">
+        <div class="filtering">
+      	  <form>
+            <label>Search: </label><input type="text" name="iSearch" id="iSearch" />
+        	  <button type="submit" class="top-buffer bottom-buffer btn btn-primary" id="LoadRecordsButton">
+                Search
+            </button>
+          </form>
+        </div>
+
+        <div class="table-responsive nowrap" id="TableContainer">
+
+        </div>
+      </div>
+    </div>
+  </div>

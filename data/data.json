@@ -1,0 +1,46 @@
+[
+  {
+    "name": "John Doe",
+    "class": "Mathematics",
+    "date": "01/01/1991",
+    "time": "12:00",
+    "room": "CM128",
+    "rating": 5.0,
+    "description": "I teach all things mathematics",
+    "checkedIn":false,
+    "availability": true
+  },
+  {
+    "name": "James May",
+    "class": "Mechanical Engineering",
+    "date": "01/02/1991",
+    "time": "13:00",
+    "room": "EE106",
+    "rating": 4.5,
+    "description": "Cars are my forte",
+    "checkedIn":true,
+    "availability": true
+  },
+  {
+    "name": "San Holo",
+    "class": "Physiology",
+    "date": "01/10/1991",
+    "time": "10:00",
+    "room": "GS101",
+    "rating": 3.8,
+    "description": "Let's have a good workout",
+    "checkedIn":false,
+    "availability": true
+  },
+  {
+    "name": "Solid Snake",
+    "class": "Physiology",
+    "date": "01/05/1991",
+    "time": "23:59",
+    "room": "GS102",
+    "rating": 5.0,
+    "description": "Metal Gear...",
+    "checkedIn":false,
+    "availability": true
+  }
+]

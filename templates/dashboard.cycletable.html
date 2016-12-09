@@ -1,0 +1,16 @@
+
+<div class="presentable container main"
+id="main">
+  <div class="row">
+    <div class="col-xs-12 col-sm-8 col-md-10 col-lg-10 center-block">
+      <button ng-click="vm.backAState()" type="button" class="buffer btn btn-info">
+          <i class="fa fa-arrow-left"></i>&nbsp;Go back
+      </button><br/>
+      <div class="table-responsive listtable listtable2">
+        <table datatable dt-options="vm.dtOptions" dt-columns="vm.dtColumns" dt-instance="vm.dtInstanceCallback"
+         class="table table-striped table-hover dt-responsive nowrap" cellspacing="0">
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

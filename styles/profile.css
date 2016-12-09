@@ -1,0 +1,33 @@
+.marketing-point {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-weight: bold;
+  font-size: 1.05em;
+}
+
+.profile-title {
+  text-align: center;
+  font-family: 'Roboto Condensed', sans-serif;
+  font-weight: bold;
+  font-size: 3.35em;
+}
+/*
+ * Profile image
+ */
+.profile-header-container{
+    margin: 0 auto;
+    text-align: center;
+}
+
+.profile-header-img > img.img-circle {
+    width: 120px;
+    height: 120px;
+    border: 2px solid #C0392B;
+}
+
+.profile-statemate {
+  padding: 33px;
+}
+
+.center-items {
+  text-align: center;
+}

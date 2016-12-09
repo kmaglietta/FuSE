@@ -1,0 +1,37 @@
+{
+  "name": "fuse",
+  "description": "test build",
+  "main": "index.js",
+  "authors": [
+    "Yashica <thorsleepless@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.1.1",
+    "angular": "^1.5.8",
+    "bootstrap": "^3.3.7",
+    "angular-animate": "^1.4.0",
+    "angular-cookies": "^1.4.0",
+    "angular-resource": "^1.4.0",
+    "angular-route": "^1.4.0",
+    "angular-sanitize": "^1.4.0",
+    "angular-touch": "^1.4.0",
+    "angular-ui-router": "^0.3.1",
+    "angular-bootstrap": "^2.1.4",
+    "ng-rest-api": "^1.1.6",
+    "AngularJS-Toaster": "angularjs-toaster#^2.1.0",
+    "angular-toastr": "^2.1.1",
+    "angular-jwt": "^0.1.8",
+    "ngstorage": "^0.3.11",
+    "angular-permission": "^4.1.2",
+    "ng-table": "^2.1.0"
+  }
+}
