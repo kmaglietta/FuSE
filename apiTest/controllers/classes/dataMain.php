@@ -14,6 +14,7 @@ class dataMain
 			, DATE(ts.SessionStartTime) date
 			, TIME_FORMAT(ts.SessionStartTime,'%h:%i %p') starttime
 			, TIME_FORMAT(ts.SessionEndTime,'%h:%i %p') endtime
+			, ts.SessionStartTime
 			, case when ts.Canceled = 0 then 
 				case 
 					when NOW() between ts.SessionStartTime and ts.SessionEndTime then 'Active'

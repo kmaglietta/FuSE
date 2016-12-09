@@ -125,7 +125,7 @@ if ((isset($_REQUEST['studentid'])) && (!empty($_REQUEST['studentid'])))
 <br>
 
 
-<div style="width:80%; margin-left:auto; margin-right:auto;">
+<div class="MainBodyContent">
 
 	<div style="clear:both;"></div>
 <b>Classes Taken</b>		

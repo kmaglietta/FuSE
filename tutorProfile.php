@@ -170,7 +170,7 @@ if ((isset($_REQUEST['studentid'])) && (!empty($_REQUEST['studentid'])))
 <br>
 
 
-<div style="width:80%; margin-left:auto; margin-right:auto;">
+<div class="MainBodyContent">
 
 	<div>
 		<img src="/~jherna65/images/user-id-256.png" style="float: right;" />

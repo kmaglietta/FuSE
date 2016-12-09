@@ -34,7 +34,7 @@ if ((isset($_REQUEST['studentid'])) && (!empty($_REQUEST['studentid'])))
 					listAction: function (postData, jtParams) {
 					    return $.Deferred(function ($dfd) {
 						  $.ajax({
-							 url: 'http://lamp.cse.fau.edu/~jherna65/apiTest/?action=gettutoredlist&StudentId='  + studentid       ,
+							 url: 'http://lamp.cse.fau.edu/~jherna65/apiTest/?action=gettutoredlist&jtStartIndex=' + jtParams.jtStartIndex + '&jtPageSize=' + jtParams.jtPageSize + '&jtSorting=' + jtParams.jtSorting + '&iSearch=' + iSearch + '&StudentId='  + studentid        ,
 							type: 'POST',
 							dataType: 'json',
 							data: postData,
@@ -79,6 +79,35 @@ if ((isset($_REQUEST['studentid'])) && (!empty($_REQUEST['studentid'])))
 					ClassSession: {
 						title: 'Session Name'						
 					},
+					
+					//SessionStartTime: {
+//						title: 'FROM',
+//						display: function (data) {
+//							try {
+//							  return dateFormat(data.record.SessionStartTime, "yyyy-mm-dd h:MM TT");
+//							}
+//							catch (exception) {
+//								//var today = new Date();
+//								//return dateFormat( today, "yyyy-mm-dd h:MM TT");	
+//								return null;
+//							}
+//						
+//					    },
+//					
+//					SessionEndTime: {
+//						title: 'TO',
+//						display: function (data) {
+//							try {
+//							  return dateFormat(data.record.SessionEndTime, "yyyy-mm-dd h:MM TT");
+//							}
+//							catch (exception) {
+//								//var today = new Date();
+//								//return dateFormat( today, "yyyy-mm-dd h:MM TT");	
+//								return null;
+//							}
+//						
+//					    },
+						   
 
 					Status: {
 						title: 'Status' 				
@@ -86,17 +115,36 @@ if ((isset($_REQUEST['studentid'])) && (!empty($_REQUEST['studentid'])))
 				}
 			});
 
-			$('#TableContainer').jtable('load');
+			//$('#TableContainer').jtable('load');
 
+			//Re-load records when user click 'load records' button.
+			$('#LoadRecordsButton').click(function (e) {
+				e.preventDefault();
+				$('#TableContainer').jtable('load', {
+				    iSearch: $('#iSearch').val(),
+				});
+			});
+			
+			//Load all records when page is first shown
+			$('#LoadRecordsButton').click();
 
 		});
 
 	</script>
-<div style="width:80%; margin-left:auto; margin-right:auto;">
+<div class="MainBodyContent">
 
+	<div class="filtering">
+	    <form>
+		  Search: <input type="text" name="iSearch" id="iSearch" />
+		  <button type="submit" id="LoadRecordsButton">Refresh records</button> <button type="button" onClick="window.location.href = window.location.href">Clear</button>
+	    </form>
+	</div>
+	
+<br />
 	<div id="TableContainer" />
 
 </div>
 
 <?php include('_masterFooter.php');?>
+
 

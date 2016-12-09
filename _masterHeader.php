@@ -1,5 +1,23 @@
 <?php 
 $page = $_SERVER['REQUEST_URI'];
+
+
+
+session_start();
+
+//if(!isset($_SESSION['user_session']))
+//{
+ //header("Location: index.php");
+//}
+
+//$stmt->execute(array(":uid"=>$_SESSION['user_session']));
+
+
+
+
+
+
+
 ?>
 	
 <!DOCTYPE html>
@@ -50,7 +68,7 @@ Use samples and references
 	<script type="text/javascript" src="/~jherna65/jquery/jquery-ui-1.12.1/jquery-ui-timepicker-addon.js"></script>
 	<script type="text/javascript" src="/~jherna65/jquery/jquery-ui-1.12.1/jquery-ui-timepicker-addon-i18n.min.js"></script>
 	<script type="text/javascript" src="/~jherna65/jquery/jquery-ui-1.12.1/jquery-ui-sliderAccess.js"></script>
-	
+
 	
 	
 	<script type="text/javascript" src="/~jherna65/jquery/datatables.1.10.12/jquery.dataTables.min.js"></script>
@@ -61,7 +79,10 @@ Use samples and references
 <script type="text/javascript" src="/~jherna65/jquery/jquery.validationEngine-en.js"></script>
 	
 	<link rel="stylesheet" type="text/css" href="/~jherna65/styles/jquery-ui-timepicker-addon.css">
-	<link rel="stylesheet" type="text/css" href="/~jherna65/jquery/jquery-ui-1.12.1/jquery-ui.css"/>
+	<link rel="stylesheet" type="text/css" href="/~jherna65/jquery/jquery-ui-1.12.1.redmond/jquery-ui.css"/>
+	<!---	
+	<link rel="stylesheet" type="text/css" href="/~jherna65/jquery-ui-1.12.1.mobile.css/jquery-ui-1.12.1.mobile.css"/>
+	--->
 	<link rel="stylesheet" type="text/css" href="/~jherna65/styles/datatable.css">
 
 	<!-- Normalize.css -->
@@ -74,10 +95,16 @@ Use samples and references
 
 	<script type="text/javascript" src="/~jherna65/jquery/action.js" ></script>
 	<link rel="stylesheet" type="text/css" href="/~jherna65/styles/style.css">
+<?php /*?>	
 	<link rel="stylesheet" type="text/css" href="/~jherna65/jquery/jtable.2.4.0/themes/lightcolor/blue/jtable.css"/>
-
+	<link rel="stylesheet" type="text/css" href="/~jherna65/jquery/jtable.2.4.0/themes/lightcolor/orange/jtable.css"/>
+	<link rel="stylesheet" type="text/css" href="/~jherna65/jquery/jtable.2.4.0/themes/metro/crimson/jtable.css"/>
+<?php */?>
+	<link rel="stylesheet" type="text/css" href="/~jherna65/jquery/jtable.2.4.0/themes/lightcolor/blue/jtable.css"/>
+	
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.2.0/jquery.rateyo.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.2.0/jquery.rateyo.min.js"></script>
+
 
 	
     </head>
@@ -109,7 +136,11 @@ Use samples and references
 		<div class="collapse navbar-collapse navbar-right" id="js-navbar-collapse" uib-collapse="isNavCollapsed">
 			<ul class="nav navbar-nav">
 				<li><a href="/~jherna65/index.php">Home</a></li>
-				<li><a ui-sref="login">Login</a></li>
+				<?php if (isset($_SESSION["guiid"])) : ?>
+					<li><a href="/~jherna65/logout.php">Logout</a></li>
+				<?php else : ?>
+					<li><a href="/~jherna65/login.php">Login</a></li>
+				<?php endif; ?>
 				<li><a href="/~jherna65/dashboard.php">Dashboard</a></li>
 			</ul>
 		</div>
@@ -161,8 +192,9 @@ Use samples and references
 		color: #c00;
 		background-color: #fff; }
      </style>
+	
 	<ul id="nav">
-		<li>ADMIN MENU</li>
+		<?php if (isset($_SESSION["isAdmin"])) : ?>
 		<li><a href="directorAdministration.php">Administrators</a></li>
 		<li><a href="classsessionAdministration.php">Tutoring Session</a></li>
 		<li><a href="locationAdministration.php">Locations</a></li>
@@ -170,26 +202,24 @@ Use samples and references
 		<li><a href="tutorAdministration.php">Tutor</a></li>
 		<li><a href="studentAdministration.php">Students</a></li>
 		<!--<li><a href="dashboard.php">Auto Cycle Dashboard</a></li>-->
-		
-	</ul>
-	<ul id="nav2">
-		<li>TUTOR MENU</li>
+		<?php endif; ?>
+	
+
+		<?php if (isset($_SESSION["isTutor"])) : ?>
 		<li><a href="reviewSessions.php">Review my Tutoring Sessions</a></li>
 		<li><a href="sessionSelectStudents.php">Add Student to Session</a></li>
-		
-	</ul>
-	<ul id="nav2">
-		<li>STUDENT MENU</li>
+		<?php endif; ?>
+
+		<?php if (isset($_SESSION["isStudent"])) : ?>
 		<li><a href="sessionsAttended.php">See my attended Classes</a></li>
-		
-	</ul>
-	<ul id="nav2">
-		<li>ALL MENU</li>
+		<?php endif; ?>
+
+
 		<li><a href="tutorProfiles.php">Tutor Profiles</a></li>
 		<li><a href="dashboard.php">Auto Cycle Dashboard</a></li>
 	</ul>
 	
-	
+	<div style="clear:both"></div>
 	<br>
 	<?php endif; ?>
 	

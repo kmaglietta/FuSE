@@ -1,6 +1,6 @@
 <?php include('_masterHeader.php');?>
 
-
+ 
 <script>
  $(document).ready(function() {
    var table = $('#courses').DataTable( {
@@ -9,6 +9,7 @@
 			"type": "POST"
 		  	}
 	  , "columns": [
+	  	  { "data": 'SessionStartTime', 'visible': false, 'searchable': false,},
 		  { "data": 'class' },
 		  { "data": 'coursename' },
 		  { "data": 'name' },
@@ -29,6 +30,7 @@
 		}
 
 	    ]
+	, "order": [[0,'asc'],[1,'asc'] ]
 	, "deferRender": true,
 
 	"oLanguage": {
@@ -81,6 +83,7 @@
 	<table width="100%" id="courses" class="display " cellspacing="0">
 	  <thead>
 		<tr>
+			<th></th>
 		    <th>Class</th>
 		    <th>Course Name</th>
 		    <th>Tutor Name</th>

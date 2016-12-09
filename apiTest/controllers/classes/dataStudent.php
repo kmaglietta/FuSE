@@ -159,6 +159,7 @@ class dataStudent
 			
 		$selectQuery = "
 			SELECT 
+			distinct 
 			s.StudentId
 			, s.EmailAddress
 			, '********' Password
@@ -225,18 +226,21 @@ class dataStudent
 	public function getuserAction($data,$params){
 		$EmailAddress = helpers::getArrayValue($params,'EmailAddress');
 		$Password = helpers::getArrayValue($params,'Password');
-		$isAdmin = helpers::validateInt((helpers::getArrayValue($params,'isAdmin')),'isAdmin');
+		$isAdmin = helpers::getArrayValue($params,'isAdmin');
+
+
+
 		
-		if (isAdmin == 1)
+		if ($isAdmin == "true")
 		{
 			$selectQuery = "
 			SELECT 
 				adminId id
-				, tutorid
+				, null tutorid
 				, UUID() guiid
 				, 1 isAdmin
 				, 0 isTutor
-				, 0 isStudnt 
+				, 0 isStudent 
 				FROM proAdministrator 
 				where EmailAddress = '$EmailAddress'  
 				and Password = '$Password' 
@@ -250,19 +254,19 @@ class dataStudent
 				, t.tutorid
 				, UUID() guiid
 				, 0 isAdmin
-				, case when t.StudentId is null then 1 else 0 end isTutor
-				, 1 isStudnt 
+				, case when t.tutorid is null then 0 else 1 end isTutor
+				, 1 isStudent 
 				FROM proStudent  s
 				left join proTutor t on s.StudentId = t.StudentId
 				where s.EmailAddress = '$EmailAddress'  
 				and Password = '$Password' 
 			";
 		}
-		
+
+//throw new ResponseException(500, "[$selectQuery]");
 		$retobj = array();
 		$retobj['Record'] = helpers::runQuery($selectQuery);
 		//$retobj["attributes"] = helpers::runQuery("select count(0) TotalRecordCount from proTutor");
-//throw new ResponseException(500, "[$selectQuery]");	
 
 		return $retobj;
 		

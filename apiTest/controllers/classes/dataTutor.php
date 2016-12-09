@@ -76,6 +76,7 @@ class dataTutor
 			, concat(c.Subject , ' ' , c.CourseNumber, ' ' ,  c.CourseName) as ApprovedForClassName
 			, concat(p.FirstName , ' ' , p.LastName) as ApprovedByName
 			
+			
 			FROM proTutor t
 			inner join proAdministrator  as p on t.ApprovedByAdminId = p.AdminId
 			inner join proStudent as s on s.StudentId = t.StudentId
@@ -97,6 +98,7 @@ class dataTutor
 				StudentId = $StudentId, 
 				ClassId = $ClassId, 
 				ApprovedByAdminId =  $ApprovedByAdminId
+				, ApprovedOn = NOW()
 			where TutorId = '$TutorId'
 		";
 		
@@ -167,7 +169,7 @@ class dataTutor
 
 		$insertQuery = "
 			INSERT INTO proTutor (TutorId, StudentId, ClassId, ApprovedOn, ApprovedByAdminId, DateEntered) 
-			VALUES (NULL, $StudentId, $ClassId, '$ApprovedOn', $ApprovedByAdminId, CURRENT_TIMESTAMP);
+			VALUES (NULL, $StudentId, $ClassId, NOW(), $ApprovedByAdminId, CURRENT_TIMESTAMP);
 		";
 	
 		

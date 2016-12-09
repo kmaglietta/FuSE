@@ -117,7 +117,7 @@ table.dataTable, table.dataTable th, table.dataTable td { -webkit-box-sizing: co
 .dataTables_wrapper.no-footer div.dataTables_scrollHead table, .dataTables_wrapper.no-footer div.dataTables_scrollBody table { border-bottom: none; }
 .dataTables_wrapper:after { visibility: hidden; display: block; content: ""; clear: both; height: 0; }
 
-.listtable { width:90%; margin-left:auto; margin-right:auto;}
+.MainBodyContent, .listtable { width:90%; margin-left:auto; margin-right:auto;}
 .listtable2 { width:95%; }
 .makeresponsive { width: 500px; text-align:center; margin-left:auto; margin-right:auto;}
 
@@ -143,6 +143,18 @@ table.dataTable.display tbody tr:hover td:last-child div{ color:black ; }/* gree
 
 
 
+.jtable th .jtable-column-header-text { white-space:nowrap; padding-right:20px;  }
+.jtable td.last {
+    width: 1px;
+    white-space: nowrap;
+}
+
+.ui-widget select
+{min-width:150px;}
+.ui-widget input,  .ui-widget textarea
+{ width:500px;}
+.ui-widget button
+{ width:245px;}
 
 
  
@@ -153,7 +165,7 @@ and (max-device-width : 1024px) {
 .dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_paginate { float: none; text-align: center; }
 .dataTables_wrapper .dataTables_paginate { margin-top: 0.5em; }
 .dataTables_wrapper { width:100% ; margin-left:5px; margin-right:5px; }
-.listtable,.listtable2 { width:90%; margin-left:auto; margin-right:auto;}
+.MainBodyContent, .listtable,.listtable2 { width:90%; margin-left:auto; margin-right:auto;}
 }
 
 
@@ -161,7 +173,7 @@ and (max-device-width : 1024px) {
 .dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_paginate { float: none; text-align: center; }
 .dataTables_wrapper .dataTables_paginate { margin-top: 0.5em; }
 .dataTables_wrapper { width:100% ; margin-left:5px; margin-right:5px; }
-.listtable, .listtable2{ width:95%; margin-left:auto; margin-right:auto;}
+.MainBodyContent, .listtable, .listtable2{ width:95%; margin-left:auto; margin-right:auto;}
 
 /*table.dataTable thead tr th:last-child, table.dataTable tr td:last-child{ display: none; }*/
 }
@@ -179,42 +191,94 @@ and (max-device-width : 1024px) {
 .dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_filter { float: none; text-align: center; }
 .dataTables_wrapper .dataTables_filter { margin-top: 0.5em; }
 .dataTables_wrapper { width:100%; margin:0;}
-.listtable, .listtable2 { width:100%; margin-left:auto;margin-right:auto;  }
+.MainBodyContent, .listtable, .listtable2 { width:100%; margin-left:auto;margin-right:auto;  }
+.MainBodyContent { empty-cells:hide; border-collapse:collapse; }
+.MainBodyContent td:empty {
+ display: none;
+}
 
-
-	.listtable * {
+	.MainBodyContent *, .listtable * {
 		border:0;
 		padding:0;
 		margin:0;
 	}
 	/* Force table to not be like tables anymore */
-	.listtable table { 
+	.MainBodyContent table, .listtable table { 
 		border-collapse:separate; 
 		border-spacing:15px;;
 		border:0;
 	}
 	/* Hide table headers */
-	.listtable thead tr {
+	.MainBodyContent thead tr,  .listtable thead tr {
 		 border: 0;
 		} 
-	.listtable thead th {
+	.MainBodyContent thead th,  .listtable thead th {
 		display: inline-block; width:40%;
 		text-align:center;
 		} 
+		
+.MainBodyContent div.jtable-main-container > table.jtable > tbody > tr > td {
+    border: 0px!important;
+}
+.MainBodyContent thead th
+{
+display: none;
+}
 	
-	.listtable tr {  border: 0;} 
-	
-	.listtable td { 
+	.MainBodyContent tr,  .listtable tr {  border: 0;} 
+.MainBodyContent tr { border-bottom:black 3px solid;}
+	.MainBodyContent td,  .listtable td { 
 		/* Behave  like a "row"*/
 		display: block; 
 		text-align:center;  
 	}
 	.listtable td:nth-of-type(5), .listtable td:nth-of-type(6) {display: inline-block; width:40%;}
 	
-	.listtable td:before { 
+	.MainBodyContent td:before,  .listtable td:before { 
 		white-space: nowrap;
 	}
 
+.ui-dialog:before, .ui-dialog:after {
+    content:"";
+    display:table;
+
+}
+.ui-dialog:after {
+    clear:both;
+}
+
+.ui-dialog * {max-width:100%!important}
+.ui-dialog {max-width:400px!important}
+.ui-dialog { position: absolute;  }
+.ui-widget select{min-width:10%; max-width:60%;}
+.ui-widget input,  .ui-widget textarea{min-width:10%; max-width:60%;}
+.ui-widget button{min-width:10%; max-width:60%;}
+.ui-widget.ui-widget-content {    border: 0;
+}
+.ui-corner-all, .ui-corner-bottom, .ui-corner-right, .ui-corner-br {
+    border-bottom-right-radius: 0;
+}
+.ui-corner-all, .ui-corner-bottom, .ui-corner-left, .ui-corner-bl {
+    border-bottom-left-radius: 0;
+}
+.ui-corner-all, .ui-corner-top, .ui-corner-right, .ui-corner-tr {
+    border-top-right-radius: 0;
+}
+.ui-corner-all, .ui-corner-top, .ui-corner-left, .ui-corner-tl {
+    border-top-left-radius: 0;
+}
+/*
+.ui-dialog-titlebar-close
+{ width: 20px;
+}
+*/
+.ui-dialog-buttonset{
+ width:200px;;	
+}
+
+
+
+	
 	.listtable td:nth-of-type(1):before {display: inline-block;  content: "";}
 	.listtable td:nth-of-type(2):before {display: inline-block;  content: ""; }
 	.listtable td:nth-of-type(3):before {display: inline-block;  content: "Tutor by:"; padding-right:3px; }

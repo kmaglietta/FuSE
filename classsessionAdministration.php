@@ -104,6 +104,13 @@
 						edit: true,
 						list: false
 					},
+					StudentId: {
+						title: 'S.id',
+						create: false,
+						edit: false,
+						list: true,
+						width: "2%"
+					},
 					StudentName: {
 						title: 'Tutor Name',
 						create: false,
@@ -162,6 +169,7 @@
 						create: false,
 						edit: true,
 						list: true
+						,width: "5%"
 						
 					},
 					CancelReason: {
@@ -169,6 +177,7 @@
 						create: false,
 						edit: true,
 						list: true
+						,width: "5%"
 					},
 
 					CanceledByTutor: {
@@ -177,6 +186,7 @@
 						create: false,
 						edit: true,
 						list: true
+						,width: "5%"
 					},
 					
 					CanceledByAdminId: {
@@ -185,6 +195,7 @@
 						create: false,
 						edit: true,
 						list: true
+						,width: "5%"
 						
 					},
 					DateCanceled: {
@@ -193,6 +204,7 @@
 						create: false,
 						edit: false,
 						list: true
+						,width: "5%"
 					},
 					
 					DateEntered: {
@@ -201,6 +213,7 @@
 						create: false,
 						edit: false,
 						list: false
+						,width: "5%"
 					}
 					,
 					Status: {
@@ -357,7 +370,7 @@
 
 
 	
-<div style="width:95%; margin-left:auto; margin-right:auto;">
+<div class="MainBodyContent">
 
 	<div class="filtering">
 	    <form>

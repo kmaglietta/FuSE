@@ -162,7 +162,7 @@
 		});
 
 	</script>
-<div style="width:80%; margin-left:auto; margin-right:auto;">
+<div class="MainBodyContent">
 
 	<div class="filtering">
 	    <form>
