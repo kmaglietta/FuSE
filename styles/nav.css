@@ -37,7 +37,7 @@
 }
 
 .navbar-brand {
-  padding: 0;
+  padding: 3px;
   color: white;
 }
 .navbar-brand > img {

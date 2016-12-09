@@ -6,11 +6,11 @@ angular.module('tossApp')
 
   function profileService($http, $log, $resource) {
     var factory = {};
-    var service = 'php/index.php';
+    var service = 'php/index.php?';
     var exService = 'http://lamp.cse.fau.edu/~jherna65/apiTest/?';
 
     factory.getProfile = function(id) {
-      return $http.post(service + '?action=getprofile&id=' + id).then(function (response) {
+      return $http.post(service + 'action=getprofile&id=' + id).then(function (response) {
         return response.data;
       })
     };
@@ -60,7 +60,7 @@ angular.module('tossApp')
         return profileService.getJohnProfile(action, ctrl.profileId).then(function (data) {
           params.total(data.inlineCount); // recal. page nav controls
           return data.Records;
-        }, function() {
+        }, function(data) {
           $log.error('Get profile failed ' + data.status + ' ' + data.message);
         });
       }

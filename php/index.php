@@ -127,11 +127,6 @@ function missinParams($array, $property)
   }
 }
 
-function calAvg($input, $sum, $totalNum) {
-  $sum *= ($totalNum - 1);
-  $total = ($sum + $input) / $totalNum;
-  return $total;
-}
 
 executeApi();
 

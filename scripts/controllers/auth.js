@@ -6,7 +6,7 @@ angular.module('tossApp')
 
   //
 
-  function login_controller($scope, userService, $log, $localStorage, $injector, toaster){
+  function login_controller($scope, userService, $log, $localStorage, $injector, toaster, $http){
     var ctrl = this;
     ctrl.login = {};
     ctrl.data = [];
@@ -49,16 +49,24 @@ angular.module('tossApp')
     ctrl.userLogin = function() {
       $localStorage.$reset();
       var credentials = 'EmailAddress=' + ctrl.username + '&Password=' + ctrl.password;
-      if (ctrl.isAdmin == true) credentials = credentials + '&isAdmin=' + ctrl.isAdmin;
+      var isAdmin;
+      if (ctrl.isAdmin.value == true) isAdmin = '&isAdmin=true';
+      else isAdmin = '&isAdmin=false';
+
+      credentials += isAdmin;
 
       userService.johnLogin(credentials).then(function (data) {
         if (data.success == true) {
+          $log.log(data);
           if (data.Record != null) {
             ctrl.data = data.Record[0];
-            $log.log(ctrl.data);
+            //$log.log(ctrl.data);
             $localStorage.userGuiid = ctrl.data.guiid;
-            $localStorage.userId = ctrl.data.StudentId;
-            $localStorage.userRole = 'admin';
+            $localStorage.userId = ctrl.data.id;
+            if (ctrl.data.isAdmin == true) $localStorage.userRole = 'admin';
+            else if (ctrl.data.isTutor == true) $localStorage.userRole = 'tutor'
+            else $localStorage.userRole = 'student';
+            //$localStorage.userRole = 'admin';
             $injector.get('$state').go('dashboard');
           } else {
             toaster.pop({
@@ -70,8 +78,8 @@ angular.module('tossApp')
             });
           }
         }
-      }, function() {
-        $log.error('An Error has occurred ' + data.status + ' ' + data.message);
+      }, function(data) {
+        $log.error('An Error has occurred ' + data.status + ' ' + data.config);
       });
     }
   }
@@ -79,7 +87,7 @@ angular.module('tossApp')
   function userService($http, $log) {
     var factory = {};
     var service = 'php/index.php?';
-    var exService = 'http://lamp.cse.fau.edu/~jherna65/apiTest/?';
+    var exService = 'https://lamp.cse.fau.edu/~jherna65/apiTest/?';
 
     factory.login = function(credentials) {
       return $http.post(service + 'action=login', credentials)
@@ -109,17 +117,17 @@ angular.module('tossApp')
       });
     };
 
-    factory.johnLogin = function(obj) {
-      // User authentication with John's API
-      return $http.post(exService + 'action=getuser&' + obj).then(function (response) {
+    factory.johnLogin = function(q) {
+      return $http.post(exService + 'action=getuser&' + q).then(function (response) {
         return response.data;
       });
     };
-    factory.johnDashboard = function(obj) {
-      return $http.post(exService + 'action=getprofile&StudentId=' + obj).then(function (response) {
+
+    factory.johnDashboard = function(q) {
+      return $http.post(exService + 'action=getprofile&StudentId=' + q).then(function (response) {
         return response.data;
       });
-    }
+    };
 
 
     return factory;

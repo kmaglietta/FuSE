@@ -2,8 +2,8 @@
 
 function m_controller($scope, $log, $compile, $q, dataService, DTOptionsBuilder, DTColumnBuilder){
     var ctrl = this;
-    ctrl.data = [];
     ctrl.dtInstance = {};
+    ctrl.data = [];
     ctrl.user = {};
     ctrl.reloadData = reloadData;
 
@@ -28,6 +28,7 @@ function m_controller($scope, $log, $compile, $q, dataService, DTOptionsBuilder,
     ])
     .withOption('deferRender', true)
     .withOption('createdRow', createdRow)
+    .withOption('processing', true)
     .withLanguage({
       "sEmptyTable": "No data available in table",
       "sInfo": "Showing _START_ to _END_ of _TOTAL_ entries",
@@ -66,7 +67,7 @@ function m_controller($scope, $log, $compile, $q, dataService, DTOptionsBuilder,
     function reloadData() {
       // Reload the data on the table
         var resetPaging = true;
-        ctrl.dtInstance.reloadData(callback, resetPaging);
+        ctrl.dtInstance.reloadData();
     }
 
 }

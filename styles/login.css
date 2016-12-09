@@ -1,17 +1,14 @@
 /* Style sheet for Login.html */
 .test-content{
-  width: 580px;
   margin: 0 auto;
 }
 .login-page {
-  width: 580px;
   padding: 8% 0 0;
   margin: 0 auto;
 }
 
 .authentication-form {
   position: relative;
-  max-width: 580px;
   z-index: 1;
   background: #FFFFFF;
   margin: 0 auto 100px;
@@ -23,24 +20,26 @@
   padding-left: 15px;
   text-align: left;
 }
-.authentication-form input {
+.authentication-form .input-text {
+  height:50px;
+  width:100%;
   outline: 0;
   background: #f2f2f2;
-  width: 460px;
   border: 0;
   margin: 0 0 15px;
-  padding: 15px;
+  padding: 6px;
   box-sizing: border-box;
   font-size: 14px;
 }
 .authentication-form button {
+  width:100%;
+  height: 50px;
   margin-top: 50px;
   text-transform: uppercase;
   outline: 0;
   background: #CC0000;
-  width: 460px;
   border: 0;
-  padding: 15px;
+  padding: 6px;
   color: #FFFFFF;
   font-size: 14px;
   -webkit-transition: all 0.3 ease;

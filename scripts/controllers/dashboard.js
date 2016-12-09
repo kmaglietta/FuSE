@@ -2,7 +2,7 @@
 
 angular.module('tossApp')
   .controller('DashboardCtrl', function (
-    $scope, $q, $log, $localStorage, $injector, $state, profileService, $timeout) {
+    $scope, $q, $log, $localStorage, $injector, $state, profileService, $timeout, NgTableParams) {
     var ctrl = this;
     var action = 'action=getprofile';
     ctrl.data = [];
@@ -51,10 +51,15 @@ angular.module('tossApp')
         $log.log('Successfully logged out: ' + $localStorage.userGuiid);
         $q.when($localStorage.userGuiid==null).then(function() {
           $state.go('login');
-        })
-
+        });
       }
+    };
 
-    }
+    ctrl.backAState = function() {
+      $log.log('Go back');
+      $timeout(function() {
+        $state.go('dashboard');
+      });
+    };
 
   });

@@ -1,5 +1,5 @@
 # Version
-1.0.3
+1.0.4
 
 # What's new?
 #### 06 Dec 2016:
@@ -7,7 +7,7 @@
 + Template routing has been reworked
 
 # About this application
-This is a mockup for GOT (Go Owl Tutoring) application using AngularJS for front-end framework, PHP + MySQL for back-end, and Bootstrap for styling. This product is still a work in progress and does not represent the final product.
+This is a mockup for GOT (Go Owl Tutoring) application using AngularJS for front-end framework, PHP + MySQL for back-end and API, and Bootstrap for styling. This product is still a work in progress and does not represent the final product.
 
 This app use REST API made from scratch
 
@@ -24,4 +24,3 @@ https://github.com/huston007/ng-annotate-loader <- Run ng-annotate on the bundle
 * Implement Analytics page
 * ~~Implement Dashboard page~~
 * ~~User authentication using AngularJS and UI-Router~~
-* Remove all bower components and change them all to CDN
