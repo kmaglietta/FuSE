@@ -4,6 +4,7 @@ angular.module('tossApp')
   .controller('DashboardCycleCtrl', function ($scope, $interval, $q, $log,
     $state, $timeout, $compile, dataService, DTOptionsBuilder, DTColumnBuilder){
     var ctrl = this;
+    var usr = [];
     ctrl.dtInstance = {};
     ctrl.data = [];
     ctrl.user = {};
@@ -17,6 +18,7 @@ angular.module('tossApp')
       });
       return defer.promise;*/
       return dataService.johnAction('action=getdashboardlist').then(function (data) {
+        $log.debug(data.data);
         return data.data;
       });
     })
@@ -88,8 +90,9 @@ angular.module('tossApp')
     }
     function sessionStatus(data, type, full, meta) {
       // Create a link to tutor's profile
-      ctrl.user[data.status] = data;
-      return '<div class="{{vm.user['+data.status+']}}">{{vm.user['+data.status+']}}</div>';
+      usr[data.status] = data;
+      //ctrl.user[data.status] = data;
+      return '<div class="'+usr[data.status]+'">'+usr[data.status]+'</div>';
     }
   })
   ;
