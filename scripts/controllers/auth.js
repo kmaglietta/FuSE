@@ -4,8 +4,6 @@ angular.module('tossApp')
   .factory('userService', userService)
   .controller('LoginCtrl', login_controller);
 
-  //
-
   function login_controller($scope, userService, $log, $localStorage, $injector, toaster, $http){
     var ctrl = this;
     ctrl.login = {};
@@ -80,6 +78,13 @@ angular.module('tossApp')
         }
       }, function(data) {
         $log.error('An Error has occurred ' + data.status + ' ' + data.config);
+        toaster.pop({
+          type:'error',
+          title:data.status,
+          body:'Please contact an admin: ppakhapo@fau.edu',
+          tapToDismiss: true,
+          timeout:3000
+        });
       });
     }
   }
