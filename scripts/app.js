@@ -15,6 +15,7 @@ angular
     'ui.bootstrap',
     'toaster',
     'ngTable',
+    'smart-table',
     'ngStorage',
     'datatables',
     'datatables.bootstrap'
@@ -23,201 +24,132 @@ angular
     $stateProvider
       .state('home', {
         url:'/',
-        views: {
-          'header':{
-            templateUrl: 'templates/nav.html',
-            controller: 'NavCtrl',
-            controllerAs: 'vm'
-          },
-          'content':{
-            templateUrl: 'templates/main.html',
-            controller: 'MainCtrl',
-            controllerAs: 'vm'
-          },
-          'footer':{
-            templateUrl: 'templates/footer.html',
-            controller: 'FooterCtrl',
-            controllerAs: 'vm'
-          }
-        }
-      })
-      .state('contact', {
-        url:'/contact',
-        views: {
-          'header':{
-            templateUrl: 'templates/nav.html',
-            controller: 'NavCtrl',
-            controllerAs: 'vm'
-          },
-          'content':{
-            templateUrl: 'templates/contact.html',
-            controller: 'ContactCtrl',
-            controllerAs: 'vm'
-          },
-          'footer':{
-            templateUrl: 'templates/footer.html',
-            controller: 'FooterCtrl',
-            controllerAs: 'vm'
-          }
-        }
+        templateUrl: 'templates/main.html',
+        controller: 'MainCtrl',
+        controllerAs: 'vm'
       })
       .state('dashboard', {
         url:'/dashboard',
         resolve: {
           authenticate: authenticate
         },
-        views: {
-          'header':{
-            templateUrl: 'templates/nav.html',
-            controller: 'NavCtrl',
-            controllerAs: 'vm'
-          },
-          'content':{
-            templateUrl: 'templates/dashboard.html',
-            controller: 'DashboardCtrl',
-            controllerAs: 'vm'
-          },
-          'footer':{
-            templateUrl: 'templates/footer.html',
-            controller: 'FooterCtrl',
-            controllerAs: 'vm'
-          }
-        }
+        templateUrl: 'templates/dashboard.html',
+        controller: 'DashboardCtrl',
+        controllerAs: 'vm'
       })
-      .state('sessionadmin', {
+      .state('dashboard.sessionadmin', {
         url:'/sessionadmin',
         resolve: {
           authenticate: authenticate
         },
         views: {
-          'header':{
-            templateUrl: 'templates/nav.html',
-            controller: 'NavCtrl',
-            controllerAs: 'vm'
-          },
-          'content':{
+          '@':{
             templateUrl: 'templates/dashboard.sessionadmin.html',
             controller: 'DashboardCtrl',
-            controllerAs: 'vm'
-          },
-          'footer':{
-            templateUrl: 'templates/footer.html',
-            controller: 'FooterCtrl',
             controllerAs: 'vm'
           }
         }
       })
-      .state('sessiontutor', {
+      .state('dashboard.sessiontutor', {
         url:'/sessiontutor',
         resolve: {
           authenticate: authenticate
         },
         views: {
-          'header':{
-            templateUrl: 'templates/nav.html',
-            controller: 'NavCtrl',
-            controllerAs: 'vm'
-          },
-          'content':{
+          '@':{
             templateUrl: 'templates/dashboard.sessiontutor.html',
             controller: 'DashboardCtrl',
-            controllerAs: 'vm'
-          },
-          'footer':{
-            templateUrl: 'templates/footer.html',
-            controller: 'FooterCtrl',
             controllerAs: 'vm'
           }
         }
       })
-      .state('sessionstudent', {
+      .state('dashboard.sessionstudent', {
         url:'/sessionstudent',
         resolve: {
           authenticate: authenticate
         },
         views: {
-          'header':{
-            templateUrl: 'templates/nav.html',
-            controller: 'NavCtrl',
-            controllerAs: 'vm'
-          },
-          'content':{
+          '@':{
             templateUrl: 'templates/dashboard.sessionstudent.html',
             controller: 'DashboardCtrl',
-            controllerAs: 'vm'
-          },
-          'footer':{
-            templateUrl: 'templates/footer.html',
-            controller: 'FooterCtrl',
             controllerAs: 'vm'
           }
         }
       })
-      .state('sessionlocation', {
+      .state('dashboard.sessionlocation', {
         url:'/location',
         resolve: {
           authenticate: authenticate
         },
         views: {
-          'header':{
-            templateUrl: 'templates/nav.html',
-            controller: 'NavCtrl',
-            controllerAs: 'vm'
-          },
-          'content':{
+          '@':{
             templateUrl: 'templates/dashboard.sessionlocation.html',
             controller: 'DashboardCtrl',
-            controllerAs: 'vm'
-          },
-          'footer':{
-            templateUrl: 'templates/footer.html',
-            controller: 'FooterCtrl',
             controllerAs: 'vm'
           }
         }
       })
-      .state('sessionclass', {
+      .state('dashboard.sessionclass', {
         url:'/classes',
         resolve: {
           authenticate: authenticate
         },
         views: {
-          'header':{
-            templateUrl: 'templates/nav.html',
-            controller: 'NavCtrl',
-            controllerAs: 'vm'
-          },
-          'content':{
+          '@':{
             templateUrl: 'templates/dashboard.sessionclass.html',
             controller: 'DashboardCtrl',
-            controllerAs: 'vm'
-          },
-          'footer':{
-            templateUrl: 'templates/footer.html',
-            controller: 'FooterCtrl',
             controllerAs: 'vm'
           }
         }
       })
-      .state('sessionclassinfo', {
+      .state('dashboard.sessionclassinfo', {
         url:'/classinfo',
         resolve: {
           authenticate: authenticate
         },
         views: {
-          'header':{
-            templateUrl: 'templates/nav.html',
-            controller: 'NavCtrl',
-            controllerAs: 'vm'
-          },
-          'content':{
+          '@':{
             templateUrl: 'templates/dashboard.sessionclassinfo.html',
             controller: 'DashboardCtrl',
             controllerAs: 'vm'
-          },
-          'footer':{
-            templateUrl: 'templates/footer.html',
-            controller: 'FooterCtrl',
+          }
+        }
+      })
+      .state('dashboard.addstudent', {
+        url:'/addstudent',
+        resolve: {
+          authenticate: authenticate
+        },
+        views: {
+          '@':{
+            templateUrl: 'templates/dashboard.addstudent.html',
+            controller: 'AddStudentSessionDashboardCtrl',
+            controllerAs: 'vm'
+          }
+        }
+      })
+      .state('dashboard.viewsession', {
+        url:'/viewsession',
+        resolve: {
+          authenticate: authenticate
+        },
+        views: {
+          '@':{
+            templateUrl: 'templates/dashboard.viewsession.html',
+            controller: 'ViewSessionDashboardCtrl',
+            controllerAs: 'vm'
+          }
+        }
+      })
+      .state('dashboard.viewattended', {
+        url:'/attended',
+        resolve: {
+          authenticate: authenticate
+        },
+        views: {
+          '@':{
+            templateUrl: 'templates/dashboard.viewattended.html',
+            controller: 'viewAttendedDashboardCtrl',
             controllerAs: 'vm'
           }
         }
@@ -227,106 +159,36 @@ angular
         resolve: {
           authenticate: authenticate
         },
-        views: {
-          'header':{
-            templateUrl: 'templates/nav.html',
-            controller: 'NavCtrl',
-            controllerAs: 'vm'
-          },
-          'content':{
-            templateUrl: 'templates/dashboard.cycletable.html',
-            controller: 'DashboardCycleCtrl',
-            controllerAs: 'vm'
-          },
-          'footer':{
-            templateUrl: 'templates/footer.html',
-            controller: 'FooterCtrl',
-            controllerAs: 'vm'
-          }
-        }
+        templateUrl: 'templates/dashboard.cycletable.html',
+        controller: 'DashboardCycleCtrl',
+        controllerAs: 'vm'
       })
       .state('analytics', {
         url:'/analytics',
         resolve: {
           authenticate: authenticate
         },
-        views: {
-          'header':{
-            templateUrl: 'templates/nav.html',
-            controller: 'NavCtrl',
-            controllerAs: 'vm'
-          },
-          'content':{
-            templateUrl: 'templates/analytics.html',
-            controller: 'AnalyticsCtrl',
-            controllerAs: 'vm'
-          },
-          'footer':{
-            templateUrl: 'templates/footer.html',
-            controller: 'FooterCtrl',
-            controllerAs: 'vm'
-          }
-        }
+        templateUrl: 'templates/analytics.html',
+        controller: 'AnalyticsCtrl',
+        controllerAs: 'vm'
       })
       .state('login', {
         url:'/login',
-        views: {
-          'header':{
-            templateUrl: 'templates/nav.html',
-            controller: 'NavCtrl',
-            controllerAs: 'vm'
-          },
-          'content':{
-            templateUrl: 'templates/login.html',
-            controller: 'LoginCtrl',
-            controllerAs: 'vm'
-          },
-          'footer':{
-            templateUrl: 'templates/footer.html',
-            controller: 'FooterCtrl',
-            controllerAs: 'vm'
-          }
-        }
+        templateUrl: 'templates/login.html',
+        controller: 'LoginCtrl',
+        controllerAs: 'vm'
       })
       .state('profile', {
         url:'/profile/:profileId',
-        views: {
-          'header':{
-            templateUrl: 'templates/nav.html',
-            controller: 'NavCtrl',
-            controllerAs: 'vm'
-          },
-          'content':{
-            templateUrl: 'templates/profile.html',
-            controller: 'ProfileCtrl',
-            controllerAs: 'vm'
-          },
-          'footer':{
-            templateUrl: 'templates/footer.html',
-            controller: 'FooterCtrl',
-            controllerAs: 'vm'
-          }
-        }
+        templateUrl: 'templates/profile.html',
+        controller: 'ProfileCtrl',
+        controllerAs: 'vm'
       })
       .state('message', {
         url:'/message',
-        views: {
-          'header':{
-            templateUrl: 'templates/nav.html',
-            controller: 'NavCtrl',
-            controllerAs: 'vm'
-          },
-          'content':{
-            templateUrl: 'templates/message.html',
-            controller: 'MessageCtrl',
-            controllerAs: 'vm'
-          },
-          'footer':{
-            templateUrl: 'templates/footer.html',
-            controller: 'FooterCtrl',
-            controllerAs: 'vm'
-          }
-        }
+        templateUrl: 'templates/message.html',
+        controller: 'MessageCtrl',
+        controllerAs: 'vm'
       })
       .state('error', {
         templateUrl:'templates/404.html'

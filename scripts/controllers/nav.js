@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('tossApp')
-  .controller('NavCtrl', function ($scope, $log, $localStorage, $q, $timeout, $state, $injector) {
+  .controller('NavCtrl', function ($scope, $log, $localStorage, $rootScope, $q, $timeout, $state,$injector) {
     let ctrl = this;
     ctrl.userData = null;
     ctrl.isNavCollapsed = true;
@@ -10,6 +10,7 @@ angular.module('tossApp')
       ctrl.userData = [];
       ctrl.userData.role = $localStorage.userRole;
       ctrl.userData.userGuiid = $localStorage.userGuiid;
+      ctrl.userData.userId = $localStorage.userId;
     } else ctrl.userData = null;
 
     ctrl.logout =  function() {
@@ -19,7 +20,7 @@ angular.module('tossApp')
         $localStorage.$reset();
         $log.log('Successfully logged out: ' + $localStorage.userGuiid);
         $q.when($localStorage.userGuiid==null).then(function() {
-          $state.go('login')
+          $state.go('login', {}, {reload: true});
         });
       }
     };

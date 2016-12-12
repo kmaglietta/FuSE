@@ -12,7 +12,7 @@ html{
 
 body {
   padding: 0;
-  margin: 0 auto;
+  margin: 0 auto 165px;
   font-family: 'Source Sans Pro','Open Sans', sans-serif;
   background: #ACACAC;
 }
@@ -68,14 +68,13 @@ body {
 }
 
 /* Custom page footer */
-.footer {
+.footer{
+  position: absolute;
   padding-top: 19px;
   bottom: 0;
   color: #eee;
-  margin-top: 2.75em;
   border-top: 2px solid red;
   background: #003366;
-  margin-top: 50x; /* negative value of footer height */
   height: 125px;
   clear:both;
   width: 100%;

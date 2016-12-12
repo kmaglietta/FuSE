@@ -1,11 +1,11 @@
 # Version
-1.0.41_rc
+1.0.5.1
 
 # What's new?
-#### 09 Dec 2016:
-+ Finalize crude and basic site functionality
+#### 12 Dec 2016:
 + Complete state routing
-+ Improve responsiveness of the UI
++ Improve Overall styling
+* Add tutor's ability to add student to any of their session
 
 # About this application
 This product is a proof of concept for building a data-driven Single-page application (SPA). Using AngularJS for front-end framework, PHP + MySQL for back-end and API, and Bootstrap for styling.
@@ -23,6 +23,7 @@ https://github.com/huston007/ng-annotate-loader <- Run ng-annotate on the bundle
 * ~~Integrate PHP + MySQL~~
 * ~~Implement Dashboard page~~
 * ~~User authentication using AngularJS and UI-Router~~
+* ~~Add Core tutor's functionality~~
 * Implement messaging system
 * Make everything the "Angular way"
 * Simplify API and database structure

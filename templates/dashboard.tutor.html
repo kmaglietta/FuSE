@@ -2,16 +2,20 @@
 <div class="presentable container" id="profile-page">
   <div class="row">
     <div class="center-block col-xs-12 col-sm-6 col-md-8 col-md-offset-2 bottom-buffer">
-      <h2 id="main-intro" class="main-intro">{{ $ctrl.info }}</h2>
-      <a class="s_remove" href>
-        <button type="button" class="admin-tools btn btn-info btn-lg btn-block">Add Student to My Session</button>
-      </a><br/>
-      <a class="s_remove" href>
-        <button type="button" class="admin-tools btn btn-info btn-lg btn-block">View My Session</button>
-      </a><br/>
-      <a class="s_remove" ui-sref="livesession">
-        <button type="button" class="admin-tools btn btn-info btn-lg btn-block">Auto Cycle Session Table</button>
-      </a><br/>
+      <div class="dashboard-intro">
+        <h3 id="main-intro" class="main-intro">{{ $ctrl.info }}</h3>
+      </div>
+      <div class="list-group text-center">
+        <a class="list-group-item" ui-sref="dashboard.addstudent">
+          <i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;Add Students to My Sessions
+        </a>
+        <a class="list-group-item" ui-sref="dashboard.viewsession">
+          <i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;View My Sessions
+        </a>
+        <a class="list-group-item" ui-sref="livesession">
+          Auto Cycle Session Table
+        </a>
+      </div>
     </div>
   </div>
   <div class="row">

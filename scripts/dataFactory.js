@@ -4,7 +4,7 @@ angular.module('tossApp')
   .factory('dataService', function($http, $log){
     // This is to connect to API
     var factory = {};
-    var service = 'php/index.php?';
+    var service = 'api/index.php?';
     var exService = 'http://lamp.cse.fau.edu/~jherna65/apiTest/?';
 
     factory.post = function(q, object) {

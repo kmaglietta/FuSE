@@ -15,7 +15,7 @@
           <span class="marketing-point">Teaching Since:</span> {{ vm.data.TutorSince }}
         </p>
         <p>
-          <span class="marketing-point">Total Students Tutored:</span> {{ vm.data.TotalStudentsTutored }}
+          <span class="marketing-point">Total Completed Sessions:</span> {{ vm.data.TotalStudentsTutored }}
         </p>
         <p>
           <span class="marketing-point">Overall Rating:</span>
@@ -29,7 +29,7 @@
     </div>
   </div>
   <div class="row">
-    <div class="buffer col-xs-12 col-sm-6 col-md-8 col-md-offset-2">
+    <div class="buffer col-xs-12 col-sm-8 col-md-10 col-md-offset-2">
       <div class="table-responsive">
         <table ng-table="vm.tableParams" class="table table-striped table-condensed center-items">
           <tr ng-repeat="row in $data track by row.Course">

@@ -1,10 +1,40 @@
 'use strict';
 
 angular.module('tossApp')
-  .controller('DashboardCtrl', function (
-    $scope, $q, $log, $localStorage, $injector, $state, profileService, $timeout, NgTableParams) {
+  .factory('dashboardServices', dashboardServices)
+  .controller('ViewSessionDashboardCtrl', ViewSessionDashboardCtrl)
+  .controller('AddStudentSessionDashboardCtrl', AddStudentSessionDashboardCtrl)
+  .controller('viewAttendedDashboardCtrl', viewAttendedDashboardCtrl)
+  .controller('DashboardCtrl', DashboardCtrl);
+
+  function dashboardServices($http, $resource) {
+    var factory = {};
+    var service = 'https://lamp.cse.fau.edu/~jherna65/api/action.php';
+
+    factory.dashboardProfile = function(obj) {
+      return $http.post(service + '?action=getdashboardprofile', obj).then(function(response) {
+        return response.data;
+      });
+    };
+
+    factory.post = function(q,obj) {
+      return $http.post(service + q, obj).then(function(response) {
+        return response.data;
+      });
+    };
+
+    factory.getStudents = function() {
+      return $http.get(service + '?action=getstudentmysessions').then(function(response) {
+        return response.data;
+      });
+    };
+
+
+    return factory;
+  }
+
+  function DashboardCtrl($scope, $q, dashboardServices, $log, $localStorage, $state, $timeout) {
     var ctrl = this;
-    var action = 'action=getprofile';
     ctrl.data = [];
     ctrl.userData = null;
 
@@ -13,7 +43,17 @@ angular.module('tossApp')
       ctrl.userData.role = $localStorage.userRole;
       ctrl.userData.userGuiid = $localStorage.userGuiid;
       ctrl.userData.userId = $localStorage.userId;
+
+      var _data = {
+        role: ctrl.userData.role,
+        id: ctrl.userData.userId
+      };
     } else ctrl.userData = null;
+
+    dashboardServices.dashboardProfile(_data).then(function(data) {
+      $log.debug(data);
+      return ctrl.data = data.response[0];
+    });
 
     /*ctrl.id = {
       id: ctrl.userData.id
@@ -50,16 +90,150 @@ angular.module('tossApp')
         $localStorage.$reset();
         $log.log('Successfully logged out: ' + $localStorage.userGuiid);
         $q.when($localStorage.userGuiid==null).then(function() {
-          $state.go('login');
+          $log.log('logout successfully');
+          $state.go('dashboard', {}, {reload: true});
         });
       }
     };
 
-    ctrl.backAState = function() {
-      $log.log('Go back');
-      $timeout(function() {
-        $state.go('dashboard');
-      });
+  }
+
+  function ViewSessionDashboardCtrl($scope, $log, $q, dashboardServices, $localStorage) {
+    var ctrl = this;
+    var _data = {
+      id: $localStorage.userId
+    };
+    var action = '?action=getmysessions';
+    ctrl.displayCollection = [];
+    ctrl.rowCollection = [];
+    ctrl.isLoading = true;
+
+    dashboardServices.post(action, _data).then(function(data) {
+      $log.log(data);
+      if(data.status == 200) {
+        ctrl.rowCollection = data.response;
+        ctrl.displayCollection = [].concat(ctrl.rowCollection);
+        ctrl.isLoading = false;
+      }
+    }, function (data) {
+      $log.error('An error has occurred ' + data.status);
+    });
+  }
+
+  function AddStudentSessionDashboardCtrl($scope, $log, $q, dashboardServices, $localStorage, NgTableParams, toaster) {
+    var ctrl = this;
+    var _data = {
+      id: $localStorage.userId
+    };
+    var action = '?action=getsessiondropdown';
+    ctrl.options = [];
+    ctrl.displayCollection = [];
+    ctrl.rowCollection = [];
+    ctrl.selectedOption = null;
+    ctrl.selected = null;
+    ctrl.isLoading = true;
+
+    dashboardServices.post(action, _data).then(function(data) {
+      if(data.status == 200) {
+        $log.log(data.response);
+        var session = data.response;
+        ctrl.options = [].concat(data.response);
+      }
+    }, function(data) {
+      $log.error('An error has occurred '+data.status);
+    });
+
+    dashboardServices.getStudents().then(function(data) {
+      $log.log(data);
+      if(data.status == 200) {
+        ctrl.rowCollection = data.response;
+        ctrl.displayCollection = [].concat(ctrl.rowCollection);
+        ctrl.isLoading = false;
+      }
+    }, function (data) {
+      $log.error('An error has occurred ' + data.status);
+    });
+
+    ctrl.addToSession = addToSession;
+
+    function addToSession() {
+      action = '?action=addstudentmysession';
+      if(ctrl.selected!=null && ctrl.selectedOption!=null) {
+        _data = {
+          sessionid: ctrl.selectedOption,
+          id: ctrl.selected
+        };
+        $log.log(_data);
+        // Do ajax call
+        dashboardServices.post(action, _data).then(function(data) {
+          if(data.status == 200) {
+            $log.log(data);
+            toaster.pop({
+              type:'success',
+              title:'Success',
+              body:'A student has been added to your session',
+              tapToDismiss: true,
+              timeout:3000
+            });
+          }
+          else {
+            $log.error(data);
+            toaster.pop({
+              type:'error',
+              title:'Error',
+              body:'Cannot add a student to your session',
+              tapToDismiss: true,
+              timeout:3000
+            });
+          }
+        }), function(data) {
+          $log.error(data.status + ' ' + data.message);
+        };
+
+      } else {
+        // Otherwise gives warning
+        toaster.pop({
+          type:'warning',
+          title:'Error',
+          body:'Please select your course and/or student to add',
+          tapToDismiss: true,
+          timeout:3000
+        });
+      }
     };
 
-  });
+  }
+
+  function viewAttendedDashboardCtrl($scope, $log, dashboardServices, $localStorage, toaster) {
+    var ctrl = this;
+    ctrl.data = [];
+    ctrl.max = 5;
+    ctrl.rate = 5;
+    ctrl.isLoading = true;
+
+    if ($localStorage.userGuiid != null) {
+      // Assign user id from localStorage
+      var _data = {
+        role: $localStorage.userRole,
+        id: $localStorage.userId
+      };
+      var action = '?action=viewattendedsessions';
+      $log.log(_data);
+      dashboardServices.post(action, _data).then(function(data) {
+        $log.log(data);
+        if(data.status == 200) {
+          ctrl.rowCollection = data.response;
+          ctrl.displayCollection = [].concat(ctrl.rowCollection);
+          ctrl.isLoading = false;
+        }
+      }, function (data) {
+        $log.error('An error has occurred ' + data.status);
+      });
+    }
+
+    ctrl.hoverOver = function (val) {
+      ctrl.overStar = val;
+      ctrl.percent = 100 * (val / ctrl.max);
+    };
+
+  }

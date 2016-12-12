@@ -8,24 +8,32 @@
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- Font Awesome CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="styles/font-awesome.min.css" />
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css" />
+    <!--<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css" />-->
     <link rel="stylesheet" href="bower_components/AngularJS-Toaster/toaster.min.css" />
     <link rel="stylesheet" href="bower_components/angular-datatables/dist/css/angular-datatables.min.css" />
     <link rel="stylesheet" href="bower_components/angular-datatables/dist/plugins/bootstrap/datatables.bootstrap.min.css" />
     <link rel="stylesheet" href="https://unpkg.com/ng-table@3.0.1/bundles/ng-table.min.css"/>
-    <link rel="stylesheet" href="bower_components/AngularJS-Toaster/toaster.min.css"/>
+    <link rel="stylesheet" href="styles/bootstrap.css"/>
+    <link rel="stylesheet" href="styles/responsive.dataTables.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+
+    <!--John's stuff-->
+    <link rel="stylesheet" type="text/css" href="styles/jquery-ui-timepicker-addon.css">
+    <link rel="stylesheet" type="text/css" href="jquery/jquery-ui-1.12.1/jquery-ui.css"/>
+    <link rel="stylesheet" type="text/css" href="jquery/jtable.2.4.0/themes/lightcolor/blue/jtable.css"/>
 
     <!-- Custom stylesheet -->
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/nav.css">
-    <link rel="stylesheet" href="styles/contact.css">
     <link rel="stylesheet" href="styles/table.css">
     <link rel="stylesheet" href="styles/search.css">
     <link rel="stylesheet" href="styles/dashboard.css">
     <link rel="stylesheet" href="styles/login.css">
     <link rel="stylesheet" href="styles/profile.css">
+
+
 </head>
 
 <body ng-app="tossApp">
@@ -35,10 +43,60 @@
     <!--[if lt IE 9]>
     <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
     <![endif]-->
-    <div ui-view="header"><!-- Inject navbar using UI-Router --></div>
-    <div class="route" ui-view="content"> <!-- Inject content using UI-Router --> </div>
+    <!--<div ui-view="header">
+    </div>-->
+    <header class="header" ng-controller="NavCtrl as nav">
+      <div class="navbar navbar-default navbar-custom" role="navigation">
+        <div class="container">
+          <div class="navbar-header">
 
-    <div ui-view="footer"><!-- Inject footer using UI-Router --></div>
+            <button type="button" class="navbar-toggle collapsed" ng-click="nav.isNavCollapsed = !nav.isNavCollapsed"
+            data-toggle="collapse" data-target="#js-navbar-collapse" aria-expanded="false">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+          <a class="navbar-brand" ui-sref="home"><img src="img/fau-home-logo.png"/></a>
+          </div>
+
+          <div class="collapse navbar-collapse navbar-right" id="js-navbar-collapse" uib-collapse="nav.isNavCollapsed">
+
+            <ul class="nav navbar-nav">
+              <li ui-sref-active-eq="activeNav" ui-sref-active-eq>
+                <a ui-sref="home">Home</a>
+              </li>
+              <li ng-if="nav.userData==null" ui-sref-active-eq="activeNav">
+                <a ui-sref="login">Login</a>
+              </li>
+              <li ng-if="nav.userData!=null" ng-click="nav.logout()">
+                <a href>Logout</a>
+              </li>
+              <!-- Visible to logged in user only -->
+              <li ng-if="nav.userData!=null&&nav.userData.role!='guest'" ui-sref-active-eq="activeNav">
+                <a ui-sref="dashboard">Dashboard</a>
+              </li>
+              <li ng-if="nav.userData!=null&&nav.userData.role=='admin'" ui-sref-active-eq="activeNav">
+                <a ui-sref="message">Message</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </header>
+
+
+    <div class="route" ui-view=""> <!-- Inject content using UI-Router --> </div>
+
+    <div class="push">
+      <footer class="footer">
+        <div class="container">
+          <p>Build with <span class="glyphicon glyphicon-heart"></span> from FuSE</p>
+        </div>
+      </footer>
+    </div>
+
 
     <!-- Dependency scripts -->
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
@@ -52,12 +110,25 @@
     <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
     <script src="bower_components/ngstorage/ngStorage.min.js"></script>
     <script src="bower_components/angular-datatables/dist/plugins/bootstrap/angular-datatables.bootstrap.min.js"></script>
-    <script src="bower_components/angular-datatables/dist/angular-datatables.js"></script>
+    <script src="bower_components/angular-datatables/dist/angular-datatables.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.3.0/ui-bootstrap-tpls.min.js"></script>
     <script src="https://unpkg.com/ng-table@3.0.1/bundles/ng-table.min.js"></script>
     <script src="bower_components/AngularJS-Toaster/toaster.min.js"></script>
-    <!-- Datatables dependency -->
+    <script src="bower_components/angular-smart-table/dist/smart-table.min.js"></script>
+
+    <!-- Additional dependency -->
     <script src="bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="scripts/dataTables.responsive.min.js"></script>
+    <script src="scripts/date.format.js"></script>
+
+    <!-- John's Stuff-->
+    <script type="text/javascript" src="jquery/jquery-ui-1.12.1/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="jquery/jquery-ui-1.12.1/jquery-ui-timepicker-addon.js"></script>
+    <!--<script type="text/javascript" src="jquery/jquery-ui-1.12.1/jquery-ui-timepicker-addon-i18n.min.js"></script>-->
+    <script type="text/javascript" src="jquery/jquery-ui-1.12.1/jquery-ui-sliderAccess.js"></script>
+    <script type="text/javascript" src="jquery/jtable.2.4.0/jquery.jtable.min.js" ></script>
+    <script type="text/javascript" src="jquery/jquery.validationEngine.js"></script>
+    <!--<script type="text/javascript" src="jquery/jquery.validationEngine-en.js"></script>-->
 
     <!-- Custom scripts -->
     <script src="scripts/app.js"></script>
@@ -67,12 +138,13 @@
     <script src="scripts/controllers/contact.js"></script>
     <script src="scripts/controllers/nav.js"></script>
     <script src="scripts/controllers/auth.js"></script>
-    <script src="scripts/controllers/footer.js"></script>
     <script src="scripts/directives/main.table.js"></script>
     <script src="scripts/controllers/dashboard.js"></script>
     <script src="scripts/controllers/profile.js"></script>
     <script src="scripts/controllers/dashboard.cycle.js"></script>
     <script src="scripts/directives/dashboard.component.js"></script>
+
+
 
 </body>
 

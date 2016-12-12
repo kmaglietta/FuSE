@@ -1,55 +1,27 @@
 /* Style sheet for Login.html */
-.test-content{
-  margin: 0 auto;
-}
 .login-page {
   padding: 8% 0 0;
   margin: 0 auto;
 }
 
 .authentication-form {
-  position: relative;
   z-index: 1;
   background: #FFFFFF;
+  padding: 20px;
   margin: 0 auto 100px;
-  padding: 45px;
-  text-align: center;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
 .authentication-form .title{
   padding-left: 15px;
   text-align: left;
 }
+
 .authentication-form .input-text {
-  height:50px;
   width:100%;
-  outline: 0;
-  background: #f2f2f2;
-  border: 0;
   margin: 0 0 15px;
-  padding: 10px;
   text-indent: 10px;
-  box-sizing: border-box;
   font-size: 14px;
-}
-.authentication-form button {
-  width:100%;
-  height: 50px;
-  margin-top: 50px;
-  text-transform: uppercase;
-  outline: 0;
-  background: #CC0000;
-  border: 0;
-  padding: 6px;
-  color: #FFFFFF;
-  font-size: 14px;
-  -webkit-transition: all 0.3 ease;
-  transition: all 0.3 ease;
-  cursor: pointer;
-}
-.authentication-form button:hover,.authentication-form button:active,.authentication-form button:focus {
-  background: #96281B;
-}
+}/*
 .authentication-form .message {
   margin: 15px 0 0;
   color: #b3b3b3;
@@ -58,14 +30,22 @@
 .authentication-form .message a {authentication-form
   color: #4CAF50;
   text-decoration: none;
+}*/
+.authentication-form button {
+  width:100%;
+  text-transform: uppercase;
+  background: #CC0000;
+  padding: 6px;
+  color: #FFFFFF;
+  font-size: 14px;
+  cursor: pointer;
+}
+.authentication-form button:hover,.authentication-form button:active,.authentication-form button:focus {
+  background: #96281B;
+  color: #FFFFFF;
 }
 .form .register-form {
   display: none;
-}
-
-.demo-authentication {
-  margin-top: 100px;
-  background: #eee;
 }
 
 .authentication-form .checkbox {
