@@ -19,25 +19,44 @@ id="main">
   <div class="buffer row">
     <div class="col-xs-12 col-sm-8 col-md-10 col-md-offset-2 center-block">
       <div class="">
-        <table st-table="vm.displayCollection" st-safe-src="vm.rowCollection" class="table table-striped table-hover">
+        <table st-table="vm.displayCollection" st-safe-src="vm.rowCollection"
+          class="table table-striped table-hover tablesaw tablesaw-stack" data-tablesaw-mode="stack">
           <thead>
             <tr>
-              <th st-sort="class">Class</th>
-              <th st-sort="coursename">Course Name</th>
-              <th st-sort="location">Location</th>
-              <th st-sort="date">Date</th>
-              <th st-sort="status">Status</th>
-              <th st-sort="active">Active</th>
+              <th data-tablesaw-sortable-col data-tablesaw-priority="persist" st-sort="class">Class</th>
+              <th data-tablesaw-sortable-col st-sort="coursename">Course Name</th>
+              <th data-tablesaw-sortable-col st-sort="location">Location</th>
+              <th data-tablesaw-sortable-col st-sort="date">Date</th>
+              <th data-tablesaw-sortable-col st-sort="status">Status</th>
+              <th data-tablesaw-sortable-col st-sort="active">Active</th>
             </tr>
           </thead>
           <tbody ng-show="!vm.isLoading">
             <tr ng-repeat="row in vm.displayCollection">
-          		<td>{{row.class}}</td>
-          		<td>{{row.coursename}}</td>
-          		<td>{{row.location}}</td>
-              <td>{{row.date}}</td>
-              <td>{{row.status}}</td>
-              <td>{{row.active}}</td>
+          		<td>
+                <b class="tablesaw-cell-label">Class</b>
+                <span class="table-cell-content">{{row.class}}</span>
+              </td>
+          		<td>
+                <b class="tablesaw-cell-label">Course Name</b>
+                <span class="table-cell-content">{{row.coursename}}</span>
+              </td>
+          		<td>
+                <b class="tablesaw-cell-label">Location</b>
+                <span class="table-cell-content">{{row.location}}</span>
+              </td>
+              <td>
+                <b class="tablesaw-cell-label">Date</b>
+                <span class="table-cell-content">{{row.date}}</span>
+              </td>
+              <td>
+                <b class="tablesaw-cell-label">Status</b>
+                <span class="table-cell-content">{{row.status}}</span>
+              </td>
+              <td>
+                <b class="tablesaw-cell-label">Active</b>
+                <span class="table-cell-content">{{row.active}}</span>
+              </td>
           	</tr>
           </tbody>
           <tbody colspan="6" ng-show="vm.isLoading">

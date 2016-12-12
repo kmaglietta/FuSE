@@ -5,6 +5,7 @@ angular.module('tossApp')
   .controller('ViewSessionDashboardCtrl', ViewSessionDashboardCtrl)
   .controller('AddStudentSessionDashboardCtrl', AddStudentSessionDashboardCtrl)
   .controller('viewAttendedDashboardCtrl', viewAttendedDashboardCtrl)
+  .controller('ModalRatingCtrl', ModalRatingCtrl)
   .controller('DashboardCtrl', DashboardCtrl);
 
   function dashboardServices($http, $resource) {
@@ -89,9 +90,8 @@ angular.module('tossApp')
         // Delete everything from the NgStorage
         $localStorage.$reset();
         $log.log('Successfully logged out: ' + $localStorage.userGuiid);
-        $q.when($localStorage.userGuiid==null).then(function() {
-          $log.log('logout successfully');
-          $state.go('dashboard', {}, {reload: true});
+        $q.when($localStorage.userGuiid==null).then(function(data) {
+          $state.go('login', {}, {reload:true});
         });
       }
     };
@@ -137,7 +137,7 @@ angular.module('tossApp')
       if(data.status == 200) {
         $log.log(data.response);
         var session = data.response;
-        ctrl.options = [].concat(data.response);
+        ctrl.options = data.response;
       }
     }, function(data) {
       $log.error('An error has occurred '+data.status);
@@ -168,13 +168,24 @@ angular.module('tossApp')
         dashboardServices.post(action, _data).then(function(data) {
           if(data.status == 200) {
             $log.log(data);
-            toaster.pop({
-              type:'success',
-              title:'Success',
-              body:'A student has been added to your session',
-              tapToDismiss: true,
-              timeout:3000
-            });
+            if(data.response.type==null) {
+              toaster.pop({
+                type:'success',
+                title:'Success',
+                body:'A student has been added to your session',
+                tapToDismiss: true,
+                timeout:3000
+              });
+            }
+            else {
+              toaster.pop({
+                type:'warning',
+                title:'Warning',
+                body:'This student has already been added',
+                tapToDismiss: true,
+                timeout:3000
+              });
+            }
           }
           else {
             $log.error(data);
@@ -204,12 +215,13 @@ angular.module('tossApp')
 
   }
 
-  function viewAttendedDashboardCtrl($scope, $log, dashboardServices, $localStorage, toaster) {
+  function viewAttendedDashboardCtrl($scope, $log, dashboardServices, $localStorage, toaster, $uibModal, $state) {
     var ctrl = this;
     ctrl.data = [];
-    ctrl.max = 5;
-    ctrl.rate = 5;
     ctrl.isLoading = true;
+    ctrl.max = 5;
+    ctrl.rowCollection = [];
+    ctrl.displayCollection = [];
 
     if ($localStorage.userGuiid != null) {
       // Assign user id from localStorage
@@ -231,9 +243,80 @@ angular.module('tossApp')
       });
     }
 
-    ctrl.hoverOver = function (val) {
-      ctrl.overStar = val;
-      ctrl.percent = 100 * (val / ctrl.max);
+    ctrl.rating = function(item) {
+      return ctrl.intRating = parseInt(item);
     };
 
+    ctrl.openRate = function(row){
+      var modalInstance = $uibModal.open({
+        animation: true,
+        ariaLabelledBy: 'modal-title',
+        ariaDescribedBy: 'modal-body',
+        templateUrl: 'templates/modal.content.rating.html',
+        controller: 'ModalRatingCtrl',
+        controllerAs: '$ctrl',
+        resolve: {
+          items: function(){
+            return row;
+          }
+        }
+      });
+
+      modalInstance.result.then(function(item) {
+        $log.log(item);
+        _data = {
+          tssid: item.tssId,
+          id: $localStorage.userId,
+          sessionid: item.sessionId,
+          newRating: item.newRating
+        }
+        action = '?action=ratemytutor';
+        dashboardServices.post(action, _data).then(function(data) {
+          $log.log(data);
+          if(data.status == 200) {
+            $state.reload();
+          }
+          else {
+            toaster.pop({
+              type:'error',
+              title:'Warning',
+              body:'Cannot rate a tutor',
+              tapToDismiss: true,
+              timeout:3000
+            });
+          }
+        }, function(data) {
+          $log.error('An error has occurred ' + data.status);
+        });
+      }, function() {
+        $log.log('modal dismiss at: ' + new Date());
+      });
+    };
+
+  }
+
+  function ModalRatingCtrl($uibModalInstance, items) {
+    var ctrl = this;
+    ctrl.data = items;
+    ctrl.selectedOption = null;
+    ctrl.showError = false;
+    ctrl.ratings = [
+      {id:1,rating:1},
+      {id:2,rating:2},
+      {id:3,rating:3},
+      {id:4,rating:4},
+      {id:5,rating:5}
+    ];
+
+    ctrl.submit = function() {
+      if(ctrl.selectedOption!= null) {
+        ctrl.data.newRating = ctrl.selectedOption;
+        $uibModalInstance.close(ctrl.data);
+      } else {
+        ctrl.showError = true;
+      }
+    };
+    ctrl.cancel = function() {
+      $uibModalInstance.dismiss('cancel');
+    }
   }

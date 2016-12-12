@@ -4,13 +4,16 @@ angular.module('tossApp')
   .factory('userService', userService)
   .controller('LoginCtrl', login_controller);
 
-  function login_controller($scope, userService, $log, $localStorage, $state, toaster, $http){
+  function login_controller($scope, userService, $log, $localStorage, $state, toaster, $q){
     var ctrl = this;
     ctrl.login = {};
     ctrl.data = [];
     ctrl.isAdmin = {
       value: false
     }
+
+    if($localStorage.userGuiid!=null) $localStorage.$reset();
+    else $state.go('dashboard', {}, {reload:true});
 
     ctrl.userLogin = function(){
       $log.log('Signing in...');
@@ -40,7 +43,9 @@ angular.module('tossApp')
             if (ctrl.data.isAdmin == 1) $localStorage.userRole = 'admin';
             else if (ctrl.data.isTutor == 1) $localStorage.userRole = 'tutor'
             else $localStorage.userRole = 'student';
-            $state.go('dashboard', {}, {reload: true});
+            $q.when($localStorage.userGuiid!=null).then(function(data) {
+              $state.go('dashboard', {}, {reload:true});
+            });
           }
           else {
            toaster.pop({

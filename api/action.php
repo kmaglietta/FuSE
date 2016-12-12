@@ -49,6 +49,9 @@ class apiHandler extends rest
       elseif ($action == 'viewattendedsessions') {
         $data['response'] = $caller->viewAttendedSessions($requestData);
       }
+      elseif ($action == 'ratemytutor') {
+        $data['response'] = $caller->rateTutor($requestData);
+      }
       else {
         // Action is undefined
         throw new ResponseException(404,'Action is not defined');

@@ -24,18 +24,32 @@ angular
     $stateProvider
       .state('home', {
         url:'/',
-        templateUrl: 'templates/main.html',
-        controller: 'MainCtrl',
-        controllerAs: 'vm'
+        views:{
+          "nav":{
+            templateUrl: 'templates/nav.html'
+          },
+          "":{
+            templateUrl: 'templates/main.html',
+            controller: 'MainCtrl',
+            controllerAs: 'vm'
+          }
+        }
       })
       .state('dashboard', {
         url:'/dashboard',
         resolve: {
           authenticate: authenticate
         },
-        templateUrl: 'templates/dashboard.html',
-        controller: 'DashboardCtrl',
-        controllerAs: 'vm'
+        views:{
+          "nav":{
+            templateUrl: 'templates/nav.html'
+          },
+          "":{
+            templateUrl: 'templates/dashboard.html',
+            controller: 'DashboardCtrl',
+            controllerAs: 'vm'
+          }
+        }
       })
       .state('dashboard.sessionadmin', {
         url:'/sessionadmin',
@@ -43,6 +57,9 @@ angular
           authenticate: authenticate
         },
         views: {
+          "nav":{
+            templateUrl: 'templates/nav.html'
+          },
           '@':{
             templateUrl: 'templates/dashboard.sessionadmin.html',
             controller: 'DashboardCtrl',
@@ -56,6 +73,9 @@ angular
           authenticate: authenticate
         },
         views: {
+          "nav":{
+            templateUrl: 'templates/nav.html'
+          },
           '@':{
             templateUrl: 'templates/dashboard.sessiontutor.html',
             controller: 'DashboardCtrl',
@@ -69,6 +89,9 @@ angular
           authenticate: authenticate
         },
         views: {
+          "nav":{
+            templateUrl: 'templates/nav.html'
+          },
           '@':{
             templateUrl: 'templates/dashboard.sessionstudent.html',
             controller: 'DashboardCtrl',
@@ -82,6 +105,9 @@ angular
           authenticate: authenticate
         },
         views: {
+          "nav":{
+            templateUrl: 'templates/nav.html'
+          },
           '@':{
             templateUrl: 'templates/dashboard.sessionlocation.html',
             controller: 'DashboardCtrl',
@@ -95,6 +121,9 @@ angular
           authenticate: authenticate
         },
         views: {
+          "nav":{
+            templateUrl: 'templates/nav.html'
+          },
           '@':{
             templateUrl: 'templates/dashboard.sessionclass.html',
             controller: 'DashboardCtrl',
@@ -108,6 +137,9 @@ angular
           authenticate: authenticate
         },
         views: {
+          "nav":{
+            templateUrl: 'templates/nav.html'
+          },
           '@':{
             templateUrl: 'templates/dashboard.sessionclassinfo.html',
             controller: 'DashboardCtrl',
@@ -121,6 +153,9 @@ angular
           authenticate: authenticate
         },
         views: {
+          "nav":{
+            templateUrl: 'templates/nav.html'
+          },
           '@':{
             templateUrl: 'templates/dashboard.addstudent.html',
             controller: 'AddStudentSessionDashboardCtrl',
@@ -134,6 +169,9 @@ angular
           authenticate: authenticate
         },
         views: {
+          "nav":{
+            templateUrl: 'templates/nav.html'
+          },
           '@':{
             templateUrl: 'templates/dashboard.viewsession.html',
             controller: 'ViewSessionDashboardCtrl',
@@ -147,6 +185,9 @@ angular
           authenticate: authenticate
         },
         views: {
+          "nav":{
+            templateUrl: 'templates/nav.html'
+          },
           '@':{
             templateUrl: 'templates/dashboard.viewattended.html',
             controller: 'viewAttendedDashboardCtrl',
@@ -159,9 +200,16 @@ angular
         resolve: {
           authenticate: authenticate
         },
-        templateUrl: 'templates/dashboard.cycletable.html',
-        controller: 'DashboardCycleCtrl',
-        controllerAs: 'vm'
+        views:{
+          "nav":{
+            templateUrl: 'templates/nav.html'
+          },
+          "":{
+            templateUrl: 'templates/dashboard.cycletable.html',
+            controller: 'DashboardCycleCtrl',
+            controllerAs: 'vm'
+          }
+        }
       })
       .state('analytics', {
         url:'/analytics',
@@ -174,21 +222,42 @@ angular
       })
       .state('login', {
         url:'/login',
-        templateUrl: 'templates/login.html',
-        controller: 'LoginCtrl',
-        controllerAs: 'vm'
+        views:{
+          "nav":{
+            templateUrl: 'templates/nav.html'
+          },
+          "":{
+            templateUrl: 'templates/login.html',
+            controller: 'LoginCtrl',
+            controllerAs: 'vm'
+          }
+        }
       })
       .state('profile', {
         url:'/profile/:profileId',
-        templateUrl: 'templates/profile.html',
-        controller: 'ProfileCtrl',
-        controllerAs: 'vm'
+        views:{
+          "nav":{
+            templateUrl: 'templates/nav.html'
+          },
+          "":{
+            templateUrl: 'templates/profile.html',
+            controller: 'ProfileCtrl',
+            controllerAs: 'vm'
+          }
+        }
       })
       .state('message', {
         url:'/message',
-        templateUrl: 'templates/message.html',
-        controller: 'MessageCtrl',
-        controllerAs: 'vm'
+        views:{
+          "nav":{
+            templateUrl: 'templates/nav.html'
+          },
+          "":{
+            templateUrl: 'templates/message.html',
+            controller: 'MessageCtrl',
+            controllerAs: 'vm'
+          }
+        }
       })
       .state('error', {
         templateUrl:'templates/404.html'

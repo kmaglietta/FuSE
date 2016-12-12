@@ -108,13 +108,36 @@ class db_handler
     concat(s.FirstName, ' ', s.LastName) tutorName,
     DATE(ts.SessionStartTime) date
     FROM proTutoringSessionStudents tss
-    INNER JOIN proTutoringSession ts ON ts.SessionId LIKE ts.SessionId
+    INNER JOIN proTutoringSession ts ON ts.SessionId LIKE tss.SessionId
     INNER JOIN proTutor t ON ts.TutorId LIKE t.TutorId
     INNER JOIN proStudent s ON t.StudentId LIKE s.StudentId
     INNER JOIN proClassInformation c ON t.ClassId LIKE c.ClassId
-    WHERE tss.StudentId LIKE " . $studentId . ";";
+    WHERE
+    tss.StudentId LIKE " . $studentId . ";";
 
     return $r = $this->runQuery($query);
+  }
+
+  public function rateTutor($data) {
+    // Let any student rate a tutor but only once
+    $tssId = $data['tssid'];
+    $id = $data['id'];
+    $rating = $data['newRating'];
+    //$sessionId = $data['sid'];
+
+    $query = "UPDATE proTutoringSessionStudents SET StudentRating = ".$rating.
+    ", StudentRatingDate = CURRENT_TIMESTAMP WHERE tssId LIKE ".$tssId.
+    " AND StudentId LIKE ".$id.";";
+
+    if($this->conn->query($query)) {
+      return $r = 'Successfully rated';
+    } else {
+      $r = array(
+        'type' => 'error',
+        'message' => 'Cannot update the rating'
+      );
+      return $r;
+    }
   }
 
   public function getStudentMySession() {
@@ -165,17 +188,32 @@ class db_handler
             $this->conn->query($query) or die($this->conn->error . __LINE__);
           }
           else {
+            // Get tss ID
             if(isset($result)) {
               foreach ($result as $row) {
                 $tssId = $row['tssId'];
               }
             }
-            // If already exist then add student to the session
-            $query = "UPDATE proTutoringSessionStudents SET StudentId = ".$studentId.
-            ", CompletedTutoring = 1, StudentRating = 0
-            WHERE 1=1 AND tssId LIKE ".$tssId." AND SessionId LIKE ".$sessionId.";";
-
+            // Check if the student has already been added
+            $query = "SELECT tss.tssId, tss.SessionId, tss.StudentId
+            FROM proTutoringSessionStudents tss WHERE tss.StudentId LIKE ".$studentId.";";
             $result = $this->conn->query($query) or die($this->conn->error . __LINE__);
+            if($result->num_rows > 1) {
+              // Student is already added to the session
+              $r = array(
+                'type' => 'error',
+                'message' => 'This student has already been added to your session'
+              );
+              return $r;
+            }
+            else {
+              // If already exist then add student to the session
+              $query = "UPDATE proTutoringSessionStudents SET StudentId = ".$studentId.
+              ", CompletedTutoring = 1, StudentRating = 0
+              WHERE tssId LIKE ".$tssId." AND SessionId LIKE ".$sessionId.";";
+
+              $result = $this->conn->query($query) or die($this->conn->error . __LINE__);
+            }
           }
         }
       }
@@ -184,7 +222,7 @@ class db_handler
       }
     }
 
-    return $r['Message'] = 'Student has been added';
+    return $r = 'Student has been added';
   }
 
   public function getMySessionsDropdown($data) {
@@ -194,7 +232,8 @@ class db_handler
     FROM proTutoringSession ts INNER JOIN proTutor t ON ts.TutorId LIKE t.tutorId
     INNER JOIN proClassInformation c ON t.ClassId LIKE c.ClassId
     INNER JOIN proLocation l ON ts.LocationId LIKE l.LocationId
-    WHERE ts.TutorId LIKE ".$id.";";
+    INNER JOIN proStudent s ON t.StudentId LIKE s.StudentId
+    WHERE s.StudentId LIKE ".$id.";";
 
     $r = $this->runQuery($query);
     if(!empty($r['error'])) {
@@ -231,8 +270,7 @@ class db_handler
     FROM proTutoringSession ts INNER JOIN proTutor t ON ts.TutorId LIKE t.TutorId
     INNER JOIN proLocation l ON ts.LocationId LIKE l.LocationId
     INNER JOIN proClassInformation c ON t.ClassId LIKE c.ClassId
-    WHERE 1=1
-    AND ts.TutorId LIKE ".$id.";";
+    WHERE t.StudentId LIKE ".$id.";";
 
     $r = $this->runQuery($query);
     if(!empty($r['error'])) {
