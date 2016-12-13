@@ -62,7 +62,7 @@ angular.module('tossApp')
     ctrl.backAState = function() {
       $log.log('Go back');
       $timeout(function() {
-        $state.go('dashboard');
+        $state.go('dashboard',{},{reload:true});
       }, 50);
     };
 
@@ -83,7 +83,7 @@ angular.module('tossApp')
     // Destroy interval timer on state change
     $scope.$on('$destroy', function() {
       $interval.cancel(ctrl.timer);
-    })
+    });
     function createdRow(row, data, dataIndex) {
       // Recompiling so we can bind Angular directive to the DT
       $compile(angular.element(row).contents())($scope);
@@ -94,5 +94,4 @@ angular.module('tossApp')
       //ctrl.user[data.status] = data;
       return '<div class="'+usr[data.status]+'">'+usr[data.status]+'</div>';
     }
-  })
-  ;
+  });

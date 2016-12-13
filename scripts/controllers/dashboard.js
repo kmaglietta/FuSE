@@ -161,7 +161,8 @@ angular.module('tossApp')
       if(ctrl.selected!=null && ctrl.selectedOption!=null) {
         _data = {
           sessionid: ctrl.selectedOption,
-          id: ctrl.selected
+          id: ctrl.selected,
+          tid: $localStorage.userId
         };
         $log.log(_data);
         // Do ajax call
@@ -243,10 +244,6 @@ angular.module('tossApp')
       });
     }
 
-    ctrl.rating = function(item) {
-      return ctrl.intRating = parseInt(item);
-    };
-
     ctrl.openRate = function(row){
       var modalInstance = $uibModal.open({
         animation: true,
@@ -267,9 +264,10 @@ angular.module('tossApp')
         _data = {
           tssid: item.tssId,
           id: $localStorage.userId,
-          sessionid: item.sessionId,
+          sessionid: item.sessionid,
           newRating: item.newRating
         }
+        $log.log(_data);
         action = '?action=ratemytutor';
         dashboardServices.post(action, _data).then(function(data) {
           $log.log(data);
@@ -307,6 +305,8 @@ angular.module('tossApp')
       {id:4,rating:4},
       {id:5,rating:5}
     ];
+    ctrl.oldRating = ctrl.data.rating;
+    ctrl.oldRating = parseInt(ctrl.oldRating);
 
     ctrl.submit = function() {
       if(ctrl.selectedOption!= null) {

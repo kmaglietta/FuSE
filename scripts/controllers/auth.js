@@ -33,8 +33,8 @@ angular.module('tossApp')
       userService.login(_data).then(function(data) {
         // If success
         if (data.status === 200) {
-          if(data.response.guiid != null) {
-            $log.debug(data.response);
+          if(data.response != null) {
+            //$log.debug(data.response);
             ctrl.data = data.response;
             // Store user's data inside local storage
             //$localStorage.userData = data.response;

@@ -61,7 +61,7 @@ id="main">
               </td>
               <td ng-show="row.ratingStatus=='Rated'">
                 <b class="tablesaw-cell-label">Rating</b>
-                <span class="table-cell-content" uib-rating ng-model="vm.intRating" ng-init="vm.rating(row.rating)"
+                <span class="table-cell-content" uib-rating ng-model="row.rating"
                 max="vm.max" read-only="true"
                 titles="['one','two','three']" aria-labelledby="default-rating"></span>
                 <!--<span class="table-cell-content">{{row.rating}}</span>-->

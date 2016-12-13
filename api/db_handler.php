@@ -97,7 +97,8 @@ class db_handler
     // Get the list of all classes that a student has attended
     $studentId = $data['id'];
 
-    $query = "SELECT tss.tssId, tss.SessionId sessionid, tss.StudentRating rating,
+    $query = "SELECT tss.tssId, tss.SessionId sessionid,
+    tss.StudentRating rating,
     concat(c.Subject , ' ' , c.CourseNumber) as class,
     c.coursename coursename,
     CASE
@@ -123,7 +124,7 @@ class db_handler
     $tssId = $data['tssid'];
     $id = $data['id'];
     $rating = $data['newRating'];
-    //$sessionId = $data['sid'];
+    $sid = $data['sessionid'];
 
     $query = "UPDATE proTutoringSessionStudents SET StudentRating = ".$rating.
     ", StudentRatingDate = CURRENT_TIMESTAMP WHERE tssId LIKE ".$tssId.
@@ -196,9 +197,10 @@ class db_handler
             }
             // Check if the student has already been added
             $query = "SELECT tss.tssId, tss.SessionId, tss.StudentId
-            FROM proTutoringSessionStudents tss WHERE tss.StudentId LIKE ".$studentId.";";
+            FROM proTutoringSessionStudents tss WHERE
+            tss.SessionId LIKE ".$sessionId." AND tss.StudentId LIKE ".$studentId.";";
             $result = $this->conn->query($query) or die($this->conn->error . __LINE__);
-            if($result->num_rows > 1) {
+            if($result->num_rows > 0) {
               // Student is already added to the session
               $r = array(
                 'type' => 'error',

@@ -1,11 +1,17 @@
 <!-- This is a template file for main table -->
 <!-- Table -->
 <h2 id="main-intro" class="main-intro">{{ $ctrl.info }}</h2>
-<button ng-click="$ctrl.reloadData()" type="button" class="btn btn-info">
-    <i class="fa fa-refresh"></i>&nbsp;Reload data
-</button>
-<div class="">
-<table width="100%" datatable="" dt-options="$ctrl.dtOptions" dt-columns="$ctrl.dtColumns" dt-instance="$ctrl.dtInstance"
- class="table table-striped table-hover dt-responsive display nowrap" cellspacing="0">
-</table>
+<div class="buffer row">
+  <div class="col-xs-12 col-sm-2 col-md-4">
+    <button ng-click="$ctrl.reloadData()" type="button" class="btn btn-info">
+      <i class="fa fa-refresh"></i>&nbsp;Reload data
+    </button>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-12">
+    <table width="100%" datatable="" dt-options="$ctrl.dtOptions" dt-columns="$ctrl.dtColumns" dt-instance="$ctrl.dtInstance"
+    class="dt-responsive display" cellspacing="0">
+  </table>
+  </div>
 </div>
