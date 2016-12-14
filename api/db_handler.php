@@ -210,9 +210,13 @@ class db_handler
             }
             else {
               // If already exist then add student to the session
-              $query = "UPDATE proTutoringSessionStudents SET StudentId = ".$studentId.
+              /*$query = "UPDATE proTutoringSessionStudents SET StudentId = ".$studentId.
               ", CompletedTutoring = 1, StudentRating = 0
-              WHERE tssId LIKE ".$tssId." AND SessionId LIKE ".$sessionId.";";
+              WHERE tssId LIKE ".$tssId." AND SessionId LIKE ".$sessionId.";";*/
+
+              $query = "INSERT INTO proTutoringSessionStudents (tssId, SessionId, StudentId,
+              CompletedTutoring, StudentRating)
+              VALUES(NULL, ".$sessionId.", ".$studentId.", 1, 0)";
 
               $result = $this->conn->query($query) or die($this->conn->error . __LINE__);
             }

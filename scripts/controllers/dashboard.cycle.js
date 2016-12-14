@@ -18,7 +18,7 @@ angular.module('tossApp')
       });
       return defer.promise;*/
       return dataService.johnAction('action=getdashboardlist').then(function (data) {
-        $log.debug(data.data);
+        //$log.debug(data.data);
         return data.data;
       });
     })
@@ -70,7 +70,7 @@ angular.module('tossApp')
       ctrl.dtInstance = instance;
       $log.debug(instance);
       ctrl.timer = $interval(function() {
-        $log.log('OK');
+        //$log.log('OK');
         if(ctrl.dtInstance.DataTable.page()===ctrl.dtInstance.DataTable.page('last').page()){
           ctrl.dtInstance.reloadData();
         } else {

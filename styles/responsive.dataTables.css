@@ -90,7 +90,8 @@ table.dataTable > tbody > tr.child {
   padding: 0.5em 1em;
 }
 table.dataTable > tbody > tr.child:hover {
-  background: transparent !important;
+  /*background: transparent !important;*/
+  background: #EEF331;
 }
 table.dataTable > tbody > tr.child ul.dtr-details {
   display: inline-block;

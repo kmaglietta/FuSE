@@ -1,6 +1,6 @@
 'use strict';
 
-function m_controller($scope, $log, $compile, $q, dataService, DTOptionsBuilder, DTColumnBuilder){
+function m_controller($scope, $log, $compile, $q, dataService, DTOptionsBuilder, DTColumnBuilder, DTColumnDefBuilder){
     var ctrl = this;
     var usr = [];
     ctrl.dtInstance = {};
@@ -20,7 +20,7 @@ function m_controller($scope, $log, $compile, $q, dataService, DTOptionsBuilder,
       });
     })
     .withDOM('frtip')
-    .withBootstrap() // Use Bootstrap styling
+    .withBootstrap()
     .withPaginationType('full_numbers')
     .withDisplayLength(10)
     .withOption('resposive', true)
@@ -47,14 +47,14 @@ function m_controller($scope, $log, $compile, $q, dataService, DTOptionsBuilder,
       DTColumnBuilder.newColumn('class').withTitle('Class'),
       DTColumnBuilder.newColumn('coursename').withTitle('Course Name'),
       DTColumnBuilder.newColumn('name').withTitle('Name'),
-      DTColumnBuilder.newColumn('location').withTitle('Location'),
       DTColumnBuilder.newColumn('starttime').withTitle('Start Time'),
       DTColumnBuilder.newColumn('endtime').withTitle('End Time'),
+      DTColumnBuilder.newColumn(null).withTitle('Actions').notSortable()
+            .renderWith(profileLink),
+      DTColumnBuilder.newColumn('location').withTitle('Location'),
       DTColumnBuilder.newColumn('status').withTitle('Status').notSortable()
         .renderWith(sessionStatus),
-      DTColumnBuilder.newColumn('studentid').withTitle('SID').notVisible(),
-      DTColumnBuilder.newColumn(null).withTitle('Actions').notSortable()
-            .renderWith(profileLink)
+      DTColumnBuilder.newColumn('studentid').withTitle('SID').notVisible().withClass('none')
     ];
 
     function createdRow(row, data, dataIndex) {
@@ -79,7 +79,6 @@ function m_controller($scope, $log, $compile, $q, dataService, DTOptionsBuilder,
     }
 
 }
-
 
 angular.module('tossApp')
   .component('myTable', {

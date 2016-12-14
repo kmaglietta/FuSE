@@ -197,9 +197,6 @@ angular
       })
       .state('livesession', {
         url:'/livesession',
-        resolve: {
-          authenticate: authenticate
-        },
         views:{
           "nav":{
             templateUrl: 'templates/nav.html'
