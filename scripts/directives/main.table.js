@@ -54,7 +54,7 @@ function m_controller($scope, $log, $compile, $q, dataService, DTOptionsBuilder,
       DTColumnBuilder.newColumn('location').withTitle('Location'),
       DTColumnBuilder.newColumn('status').withTitle('Status').notSortable()
         .renderWith(sessionStatus),
-      DTColumnBuilder.newColumn('studentid').withTitle('SID').notVisible().withClass('none')
+      DTColumnBuilder.newColumn('studentid').withTitle('SID').notVisible()
     ];
 
     function createdRow(row, data, dataIndex) {
