@@ -23,7 +23,7 @@ angular
   .config(function ($stateProvider, $urlRouterProvider) {
     $stateProvider
       .state('home', {
-        url:'/',
+        url:'',
         views:{
           "nav":{
             templateUrl: 'templates/nav.html'
@@ -262,11 +262,11 @@ angular
 
     // Define route when the field is empty
     // Redirect it to the main page
-    $urlRouterProvider.when('', '/');
+    $urlRouterProvider.when('/', '');
     $urlRouterProvider.otherwise(function($injector, $location){
       var state = $injector.get('$state');
       //state.go('error');
-      state.go('main');
+      state.go('home');
       return $location.path();
     });
 

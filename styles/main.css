@@ -160,3 +160,6 @@ img.img-banner{
     text-align: center;
   }
 }
+
+
+input[name="SessionEndTime"] .ui-datepicker-calendar {display: none;}

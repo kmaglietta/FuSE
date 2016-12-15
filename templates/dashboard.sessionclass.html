@@ -122,18 +122,17 @@
 
         SessionStartTime: {
           title: 'Session Start',
-          format:    'MM-DD-YYYY h:mm A',
-          //display: function (data) {
-          //	try {
-          //	  return dateFormat(data.record.SessionStartTime, "yyyy-mm-dd h:MM TT");
-          //	}
-          //	catch (exception) {
-          //		//var today = new Date();
-          //		//return dateFormat( today, "yyyy-mm-dd h:MM TT");
-          //		return null;
-          //	}
-          //
-           //   }
+          display: function (data) {
+          	try {
+          	  return dateFormat(data.record.SessionStartTime, "yyyy-mm-dd h:MM TT");
+          	}
+          	catch (exception) {
+          		//var today = new Date();
+          		//return dateFormat( today, "yyyy-mm-dd h:MM TT");
+          		return null;
+          	}
+
+              }
 
         },
 
