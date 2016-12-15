@@ -27,7 +27,7 @@ class dataClasssession
 					else 'Upcoming' 
 				end	
 			else 'Canceled' end Status
-			
+			,s.StudentId
 			
 			 FROM 
 			proTutoringSession TS
@@ -87,7 +87,7 @@ class dataClasssession
 					else 'Upcoming' 
 				end	
 			else 'Canceled' end Status
-			
+			,s.StudentId
 			 FROM 
 			proTutoringSession TS
 			inner join proTutor as t  on TS.TutorId = t.TutorId
@@ -137,7 +137,7 @@ class dataClasssession
 					else 'Upcoming' 
 				end	
 			else 'Canceled' end Status
-			
+			,s.StudentId
 			 FROM 
 			proTutoringSession TS
 			inner join proTutor as t  on TS.TutorId = t.TutorId
@@ -199,7 +199,7 @@ class dataClasssession
 					else 'Upcoming' 
 				end	
 			else 'Canceled' end Status
-			
+			,s.StudentId
 			 FROM 
 			proTutoringSession TS
 			inner join proTutor as t  on TS.TutorId = t.TutorId
@@ -266,7 +266,7 @@ class dataClasssession
 					else 'Upcoming' 
 				end	
 			else 'Canceled' end Status
-			
+			,s.StudentId
 			 FROM 
 			proTutoringSession TS
 			inner join proTutor as t  on TS.TutorId = t.TutorId
@@ -277,6 +277,7 @@ class dataClasssession
 			
 			where 1 = 1
 		";
+		
 		if ($isCanceled == 1) {
 			$selectQuery .= " and TS.Canceled  = 1 ";
 		}
@@ -327,16 +328,20 @@ public static function gettutoredlistAction($data,$params)
 	{
 
 		$StudentId = helpers::getArrayValue($params,'StudentId');
-			
+		$iSearch = helpers::validateValueString((helpers::getArrayValue($params,'iSearch')),'iSearch');
+		
 		$selectQuery = "
 			
 			SELECT
-
+			distinct 
 			TS.SessionId 
                         
 			
 			, concat(c.Subject , ' ' , c.Coursename, ' ' ,  c.CourseName) as ClassSession
-			, concat(s.FirstName , ' ' , s.LastName) as StudentName
+
+			
+			, TS.SessionStartTime
+			, TS.SessionEndTime
 			
 			, case when TS.Canceled = 0 then 
 				case 
@@ -355,8 +360,33 @@ public static function gettutoredlistAction($data,$params)
 
 			
 			where s.studentId = $StudentId
+
+
 			
 		";
+		
+//throw new ResponseException(500, "[$selectQuery]");	
+		if ($iSearch != ""  ) {
+			$selectQuery .= " and ( concat(c.Subject , ' ' , c.Coursename, ' ' ,  c.CourseName) like '%$iSearch%' 
+							)
+			";
+		}
+		
+		$jtSorting = helpers::getArrayValue($params,'jtSorting');
+		if ($jtSorting != "" && $jtSorting != "undefined" ){
+			$selectQuery .= " ORDER BY $jtSorting";
+		}
+
+		$jtStartIndex = helpers::getArrayValue($params,'jtStartIndex');
+		if ($jtStartIndex != "" ){
+			$selectQuery .= " Limit $jtStartIndex";
+		}
+		
+		
+		$jtPageSize = helpers::getArrayValue($params,'jtPageSize');
+		if ($jtPageSize != "" ){
+			$selectQuery .= " , $jtPageSize";
+		}
 
 //throw new ResponseException(500, "[$selectQuery]");
 		

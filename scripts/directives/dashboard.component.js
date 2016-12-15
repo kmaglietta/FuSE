@@ -111,9 +111,7 @@ function SessionAdminDashboardCtrl($scope, $log, dashboardService, NgTableParams
       animation: ctrl.animationsEnabled,
       ariaLabelledBy: 'modal-title',
       ariaDescribedBy: 'modal-body',
-      templateUrl: 'templates/modal.content.html',
-      controller: 'modalAdminCtrl',
-      controllerAs: '$ctrl',
+      component: 'adminModalComponent'
     });
 
     modalInstance.result.then(function (data) {
@@ -131,7 +129,7 @@ function SessionAdminDashboardCtrl($scope, $log, dashboardService, NgTableParams
 * Controller for component
 ---
 */
-function da_controller($scope, $log, $q, dashboardService) {
+function da_controller($scope, $log, $q, dashboardService, $timeout) {
   // Main controller for admin dashboard
   var ctrl = this;
 }

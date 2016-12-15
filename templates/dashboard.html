@@ -1,18 +1,19 @@
 <div class="presentable container main"
-id="main">
+id="dashboard-page">
   <div class="row">
-    <div class="col-xs-12 col-sm-6 col-md-8 col-md-offset-2">
-      <div class="home-content center-block ">
-        <h1>Welcome back, {{ vm.userData.role }}</h1>
-        <a href class="top-buffer btn btn-lg btn-danger" ng-click="vm.logout()">LOGOUT&nbsp;
-          <span class="fa fa-times-circle"></span></a>
+    <div class="col-xs-12 col-sm-8 col-md-10 col-md-offset-2 center-block">
+      <div class="home-content">
+        <h1 class="greetings animated fadeIn">Welcome back, {{ vm.data.name }}</h1>
+        <a href class="top-buffer btn btn-lg btn-danger btn-logout" ng-click="vm.logout()">
+          <span class="fa fa-times-circle"></span>&nbsp;LOGOUT</a>
       </div>
     </div>
   </div>
   <div class="row">
   </div>
-</div>
 
-<admin-dashboard ng-if="vm.userData!=null&&vm.userData.role=='admin'" info="'Admin views'"></admin-dashboard>
-<tutor-dashboard ng-if="vm.userData!=null&&vm.userData.role=='tutor'" info="'Tutor views'"></tutor-dashboard>
-<student-dashboard ng-if="vm.userData!=null&&vm.userData.role=='student'" info="'Student views'"></student-dashboard>
+<admin-dashboard ng-if="vm.userData!=null&&vm.userData.role=='admin'" info="''"></admin-dashboard>
+<tutor-dashboard ng-if="vm.userData!=null&&vm.userData.role=='tutor'" info="''"></tutor-dashboard>
+<student-dashboard ng-if="vm.userData!=null&&vm.userData.role=='student'" info="''"></student-dashboard>
+
+</div>

@@ -140,6 +140,10 @@ class helpers
 			return "";
 		}
 	}
+	public static function test()
+	{
+	 return "is working";	
+	}
 	
 	
 }

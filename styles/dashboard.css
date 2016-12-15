@@ -11,6 +11,39 @@ a.s_remove:focus{
   text-align: center;
 }
 
+.btn-xl {
+  padding: 20px 20px;
+  font-size: 20px;
+}
+
+.btn-logout {
+  padding: 15px;
+  width: 25%;
+}
+
+#dashboard-page .greetings{
+  -webkit-animation-duration: 2s;
+  -webkit-animation-delay: 1s;
+  -moz-animation-duration: 2s;
+  -moz-animation-delay: 1s;
+  -ms-animation-duration: 2s;
+  -ms-animation-delay: 1s;
+}
+
+#dashboard-page .list-group-item{
+  background: #2574A9;
+  color:#ECECEC;
+}
+
+#dashboard-page a.list-group-item:hover,
+#dashboard-page button.list-group-item:hover,
+#dashboard-page a.list-group-item:focus,
+#dashboard-page button.list-group-item:focus {
+  text-decoration: none;
+  color: #fff;
+  background-color: #34495E;
+}
+
 /*
 * Datatable custom style
 */

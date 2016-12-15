@@ -1,14 +1,18 @@
 <!-- This is a template file for student's dashboard component -->
 <div class="presentable container" id="profile-page">
   <div class="row">
-    <div class="center-block col-xs-12 col-sm-6 col-md-8 col-md-offset-2 bottom-buffer">
-      <h2 id="main-intro" class="main-intro">{{ $ctrl.info }}</h2>
-      <a class="s_remove" href>
-        <button type="button" class="admin-tools btn btn-info btn-lg btn-block">See my attended class</button>
-      </a><br/>
-      <a class="s_remove" href="http://lamp.cse.fau.edu/~jherna65/dashboard.php">
-        <button type="button" class="admin-tools btn btn-info btn-lg btn-block">Auto Cycle Session Table</button>
-      </a><br/>
+    <div class="center-block col-xs-12 col-sm-6 col-md-10 col-md-offset-2 bottom-buffer">
+      <div class="dashboard-intro">
+        <h3 id="main-intro" class="main-intro">{{ $ctrl.info }}</h3>
+      </div>
+      <div class="list-group text-center">
+        <a class="list-group-item" ui-sref="dashboard.viewattended">
+          <i class="fa fa-pencil-square-o" aria-hidden="true"></i>&nbsp;See My Attended Sessions
+        </a>
+        <a class="list-group-item" ui-sref="livesession">
+          Auto Cycle Session Table
+        </a>
+      </div>
     </div>
   </div>
   <div class="row">

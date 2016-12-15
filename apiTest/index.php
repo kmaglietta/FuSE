@@ -26,7 +26,7 @@ class api extends restAPI {
 
 		try
 		{
-
+			header("Access-Control-Allow-Origin: *");
 			// Define path to data folder
 			define('DATA_PATH', realpath(dirname(__FILE__).'/data'));
 
@@ -73,8 +73,8 @@ class api extends restAPI {
 //echo json_encode($params, JSON_PRETTY_PRINT);
 //echo $this->getArrayValue($params,'jtStartIndex');
 //exit();
-
-			$jsonObj[]= json_decode($body);
+			$jsonObj = array();
+			$jsonObj = json_decode($body, true);
 			$obj = array();
 			if($jsonObj) {
 			  foreach($jsonObj as $param_name => $param_value) {
@@ -87,16 +87,17 @@ class api extends restAPI {
 				$result['objparams'] = $params;
 				$result['objPosted'] = $obj;
 			}
-			
-			//move array elements one level up 
+
+			//move array elements one level up
 			$obj = array_shift($obj);
+			echo $obj;
 
 //throw new ResponseException(200,$this->encodeJson($params));
 //$params = $this->encodeJson($params);
 			//execute the action
 			$rows = $controller->$action($obj,$params);
 			//$result['data'] = $controller->$action($obj);
-			
+
 			if($rows['Options'])
 			{
 				$result['Options'] = $rows['Options'];
@@ -155,7 +156,7 @@ class api extends restAPI {
 				$error['httpStatusMessage'] = $this->getHttpStatusMessage($statusCode);
 			}
 			$error['Message'] = $e->getMessage();
-			
+
 			$error['errorMessage'] = $e->getMessage();
 			$error['line'] = $e->getLine();
 
@@ -163,8 +164,8 @@ class api extends restAPI {
 			$result['Error'] = $error;
 			$result['Result'] = "ERROR";
 		}
-		
-		
+
+
 		$result['debugging'] = $debug_isEnable;
 		$response = $this->encodeJson($result);
 		$requestContentType = 'application/json';

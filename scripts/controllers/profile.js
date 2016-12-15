@@ -6,7 +6,7 @@ angular.module('tossApp')
 
   function profileService($http, $log, $resource) {
     var factory = {};
-    var service = 'php/index.php?';
+    var service = 'php/action.php?';
     var exService = 'http://lamp.cse.fau.edu/~jherna65/apiTest/?';
 
     factory.getProfile = function(id) {

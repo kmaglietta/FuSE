@@ -1,0 +1,17 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-title">Add Rating</h4>
+</div>
+<div class="modal-body" id="modal-body">
+  <div class="form-group" ng-class="{'has-error':$ctrl.showError}">
+    <label for="select" class="control-label">Rate this tutor:</label>
+    <select class="form-control" id="select"
+      data-ng-model="$ctrl.selectedOption" data-ng-options="i.id as i.rating for i in $ctrl.ratings">
+      <option value="">Select your rating</option>
+    </select>
+  </div>
+  <p class="text-danger" ng-show="$ctrl.showError">Please select your rating.</p>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-primary" type="button" ng-click="$ctrl.submit()">Submit</button>
+  <button class="btn btn-warning" type="button" ng-click="$ctrl.cancel()">Cancel</button>
+</div>

@@ -2,18 +2,18 @@
 /**
  * Database configuration
  */
-//define('DB_USERNAME', 'ppakhapo');
-//define('DB_PASSWORD', 'SaQ95TBEP3');
-//define('DB_HOST', 'localhost');
-//define('DB_NAME', 'ppakhapo');
+define('DB_USERNAME', 'jherna65');
+define('DB_PASSWORD', 'Urpn+4y4NO');
+define('DB_HOST', 'localhost');
+define('DB_NAME', 'jherna65');
 
 /**
  * Database configuration for localhost
  */
- define('DB_USERNAME', 'root');
- define('DB_PASSWORD', '');
- define('DB_HOST', 'localhost');
- define('DB_NAME', 'my_db');
+ //define('DB_USERNAME', 'root');
+ //define('DB_PASSWORD', '');
+ //define('DB_HOST', 'localhost');
+ //define('DB_NAME', 'my_db');
 
 // Define path to data folder
 define('DATA_PATH', realpath(dirname(__FILE__).'/data'));

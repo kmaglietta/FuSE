@@ -101,7 +101,6 @@ function executeApi () {
     $data['success'] = false;
     $data['message']  = $error['message'];
   } else {
-
     // if there are no errors, return a message
     $data['status'] = 200;
     $data['success'] = true;

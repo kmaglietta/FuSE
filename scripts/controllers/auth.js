@@ -4,7 +4,7 @@ angular.module('tossApp')
   .factory('userService', userService)
   .controller('LoginCtrl', login_controller);
 
-  function login_controller($scope, userService, $log, $localStorage, $injector, toaster, $http){
+  function login_controller($scope, userService, $log, $localStorage, $state, toaster, $q){
     var ctrl = this;
     ctrl.login = {};
     ctrl.data = [];
@@ -12,39 +12,64 @@ angular.module('tossApp')
       value: false
     }
 
-    /*ctrl.userLogin = function(){
+    if($localStorage.userGuiid!=null) $localStorage.$reset();
+    else $state.go('dashboard', {}, {reload:true});
+
+    ctrl.userLogin = function(){
       $log.log('Signing in...');
       if (ctrl.isAdmin.value == true) {
         var _data = {
-          username:ctrl.username,
+          email:ctrl.username,
           password:ctrl.password,
-          role:'admin'
+          isAdmin: ctrl.isAdmin.value
         };
       } else {
         var _data = {
-          username:ctrl.username,
+          email:ctrl.username,
           password:ctrl.password,
-          role:'user'
+          isAdmin: ctrl.isAdmin.value
         };
       }
       userService.login(_data).then(function(data) {
         // If success
         if (data.status === 200) {
-          //ctrl.data = data;
-          //ctrl.data = data.response;
-          // Store user's data inside local storage
-          $localStorage.userData = data.response;
-          $injector.get('$state').go('dashboard');
-        } else {
-          $log.error(data.status + ' ' + data.message);
-        }
-
-      }, function() {
-        $log.error('Sign in failed ' + data.status + ' ' + data.message);
+          if(data.response != null) {
+            //$log.debug(data.response);
+            ctrl.data = data.response;
+            // Store user's data inside local storage
+            //$localStorage.userData = data.response;
+            $localStorage.userGuiid = ctrl.data.guiid;
+            $localStorage.userId = ctrl.data.id;
+            if (ctrl.data.isAdmin == 1) $localStorage.userRole = 'admin';
+            else if (ctrl.data.isTutor == 1) $localStorage.userRole = 'tutor'
+            else $localStorage.userRole = 'student';
+            $q.when($localStorage.userGuiid!=null).then(function(data) {
+              $state.go('dashboard', {}, {reload:true});
+            });
+          }
+          else {
+           toaster.pop({
+             type:'warning',
+             title:'Error',
+             body:'Invalid username/password',
+             tapToDismiss: true,
+             timeout:3000
+           });
+         }
+       }
+      }, function(data) {
+        $log.error('An Error has occurred ' + data.status + ' ' + data.config);
+        toaster.pop({
+          type:'error',
+          title:data.status,
+          body:'Please contact an admin: ppakhapo@fau.edu',
+          tapToDismiss: true,
+          timeout:3000
+        });
       });
-    };*/
+    };
 
-    ctrl.userLogin = function() {
+    /*ctrl.userLogin = function() {
       $localStorage.$reset();
       var credentials = 'EmailAddress=' + ctrl.username + '&Password=' + ctrl.password;
       var isAdmin;
@@ -64,7 +89,6 @@ angular.module('tossApp')
             if (ctrl.data.isAdmin == 1) $localStorage.userRole = 'admin';
             else if (ctrl.data.isTutor == 1) $localStorage.userRole = 'tutor'
             else $localStorage.userRole = 'student';
-            //$localStorage.userRole = 'admin';
             $injector.get('$state').go('dashboard');
           } else {
             toaster.pop({
@@ -86,12 +110,12 @@ angular.module('tossApp')
           timeout:3000
         });
       });
-    }
+    }*/
   }
 
   function userService($http, $log) {
     var factory = {};
-    var service = 'php/index.php?';
+    var service = 'https://lamp.cse.fau.edu/~jherna65/api/action.php?';
     var exService = 'https://lamp.cse.fau.edu/~jherna65/apiTest/?';
 
     factory.login = function(credentials) {
@@ -124,12 +148,6 @@ angular.module('tossApp')
 
     factory.johnLogin = function(q) {
       return $http.post(exService + 'action=getuser&' + q).then(function (response) {
-        return response.data;
-      });
-    };
-
-    factory.johnDashboard = function(q) {
-      return $http.post(exService + 'action=getprofile&StudentId=' + q).then(function (response) {
         return response.data;
       });
     };

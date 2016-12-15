@@ -32,6 +32,9 @@
     "angular-jwt": "^0.1.8",
     "ngstorage": "^0.3.11",
     "angular-permission": "^4.1.2",
-    "ng-table": "^2.1.0"
+    "ng-table": "^2.1.0",
+    "bootstrap-material-design": "^4.0.2",
+    "tether": "^1.4.0",
+    "angular-smart-table": "^2.1.8"
   }
 }

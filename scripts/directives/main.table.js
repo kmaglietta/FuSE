@@ -1,7 +1,8 @@
 'use strict';
 
-function m_controller($scope, $log, $compile, $q, dataService, DTOptionsBuilder, DTColumnBuilder){
+function m_controller($scope, $log, $compile, $q, dataService, DTOptionsBuilder, DTColumnBuilder, DTColumnDefBuilder){
     var ctrl = this;
+    var usr = [];
     ctrl.dtInstance = {};
     ctrl.data = [];
     ctrl.user = {};
@@ -19,7 +20,7 @@ function m_controller($scope, $log, $compile, $q, dataService, DTOptionsBuilder,
       });
     })
     .withDOM('frtip')
-    .withBootstrap() // Use Bootstrap styling
+    .withBootstrap()
     .withPaginationType('full_numbers')
     .withDisplayLength(10)
     .withOption('resposive', true)
@@ -46,13 +47,14 @@ function m_controller($scope, $log, $compile, $q, dataService, DTOptionsBuilder,
       DTColumnBuilder.newColumn('class').withTitle('Class'),
       DTColumnBuilder.newColumn('coursename').withTitle('Course Name'),
       DTColumnBuilder.newColumn('name').withTitle('Name'),
-      DTColumnBuilder.newColumn('location').withTitle('Location'),
       DTColumnBuilder.newColumn('starttime').withTitle('Start Time'),
       DTColumnBuilder.newColumn('endtime').withTitle('End Time'),
-      DTColumnBuilder.newColumn('status').withTitle('Status'),
-      DTColumnBuilder.newColumn('studentid').withTitle('SID').notVisible(),
       DTColumnBuilder.newColumn(null).withTitle('Actions').notSortable()
-            .renderWith(profileLink)
+            .renderWith(profileLink),
+      DTColumnBuilder.newColumn('location').withTitle('Location'),
+      DTColumnBuilder.newColumn('status').withTitle('Status').notSortable()
+        .renderWith(sessionStatus),
+      DTColumnBuilder.newColumn('studentid').withTitle('SID').notVisible()
     ];
 
     function createdRow(row, data, dataIndex) {
@@ -69,9 +71,14 @@ function m_controller($scope, $log, $compile, $q, dataService, DTOptionsBuilder,
         var resetPaging = true;
         ctrl.dtInstance.reloadData();
     }
+    function sessionStatus(data, type, full, meta) {
+      // Create a link to tutor's profile
+      usr[data.status] = data;
+      //ctrl.user[data.status] = data;
+      return '<div class="'+usr[data.status]+'">'+usr[data.status]+'</div>';
+    }
 
 }
-
 
 angular.module('tossApp')
   .component('myTable', {
